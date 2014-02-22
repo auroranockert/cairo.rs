@@ -1,7 +1,7 @@
 <module name='surface'>
   <enum name='SVGVersion'>
-    <value name='SVGVersion_1_1' value='0' />
-    <value name='SVGVersion_1_2' value='1' />
+    <value name='SVGVersion_1_1'/>
+    <value name='SVGVersion_1_2'/>
   </enum>
 
   <struct name='Surface' opaque='true'/>
@@ -18,55 +18,55 @@
   <module name='device_type'>
     <enum name='DeviceType'>
       <value name='Invalid' value='-1'/>
-      <value name='DRM' value='0'/>
-      <value name='GL' value='1'/>
-      <value name='Script' value='2'/>
-      <value name='XCB' value='3'/>
-      <value name='XLib' value='4'/>
-      <value name='XML' value='5'/>
-      <value name='COGL' value='6'/>
-      <value name='Win32' value='7'/>
+      <value name='DRM'/>
+      <value name='GL'/>
+      <value name='Script'/>
+      <value name='XCB'/>
+      <value name='XLib'/>
+      <value name='XML'/>
+      <value name='COGL'/>
+      <value name='Win32'/>
     </enum>
   </module>
   
   <module name='surface_type'>
     <enum name='SurfaceType'>
-      <value name='Image' value='0'/>
-      <value name='PDF' value='1'/>
-      <value name='PS' value='2'/>
-      <value name='XLib' value='3'/>
-      <value name='Glitz' value='4'/>
-      <value name='Quartz' value='5'/>
-      <value name='Win32' value='6'/>
-      <value name='BeOS' value='7'/>
-      <value name='DirectFB' value='8'/>
-      <value name='SVG' value='9'/>
-      <value name='OS2' value='10'/>
-      <value name='Win32Printing' value='11'/>
-      <value name='QuartzImage' value='12'/>
-      <value name='Script' value='13'/>
-      <value name='Qt' value='14'/>
-      <value name='Recording' value='15'/>
-      <value name='VG' value='16'/>
-      <value name='GL' value='17'/>
-      <value name='DRM' value='18'/>
-      <value name='Tee' value='19'/>
-      <value name='XML' value='20'/>
-      <value name='Skia' value='21'/>
-      <value name='Subsurface' value='22'/>
-      <value name='CoGL' value='23'/>
+      <value name='Image'/>
+      <value name='PDF'/>
+      <value name='PS'/>
+      <value name='XLib'/>
+      <value name='Glitz'/>
+      <value name='Quartz'/>
+      <value name='Win32'/>
+      <value name='BeOS'/>
+      <value name='DirectFB'/>
+      <value name='SVG'/>
+      <value name='OS2'/>
+      <value name='Win32Printing'/>
+      <value name='QuartzImage'/>
+      <value name='Script'/>
+      <value name='Qt'/>
+      <value name='Recording'/>
+      <value name='VG'/>
+      <value name='GL'/>
+      <value name='DRM'/>
+      <value name='Tee'/>
+      <value name='XML'/>
+      <value name='Skia'/>
+      <value name='Subsurface'/>
+      <value name='CoGL'/>
     </enum>
   </module>
 
   <module name='format'>
     <enum name='Format'>
       <value name='Invalid' value='-1'/>
-      <value name='ARGB32' value='0'/>
-      <value name='RGB24' value='1'/>
-      <value name='A8' value='2'/>
-      <value name='A1' value='3'/>
-      <value name='RGB16_565' value='4'/>
-      <value name='RGB30' value='5'/>
+      <value name='ARGB32'/>
+      <value name='RGB24'/>
+      <value name='A8'/>
+      <value name='A1'/>
+      <value name='RGB16_565'/>
+      <value name='RGB30'/>
     </enum>
   </module>
 

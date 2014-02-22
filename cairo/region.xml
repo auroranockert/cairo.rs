@@ -10,9 +10,9 @@
 
   <module name='overlap'>
     <enum name='Overlap'>
-      <value name='In' value='0'/>
-      <value name='Out' value='1'/>
-      <value name='Part' value='2'/>
+      <value name='In'/>
+      <value name='Out'/>
+      <value name='Part'/>
     </enum>
   </module>
 

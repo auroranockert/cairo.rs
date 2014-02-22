@@ -3,31 +3,31 @@
 
   <module name='extend'>
     <enum name='Extend'>
-      <value name='None' value='0'/>
-      <value name='Repeat' value='1'/>
-      <value name='Reflect' value='2'/>
+      <value name='None'/>
+      <value name='Repeat'/>
+      <value name='Reflect'/>
     </enum>
   </module>
 
   <module name='filter'>
     <enum name='Filter'>
-      <value name='Fast' value='0'/>
-      <value name='Good' value='1'/>
-      <value name='Best' value='2'/>
-      <value name='Nearest' value='3'/>
-      <value name='Bilinear' value='4'/>
-      <value name='Gaussian' value='5'/>
+      <value name='Fast'/>
+      <value name='Good'/>
+      <value name='Best'/>
+      <value name='Nearest'/>
+      <value name='Bilinear'/>
+      <value name='Gaussian'/>
     </enum>
   </module>
 
   <module name='pattern_type'>
     <enum name='PatternType'>
-      <value name='Solid' value='0'/>
-      <value name='Surface' value='1'/>
-      <value name='Linear' value='2'/>
-      <value name='Radial' value='3'/>
-      <value name='Mesh' value='4'/>
-      <value name='RasterSource' value='5'/>
+      <value name='Solid'/>
+      <value name='Surface'/>
+      <value name='Linear'/>
+      <value name='Radial'/>
+      <value name='Mesh'/>
+      <value name='RasterSource'/>
     </enum>
   </module>
 

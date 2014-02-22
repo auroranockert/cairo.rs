@@ -4,79 +4,79 @@
   <struct name='Cairo' opaque='true'/>
 
   <enum name='Status'>
-    <value name='Success' value='0'/>
-    <value name='NoMemory' value='1'/>
-    <value name='InvalidRestore' value='2'/>
-    <value name='InvalidPopGroup' value='3'/>
-    <value name='NoCurrentPoint' value='4'/>
-    <value name='InvalidMatrix' value='5'/>
-    <value name='InvalidStatus' value='6'/>
-    <value name='NullPointer' value='7'/>
-    <value name='InvalidString' value='8'/>
-    <value name='InvalidPathData' value='9'/>
-    <value name='ReadError' value='10'/>
-    <value name='WriteError' value='11'/>
-    <value name='SurfaceFinished' value='12'/>
-    <value name='TypeMismatch' value='13'/>
-    <value name='SurfaceTypeMismatch' value='14'/>
-    <value name='PatternTypeMismatch' value='15'/>
-    <value name='InvalidContent' value='16'/>
-    <value name='InvalidFormat' value='17'/>
-    <value name='InvalidVisual' value='18'/>
-    <value name='FileNotFound' value='19'/>
-    <value name='InvalidDash' value='20'/>
-    <value name='InvalidDSCComment' value='21'/>
-    <value name='InvalidIndex' value='22'/>
-    <value name='ClipNotRepresentable' value='23'/>
-    <value name='TempFileError' value='24'/>
-    <value name='InvalidStride' value='25'/>
-    <value name='FontTypeMismatch' value='26'/>
-    <value name='UserFontImmutable' value='27'/>
-    <value name='UserFontError' value='28'/>
-    <value name='NegativeCount' value='29'/>
-    <value name='InvalidClusters' value='30'/>
-    <value name='InvalidSlant' value='31'/>
-    <value name='InvalidWeight' value='32'/>
-    <value name='InvalidSize' value='33'/>
-    <value name='UserFontNotImplemented' value='34'/>
-    <value name='DeviceTypeMismatch' value='35'/>
-    <value name='DeviceError' value='36'/>
-    <value name='InvalidMeshConstruction' value='37'/>
-    <value name='DeviceFinished' value='38'/>
+    <value name='Success'/>
+    <value name='NoMemory'/>
+    <value name='InvalidRestore'/>
+    <value name='InvalidPopGroup'/>
+    <value name='NoCurrentPoint'/>
+    <value name='InvalidMatrix'/>
+    <value name='InvalidStatus'/>
+    <value name='NullPointer'/>
+    <value name='InvalidString'/>
+    <value name='InvalidPathData'/>
+    <value name='ReadError'/>
+    <value name='WriteError'/>
+    <value name='SurfaceFinished'/>
+    <value name='TypeMismatch'/>
+    <value name='SurfaceTypeMismatch'/>
+    <value name='PatternTypeMismatch'/>
+    <value name='InvalidContent'/>
+    <value name='InvalidFormat'/>
+    <value name='InvalidVisual'/>
+    <value name='FileNotFound'/>
+    <value name='InvalidDash'/>
+    <value name='InvalidDSCComment'/>
+    <value name='InvalidIndex'/>
+    <value name='ClipNotRepresentable'/>
+    <value name='TempFileError'/>
+    <value name='InvalidStride'/>
+    <value name='FontTypeMismatch'/>
+    <value name='UserFontImmutable'/>
+    <value name='UserFontError'/>
+    <value name='NegativeCount'/>
+    <value name='InvalidClusters'/>
+    <value name='InvalidSlant'/>
+    <value name='InvalidWeight'/>
+    <value name='InvalidSize'/>
+    <value name='UserFontNotImplemented'/>
+    <value name='DeviceTypeMismatch'/>
+    <value name='DeviceError'/>
+    <value name='InvalidMeshConstruction'/>
+    <value name='DeviceFinished'/>
   </enum>
 
   <module name='antialias'>
     <enum name='Antialias'>
-      <value name='Default' value='0'/>
-      <value name='None' value='1'/>
-      <value name='Gray' value='2'/>
-      <value name='Subpixel' value='3'/>
-      <value name='Fast' value='4'/>
-      <value name='Good' value='5'/>
-      <value name='Best' value='6'/>
+      <value name='Default'/>
+      <value name='None'/>
+      <value name='Gray'/>
+      <value name='Subpixel'/>
+      <value name='Fast'/>
+      <value name='Good'/>
+      <value name='Best'/>
     </enum>
   </module>
   
   <module name='fill_rule'>
     <enum name='FillRule'>
-      <value name='Winding' value='0'/>
-      <value name='EvenOdd' value='1'/>
+      <value name='Winding'/>
+      <value name='EvenOdd'/>
     </enum>
   </module>
 
   <module name='line_cap'>
     <enum name='LineCap'>
-      <value name='Butt' value='0'/>
-      <value name='Round' value='1'/>
-      <value name='Square' value='2'/>
+      <value name='Butt'/>
+      <value name='Round'/>
+      <value name='Square'/>
     </enum>
   </module>
 
   <module name='line_join'>
     <enum name='LineJoin'>
-      <value name='Miter' value='0'/>
-      <value name='Round' value='1'/>
-      <value name='Bevel' value='2'/>
+      <value name='Miter'/>
+      <value name='Round'/>
+      <value name='Bevel'/>
     </enum>
   </module>
 
