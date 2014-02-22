@@ -1,0 +1,37 @@
+<module name='operator'>
+  <enum name='Operator'>
+    <value name='Clear' value='0'/>
+
+    <value name='Source' value='1'/>
+    <value name='Over' value='2'/>
+    <value name='In' value='3'/>
+    <value name='Out' value='4'/>
+    <value name='Atop' value='5'/>
+
+    <value name='Dest' value='6'/>
+    <value name='DestOver' value='7'/>
+    <value name='DestIn' value='8'/>
+    <value name='DestOut' value='9'/>
+    <value name='DestAtop' value='10'/>
+
+    <value name='Xor' value='11'/>
+    <value name='Add' value='12'/>
+    <value name='Saturate' value='13'/>
+
+    <value name='Multiply' value='14'/>
+    <value name='Screen' value='15'/>
+    <value name='Overlay' value='16'/>
+    <value name='Darken' value='17'/>
+    <value name='Lighten' value='18'/>
+    <value name='ColorDodge' value='19'/>
+    <value name='ColorBurn' value='20'/>
+    <value name='HardLight' value='21'/>
+    <value name='SoftLight' value='22'/>
+    <value name='Difference' value='23'/>
+    <value name='Exclusion' value='24'/>
+    <value name='HSLHue' value='25'/>
+    <value name='HSLSaturation' value='26'/>
+    <value name='HSLColor' value='27'/>
+    <value name='HSLLuminosity' value='28'/>
+  </enum>
+</module>

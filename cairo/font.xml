@@ -1,0 +1,329 @@
+<module name='font'>
+  <struct name='Options' opaque='true'/>
+  <struct name='FontFace' opaque='true'/>
+  <struct name='ScaledFont' opaque='true'/>
+
+  <struct name='Glyph'>
+    <field name='index' type='unsigned long'/>
+    <field name='x' type='double'/>
+    <field name='y' type='double'/>
+  </struct>
+
+  <struct name='Cluster'>
+    <field name='num_bytes' type='int'/>
+    <field name='num_glyphs' type='int'/>
+  </struct>
+
+  <struct name='FontExtents'>
+    <field name='ascent' type='double'/>
+    <field name='descent' type='double'/>
+    <field name='height' type='double'/>
+    <field name='max_x_advance' type='double'/>
+    <field name='max_y_advance' type='double'/>
+  </struct>
+
+  <struct name='TextExtents'>
+    <field name='x_bearing' type='double'/>
+    <field name='y_bearing' type='double'/>
+    <field name='width' type='double'/>
+    <field name='height' type='double'/>
+    <field name='max_x_advance' type='double'/>
+    <field name='max_y_advance' type='double'/>
+  </struct>
+
+  <module name='cluster_flags'>
+    <enum name='ClusterFlags'>
+      <value name='Forwards' value='0'/>
+      <value name='Backwards' value='1'/>
+    </enum>
+  </module>
+
+  <module name='font_type'>
+    <enum name='FontType'>
+      <value name='Toy' value='0'/>
+      <value name='FT' value='1'/>
+      <value name='Win32' value='2'/>
+      <value name='Quartz' value='3'/>
+      <value name='User' value='4'/>
+    </enum>
+  </module>
+
+  <module name='slant'>
+    <enum name='Slant'>
+      <value name='Normal' value='0'/>
+      <value name='Italic' value='1'/>
+      <value name='Oblique' value='2'/>
+    </enum>
+  </module>
+
+  <module name='weight'>
+    <enum name='Weight'>
+      <value name='Normal' value='0'/>
+      <value name='Bold' value='1'/>
+    </enum>
+  </module>
+
+  <module name='subpixel_order'>
+    <enum name='SubpixelOrder'>
+      <value name='Default' value='0'/>
+      <value name='RGB' value='1'/>
+      <value name='BGR' value='2'/>
+      <value name='VRGB' value='3'/>
+      <value name='VBGR' value='4'/>
+    </enum>
+  </module>
+
+  <module name='hint_style'>
+    <enum name='HintStyle'>
+      <value name='Default' value='0'/>
+      <value name='None' value='1'/>
+      <value name='Slight' value='2'/>
+      <value name='Medium' value='3'/>
+      <value name='Full' value='4'/>
+    </enum>
+  </module>
+
+  <module name='hint_metrics'>
+    <enum name='HintMetrics'>
+      <value name='Default' value='0'/>
+      <value name='Off' value='1'/>
+      <value name='On' value='2'/>
+    </enum>
+  </module>
+
+  <implementation for='Options'>
+    <method name='new' foreign='cairo_font_options_create'>
+      <result type='{Options}'/>
+    </method>
+
+    <method name='status' foreign='cairo_font_options_status'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[super::Status]'/>
+    </method>
+
+    <method name='merge' foreign='cairo_font_options_merge'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='other' type='{Options}' pass_by='ref'/>
+    </method>
+
+    <method name='hash' foreign='cairo_font_options_hash'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='unsigned long'/>
+    </method>
+
+    <method name='equal' foreign='cairo_font_options_equal'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='other' type='{Options}' pass_by='ref' transformer='opaque'/>
+      <result type='i32' transformer='compare' value='0'/>
+    </method>
+
+    <method name='set_antialias' foreign='cairo_font_options_set_antialias'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='antialias' type='[super::antialias::Antialias]'/>
+    </method>
+
+    <method name='get_antialias' foreign='cairo_font_options_get_antialias'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[super::antialias::Antialias]'/>
+    </method>
+
+    <method name='set_subpixel_order' foreign='cairo_font_options_set_subpixel_order'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='subpixel_order' type='[subpixel_order::SubpixelOrder]'/>
+    </method>
+
+    <method name='get_subpixel_order' foreign='cairo_font_options_get_subpixel_order'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[subpixel_order::SubpixelOrder]'/>
+    </method>
+
+    <method name='set_hint_style' foreign='cairo_font_options_set_hint_style'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='hint_style' type='[hint_style::HintStyle]'/>
+    </method>
+
+    <method name='get_hint_style' foreign='cairo_font_options_get_hint_style'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[hint_style::HintStyle]'/>
+    </method>
+
+    <method name='set_hint_metrics' foreign='cairo_font_options_set_hint_metrics'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='hint_metrics' type='[hint_metrics::HintMetrics]'/>
+    </method>
+
+    <method name='get_hint_metrics' foreign='cairo_font_options_get_hint_metrics'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[hint_metrics::HintMetrics]'/>
+    </method>
+  </implementation>
+
+  <implementation trait='std::clone::Clone' for='Options'>
+    <method name='clone' foreign='cairo_font_options_copy'>
+      <argument type='{Options}' pass_by='self' transformer='opaque'/>
+      <result type='{Options}'/>
+    </method>
+  </implementation>
+
+  <implementation trait='std::clone::DeepClone' for='Options'>
+    <method name='deep_clone' foreign='cairo_font_options_copy' extern='false'>
+      <argument type='{Options}' pass_by='self' transformer='opaque'/>
+      <result type='{Options}'/>
+    </method>
+  </implementation>
+
+  <implementation trait='std::ops::Drop' for='Options'>
+    <method name='drop' foreign='cairo_font_options_destroy'>
+      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+    </method>
+  </implementation>
+
+  <implementation for='FontFace'>
+    <!-- Toy -->
+    <method name='toy' foreign='cairo_toy_font_face_create'>
+      <argument name='family' type='string' pass_by='ref' transformer='cstring'/>
+      <argument name='slant' type='[slant::Slant]'/>
+      <argument name='weight' type='[weight::Weight]'/>
+      <result type='{FontFace}'/>
+    </method>
+
+    <method name='toy_get_family' foreign='cairo_toy_font_face_get_family'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='{std::c_str::CString}' transformer='cstring'/>
+    </method>
+
+    <method name='toy_get_slant' foreign='cairo_toy_font_face_get_slant'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[slant::Slant]'/>
+    </method>
+
+    <method name='toy_get_weight' foreign='cairo_toy_font_face_get_weight'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[slant::Slant]'/>
+    </method>
+
+    <!-- Generic -->
+    <method name='status' foreign='cairo_font_face_status'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[super::Status]'/>
+    </method>
+
+    <method name='get_type' foreign='cairo_font_face_get_type'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='{font_type::FontType}'/>
+    </method>
+
+    <method name='reference_count' foreign='cairo_font_face_get_reference_count'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+      <result type='unsigned int'/>
+    </method>
+
+    <!-- TODO: cairo_font_face_set_user_data -->
+    <!-- TODO: cairo_font_face_get_user_data -->
+  </implementation>
+
+  <implementation trait='std::clone::Clone' for='FontFace'>
+    <method name='clone' foreign='cairo_font_face_reference'>
+      <argument type='{FontFace}' pass_by='self' transformer='opaque'/>
+      <result type='{FontFace}'/>
+    </method>
+  </implementation>
+
+  <implementation trait='std::ops::Drop' for='FontFace'>
+    <method name='drop' foreign='cairo_font_face_destroy'>
+      <argument type='{FontFace}' pass_by='mut-self' transformer='opaque'/>
+    </method>
+  </implementation>
+
+  <implementation for='ScaledFont'>
+    <method name='new' foreign='cairo_scaled_font_create'>
+      <argument name='font_face' type='{FontFace}' pass_by='mut-ref'/>
+      <argument name='font_matrix' type='{super::matrix::Matrix}' pass_by='ref'/>
+      <argument name='ctm' type='{super::matrix::Matrix}' pass_by='ref'/>
+      <argument name='options' type='{Options}' pass_by='mut-ref'/>
+      <result type='{ScaledFont}'/>
+    </method>
+    
+    <method name='status' foreign='cairo_scaled_font_status'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <result type='[super::Status]'/>
+    </method>
+
+    <method name='font_extents' foreign='cairo_scaled_font_extents'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='extents' type='[FontExtents]' pass_by='mut-ref' transformer='zero'/>
+      <result name='extents' type='[FontExtents]' transformer='out'/>
+    </method>
+
+    <method name='text_extents' foreign='cairo_scaled_font_text_extents'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='utf8' type='string' pass_by='ref'/>
+      <argument name='extents' type='[TextExtents]' pass_by='mut-ref' transformer='zero'/>
+      <result name='extents' type='[TextExtents]' transformer='out'/>
+    </method>
+
+    <method name='glyph_extents' foreign='cairo_scaled_font_glyph_extents'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='glyphs' type='vec {Glyph}' pass_by='ref' transformer='vec'/>
+      <argument name='glyphs' type='int' transformer='vec-length'/>
+      <argument name='extents' type='[TextExtents]' pass_by='mut-ref' transformer='zero'/>
+      <result name='extents' type='[TextExtents]' transformer='out'/>
+    </method>
+
+    <!-- TODO: cairo_scaled_font_text_to_glyphs -->
+
+    <method name='get_font_face' foreign='cairo_scaled_font_get_font_face'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <result name='extents' type='{FontFace}'/>
+    </method>
+
+    <method name='get_font_options' foreign='cairo_scaled_font_get_font_options'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='options' type='[FontExtents]'/>
+    </method>
+
+    <method name='get_font_matrix' foreign='cairo_scaled_font_get_font_matrix'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='font_matrix' type='[super::matrix::Matrix]' pass_by='mut-ref' transformer='zero'/>
+      <result name='font_matrix' type='[super::matrix::Matrix]' transformer='out'/>
+    </method>
+
+    <method name='get_ctm' foreign='cairo_scaled_font_get_ctm'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='ctm' type='[super::matrix::Matrix]' pass_by='mut-ref' transformer='zero'/>
+      <result name='ctm' type='[super::matrix::Matrix]' transformer='out'/>
+    </method>
+
+    <method name='get_scale_matrix' foreign='cairo_scaled_font_get_scale_matrix'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <argument name='scale_matrix' type='[super::matrix::Matrix]' pass_by='mut-ref' transformer='zero'/>
+      <result name='scale_matrix' type='[super::matrix::Matrix]' transformer='out'/>
+    </method>
+
+    <method name='get_type' foreign='cairo_scaled_font_get_type'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <result type='{font_type::FontType}'/>
+    </method>
+
+    <method name='reference_count' foreign='cairo_scaled_font_get_reference_count'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+      <result type='unsigned int'/>
+    </method>
+
+    <!-- TODO: cairo_scaled_font_set_user_data -->
+    <!-- TODO: cairo_scaled_font_get_user_data -->
+  </implementation>
+
+  <implementation trait='std::clone::Clone' for='ScaledFont'>
+    <method name='clone' foreign='cairo_scaled_font_reference'>
+      <argument type='{ScaledFont}' pass_by='self' transformer='opaque'/>
+      <result type='{ScaledFont}'/>
+    </method>
+  </implementation>
+
+  <implementation trait='std::ops::Drop' for='ScaledFont'>
+    <method name='drop' foreign='cairo_scaled_font_destroy'>
+      <argument type='{ScaledFont}' pass_by='mut-self' transformer='opaque'/>
+    </method>
+  </implementation>
+</module>
