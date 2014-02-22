@@ -33,96 +33,96 @@
     </method>
 
     <method name='status' foreign='cairo_region_status'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='get_extents' foreign='cairo_region_get_extents'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extents' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='{Rectangle}' transformer='out'/>
     </method>
 
     <method name='num_rectangles' foreign='cairo_region_num_rectangles'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
     </method>
 
     <method name='get_rectangle' foreign='cairo_region_get_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='nth' type='int'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
       <result name='rectangle' type='{Rectangle}' transformer='out'/>
     </method>
 
     <method name='is_empty' foreign='cairo_region_is_empty'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
     <method name='contains_point' foreign='cairo_region_contains_point'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='int'/>
       <argument name='y' type='int'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
     <method name='containts_rectangle' foreign='cairo_region_contains_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[overlap::Overlap]'/>
     </method>
 
     <method name='equal' foreign='cairo_region_equal'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='other' type='{Region}' pass_by='ref' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
     <method name='translate' foreign='cairo_region_translate'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='int'/>
       <argument name='dy' type='int'/>
     </method>
 
     <method name='intersect_rectangle' foreign='cairo_region_intersect_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='subtract' foreign='cairo_region_subtract'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='subtract_rectangle' foreign='cairo_region_subtract_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='union' foreign='cairo_region_union'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='union_rectangle' foreign='cairo_region_union_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='xor' foreign='cairo_region_xor'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='xor_rectangle' foreign='cairo_region_xor_rectangle'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
@@ -130,21 +130,21 @@
 
   <implementation trait='std::clone::Clone' for='Region'>
     <method name='clone' foreign='cairo_region_reference'>
-      <argument type='{Region}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Region}'/>
     </method>
   </implementation>
 
   <implementation trait='std::clone::DeepClone' for='Region'>
     <method name='deep_clone' foreign='cairo_region_copy'>
-      <argument type='{Region}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Region}'/>
     </method>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Region'>
     <method name='drop' foreign='cairo_region_destroy'>
-      <argument type='{Region}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
 </module>

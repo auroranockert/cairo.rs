@@ -2568,7 +2568,7 @@ pub mod matrix {
       }
     }
 
-    pub fn invert(&self) -> super::Status {
+    pub fn invert(&mut self) -> super::Status {
       unsafe {
         let foreign_result = cairo_matrix_invert(self);
         return foreign_result;
@@ -2588,6 +2588,6 @@ pub mod matrix {
     fn cairo_matrix_rotate(self_value: *mut Matrix, radians: f64);
     fn cairo_matrix_transform_distance(self_value: *Matrix, dx: &mut f64, dy: &mut f64);
     fn cairo_matrix_transform_point(self_value: *Matrix, x: &mut f64, y: &mut f64);
-    fn cairo_matrix_invert(self_value: *Matrix) -> super::Status;
+    fn cairo_matrix_invert(self_value: *mut Matrix) -> super::Status;
   }
 }

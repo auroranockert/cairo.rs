@@ -34,7 +34,7 @@
   <implementation for='Pattern'>
     <!-- Gradients -->
     <method name='add_color_stop_rgb' foreign='cairo_pattern_add_color_stop_rgb'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='offset' type='double'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -42,7 +42,7 @@
     </method>
 
     <method name='add_color_stop_rgba' foreign='cairo_pattern_add_color_stop_rgba'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='offset' type='double'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -51,14 +51,14 @@
     </method>
 
     <method name='get_color_stop_count' foreign='cairo_pattern_get_color_stop_count'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='stop_count' type='int' pass_by='mut-ref' transformer='zero'/>
       <result type='[super::Status]'/>
       <result name='stop_count' type='int' transformer='out'/>
     </method>
 
     <method name='get_color_stop_rgba' foreign='cairo_pattern_get_color_stop_rgba'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='stop_count' type='int'/>
       <argument name='offset' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -90,7 +90,7 @@
     </method>
 
     <method name='get_rgba' foreign='cairo_pattern_get_rgba'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='green' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='blue' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -109,7 +109,7 @@
     </method>
 
     <method name='get_surface' foreign='cairo_pattern_get_surface'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='[super::surface::Surface]' pass_by='mut-ref' transformer='zero'/>
       <result type='[super::Status]'/>
       <result name='surface' type='[super::surface::Surface]' transformer='out'/>
@@ -125,7 +125,7 @@
     </method>
 
     <method name='get_linear_points' foreign='cairo_pattern_get_linear_points'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -149,7 +149,7 @@
     </method>
 
     <method name='get_radial_circles' foreign='cairo_pattern_get_radial_circles'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='r0' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -171,27 +171,27 @@
     </method>
 
     <method name='begin_patch' foreign='cairo_mesh_pattern_begin_patch'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
     <method name='end_patch' foreign='cairo_mesh_pattern_end_patch'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
     <method name='move_to' foreign='cairo_mesh_pattern_move_to'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
     <method name='line_to' foreign='cairo_mesh_pattern_line_to'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
     <method name='curve_to' foreign='cairo_mesh_pattern_curve_to'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double'/>
       <argument name='y1' type='double'/>
       <argument name='x2' type='double'/>
@@ -201,14 +201,14 @@
     </method>
 
     <method name='set_control_point' foreign='cairo_mesh_pattern_set_control_point'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='point_num' type='unsigned int'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
     <method name='set_corner_color_rgb' foreign='cairo_mesh_pattern_set_corner_color_rgb'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='corner_num' type='unsigned int'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -216,7 +216,7 @@
     </method>
 
     <method name='set_corner_color_rgba' foreign='cairo_mesh_pattern_set_corner_color_rgba'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='corner_num' type='unsigned int'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -225,20 +225,20 @@
     </method>
 
     <method name='get_patch_count' foreign='cairo_mesh_pattern_get_patch_count'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='count' type='unsigned int' pass_by='mut-ref' transformer='zero'/>
       <result type='[super::Status]'/>
       <result name='count' type='unsigned int' transformer='out'/>
     </method>
 
     <method name='get_path' foreign='cairo_mesh_pattern_get_path'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='patch_num' type='unsigned int'/>
       <result type='{super::path::Path}'/>
     </method>
 
     <method name='get_control_point' foreign='cairo_mesh_pattern_get_control_point'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='patch_num' type='unsigned int'/>
       <argument name='pointer_num' type='unsigned int'/>
       <argument name='x' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -249,7 +249,7 @@
     </method>
 
     <method name='get_corner_color_rgba' foreign='cairo_mesh_pattern_get_corner_color_rgba'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='patch_num' type='unsigned int'/>
       <argument name='pointer_num' type='unsigned int'/>
       <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -265,47 +265,47 @@
 
     <!-- Common -->
     <method name='status' foreign='cairo_pattern_status'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='set_extend' foreign='cairo_pattern_set_extend'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extend' type='[extend::Extend]'/>
     </method>
 
     <method name='get_extend' foreign='cairo_pattern_get_extend'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[extend::Extend]'/>
     </method>
 
     <method name='set_filter' foreign='cairo_pattern_set_filter'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='filter' type='[filter::Filter]'/>
     </method>
 
     <method name='get_filter' foreign='cairo_pattern_get_filter'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[filter::Filter]'/>
     </method>
 
     <method name='set_matrix' foreign='cairo_pattern_set_matrix'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='[super::matrix::Matrix]'/>
     </method>
 
     <method name='get_matrix' foreign='cairo_pattern_get_matrix'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::matrix::Matrix]'/>
     </method>
 
     <method name='get_type' foreign='cairo_pattern_get_type'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[pattern_type::PatternType]'/>
     </method>
 
     <method name='reference_count' foreign='cairo_pattern_get_reference_count'>
-      <argument type='{Pattern}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
     </method>
 
@@ -315,14 +315,14 @@
 
   <implementation trait='std::clone::Clone' for='Pattern'>
     <method name='clone' foreign='cairo_pattern_reference'>
-      <argument type='{Pattern}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Pattern}'/>
     </method>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Pattern'>
     <method name='drop' foreign='cairo_pattern_destroy'>
-      <argument type='{Path}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
 </module>

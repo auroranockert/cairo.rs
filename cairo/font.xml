@@ -97,84 +97,84 @@
     </method>
 
     <method name='status' foreign='cairo_font_options_status'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
     <method name='merge' foreign='cairo_font_options_merge'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='other' type='{Options}' pass_by='ref'/>
     </method>
 
     <method name='hash' foreign='cairo_font_options_hash'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned long'/>
     </method>
 
     <method name='equal' foreign='cairo_font_options_equal'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='other' type='{Options}' pass_by='ref' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
     <method name='set_antialias' foreign='cairo_font_options_set_antialias'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='antialias' type='[super::antialias::Antialias]'/>
     </method>
 
     <method name='get_antialias' foreign='cairo_font_options_get_antialias'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::antialias::Antialias]'/>
     </method>
 
     <method name='set_subpixel_order' foreign='cairo_font_options_set_subpixel_order'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='subpixel_order' type='[subpixel_order::SubpixelOrder]'/>
     </method>
 
     <method name='get_subpixel_order' foreign='cairo_font_options_get_subpixel_order'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[subpixel_order::SubpixelOrder]'/>
     </method>
 
     <method name='set_hint_style' foreign='cairo_font_options_set_hint_style'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='hint_style' type='[hint_style::HintStyle]'/>
     </method>
 
     <method name='get_hint_style' foreign='cairo_font_options_get_hint_style'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[hint_style::HintStyle]'/>
     </method>
 
     <method name='set_hint_metrics' foreign='cairo_font_options_set_hint_metrics'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='hint_metrics' type='[hint_metrics::HintMetrics]'/>
     </method>
 
     <method name='get_hint_metrics' foreign='cairo_font_options_get_hint_metrics'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[hint_metrics::HintMetrics]'/>
     </method>
   </implementation>
 
   <implementation trait='std::clone::Clone' for='Options'>
     <method name='clone' foreign='cairo_font_options_copy'>
-      <argument type='{Options}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Options}'/>
     </method>
   </implementation>
 
   <implementation trait='std::clone::DeepClone' for='Options'>
     <method name='deep_clone' foreign='cairo_font_options_copy' extern='false'>
-      <argument type='{Options}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Options}'/>
     </method>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Options'>
     <method name='drop' foreign='cairo_font_options_destroy'>
-      <argument type='{Options}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
 
@@ -224,7 +224,7 @@
 
   <implementation trait='std::clone::Clone' for='FontFace'>
     <method name='clone' foreign='cairo_font_face_reference'>
-      <argument type='{FontFace}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{FontFace}'/>
     </method>
   </implementation>
@@ -316,7 +316,7 @@
 
   <implementation trait='std::clone::Clone' for='ScaledFont'>
     <method name='clone' foreign='cairo_scaled_font_reference'>
-      <argument type='{ScaledFont}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{ScaledFont}'/>
     </method>
   </implementation>

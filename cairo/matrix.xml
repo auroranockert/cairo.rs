@@ -47,35 +47,35 @@
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
     <method name='translate' foreign='cairo_matrix_translate'>
-      <argument type='{Matrix}' pass_by='mut-self'/>
+      <argument pass_by='mut-self'/>
       <argument name='x0' type='double'/>
       <argument name='y0' type='double'/>
     </method>
     <method name='scale' foreign='cairo_matrix_scale'>
-      <argument type='{Matrix}' pass_by='mut-self'/>
+      <argument pass_by='mut-self'/>
       <argument name='sx' type='double'/>
       <argument name='sy' type='double'/>
     </method>
     <method name='rotate' foreign='cairo_matrix_rotate'>
-      <argument type='{Matrix}' pass_by='mut-self'/>
+      <argument pass_by='mut-self'/>
       <argument name='radians' type='double'/>
     </method>
     <method name='transform_distance' foreign='cairo_matrix_transform_distance'>
-      <argument type='{Matrix}' pass_by='self'/>
+      <argument pass_by='self'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
       <result name='dx' type='double' transformer='out'/>
       <result name='dy' type='double' transformer='out'/>
     </method>
     <method name='transform_point' foreign='cairo_matrix_transform_point'>
-      <argument type='{Matrix}' pass_by='self'/>
+      <argument pass_by='self'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
       <result name='x' type='double' transformer='out'/>
       <result name='y' type='double' transformer='out'/>
     </method>
     <method name='invert' foreign='cairo_matrix_invert'>
-      <argument type='{Matrix}' pass_by='self'/>
+      <argument pass_by='mut-self'/>
       <result type='[super::Status]'/>
     </method>
   </implementation>

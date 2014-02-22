@@ -3,7 +3,7 @@
 
   <implementation trait='std::ops::Drop' for='Path'>
     <method name='drop' foreign='cairo_path_destroy'>
-      <argument type='{Path}' pass_by='mut-self' transformer='opaque'/>
+      <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
 </module>
