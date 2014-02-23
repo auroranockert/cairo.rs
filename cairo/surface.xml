@@ -70,21 +70,21 @@
     </enum>
   </module>
 
-  <implementation for='Device'>
-    <method name='status' foreign='cairo_device_status'>
+  <implementation for='Device' prefix='cairo_device_'>
+    <method name='status'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='finish' foreign='cairo_device_finish'>
+    <method name='finish'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='flush' foreign='cairo_device_flush'>
+    <method name='flush'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_type' foreign='cairo_device_get_type'>
+    <method name='get_type'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[device_type::DeviceType]'/>
     </method>
@@ -97,12 +97,12 @@
     <!-- TODO: cairo_device_set_user_data -->
     <!-- TODO: cairo_device_get_user_data -->
 
-    <method name='acquire' foreign='cairo_device_acquire'>
+    <method name='acquire'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='release' foreign='cairo_device_release'>
+    <method name='release'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
@@ -120,7 +120,7 @@
     </method>
   </implementation>
 
-  <implementation for='Surface'>
+  <implementation for='Surface' prefix='cairo_surface_'>
     <!-- TODO: cairo_surface_create_similar -->
 
     <method name='similar_image' foreign='cairo_surface_create_similar_image'>
@@ -138,39 +138,39 @@
       <result type='{Surface}'/>
     </method>
 
-    <method name='status' foreign='cairo_surface_status'>
+    <method name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='finish' foreign='cairo_surface_finish'>
+    <method name='finish'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='flush' foreign='cairo_surface_flush'>
+    <method name='flush'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_device' foreign='cairo_surface_get_device'>
+    <method name='get_device'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{Device}' transformer='clone'/>
     </method>
 
-    <method name='get_font_options' foreign='cairo_surface_get_font_options'>
+    <method name='get_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='{super::font::Options}' pass_by='mut-ref' transformer='opaque'/>
     </method>
 
-    <method name='get_content' foreign='cairo_surface_get_content'>
+    <method name='get_content'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[content::Content]'/>
     </method>
 
-    <method name='mark_dirty' foreign='cairo_surface_mark_dirty'>
+    <method name='mark_dirty'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='mark_dirty_rectangle' foreign='cairo_surface_mark_dirty_rectangle'>
+    <method name='mark_dirty_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
@@ -178,13 +178,13 @@
       <argument name='height' type='double'/>
     </method>
 
-    <method name='set_device_offset' foreign='cairo_surface_set_device_offset'>
+    <method name='set_device_offset'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x_offset' type='double'/>
       <argument name='y_offset' type='double'/>
     </method>
 
-    <method name='get_device_offset' foreign='cairo_surface_get_device_offset'>
+    <method name='get_device_offset'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x_offset' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y_offset' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -198,7 +198,7 @@
       <argument name='y_pixels_per_inch' type='double'/>
     </method>
 
-    <method name='get_fallback_resolution' foreign='cairo_surface_get_fallback_resolution'>
+    <method name='get_fallback_resolution'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x_pixels_per_inch' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y_pixels_per_inch' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -206,12 +206,12 @@
       <result name='y_pixels_per_inch' type='double' transformer='out'/>
     </method>
 
-    <method name='get_type' foreign='cairo_surface_get_type'>
+    <method name='get_type'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[surface_type::SurfaceType]'/>
     </method>
 
-    <method name='get_reference_count' foreign='cairo_surface_get_reference_count'>
+    <method name='get_reference_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
     </method>
@@ -219,11 +219,11 @@
     <!-- TODO: cairo_surface_set_user_data -->
     <!-- TODO: cairo_surface_get_user_data -->
 
-    <method name='copy_page' foreign='cairo_surface_copy_page'>
+    <method name='copy_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='show_page' foreign='cairo_surface_show_page'>
+    <method name='show_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 

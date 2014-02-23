@@ -31,9 +31,9 @@
     </enum>
   </module>
 
-  <implementation for='Pattern'>
+  <implementation for='Pattern' prefix='cairo_pattern_'>
     <!-- Gradients -->
-    <method name='add_color_stop_rgb' foreign='cairo_pattern_add_color_stop_rgb'>
+    <method name='add_color_stop_rgb'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='offset' type='double'/>
       <argument name='red' type='double'/>
@@ -41,7 +41,7 @@
       <argument name='blue' type='double'/>
     </method>
 
-    <method name='add_color_stop_rgba' foreign='cairo_pattern_add_color_stop_rgba'>
+    <method name='add_color_stop_rgba'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='offset' type='double'/>
       <argument name='red' type='double'/>
@@ -50,14 +50,14 @@
       <argument name='alpha' type='double'/>
     </method>
 
-    <method name='get_color_stop_count' foreign='cairo_pattern_get_color_stop_count'>
+    <method name='get_color_stop_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='stop_count' type='int' pass_by='mut-ref' transformer='zero'/>
       <result type='[super::Status]'/>
       <result name='stop_count' type='int' transformer='out'/>
     </method>
 
-    <method name='get_color_stop_rgba' foreign='cairo_pattern_get_color_stop_rgba'>
+    <method name='get_color_stop_rgba'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='stop_count' type='int'/>
       <argument name='offset' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -89,7 +89,7 @@
       <result type='{Pattern}'/>
     </method>
 
-    <method name='get_rgba' foreign='cairo_pattern_get_rgba'>
+    <method name='get_rgba'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='green' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -108,7 +108,7 @@
       <result type='{Pattern}'/>
     </method>
 
-    <method name='get_surface' foreign='cairo_pattern_get_surface'>
+    <method name='get_surface'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='[super::surface::Surface]' pass_by='mut-ref' transformer='zero'/>
       <result type='[super::Status]'/>
@@ -124,7 +124,7 @@
       <result type='{Pattern}'/>
     </method>
 
-    <method name='get_linear_points' foreign='cairo_pattern_get_linear_points'>
+    <method name='get_linear_points'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -148,7 +148,7 @@
       <result type='{Pattern}'/>
     </method>
 
-    <method name='get_radial_circles' foreign='cairo_pattern_get_radial_circles'>
+    <method name='get_radial_circles'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -264,42 +264,42 @@
     </method>
 
     <!-- Common -->
-    <method name='status' foreign='cairo_pattern_status'>
+    <method name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='set_extend' foreign='cairo_pattern_set_extend'>
+    <method name='set_extend'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extend' type='[extend::Extend]'/>
     </method>
 
-    <method name='get_extend' foreign='cairo_pattern_get_extend'>
+    <method name='get_extend'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[extend::Extend]'/>
     </method>
 
-    <method name='set_filter' foreign='cairo_pattern_set_filter'>
+    <method name='set_filter'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='filter' type='[filter::Filter]'/>
     </method>
 
-    <method name='get_filter' foreign='cairo_pattern_get_filter'>
+    <method name='get_filter'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[filter::Filter]'/>
     </method>
 
-    <method name='set_matrix' foreign='cairo_pattern_set_matrix'>
+    <method name='set_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='[super::matrix::Matrix]'/>
     </method>
 
-    <method name='get_matrix' foreign='cairo_pattern_get_matrix'>
+    <method name='get_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::matrix::Matrix]'/>
     </method>
 
-    <method name='get_type' foreign='cairo_pattern_get_type'>
+    <method name='get_type'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[pattern_type::PatternType]'/>
     </method>

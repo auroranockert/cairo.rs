@@ -16,7 +16,7 @@
     </enum>
   </module>
 
-  <implementation for='Region'>
+  <implementation for='Region' prefix='cairo_region_'>
     <method name='new' foreign='cairo_region_create'>
       <result type='{Region}'/>
     </method>
@@ -32,35 +32,35 @@
       <result type='{Region}'/>
     </method>
 
-    <method name='status' foreign='cairo_region_status'>
+    <method name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='get_extents' foreign='cairo_region_get_extents'>
+    <method name='get_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extents' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='{Rectangle}' transformer='out'/>
     </method>
 
-    <method name='num_rectangles' foreign='cairo_region_num_rectangles'>
+    <method name='num_rectangles'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
     </method>
 
-    <method name='get_rectangle' foreign='cairo_region_get_rectangle'>
+    <method name='get_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='nth' type='int'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
       <result name='rectangle' type='{Rectangle}' transformer='out'/>
     </method>
 
-    <method name='is_empty' foreign='cairo_region_is_empty'>
+    <method name='is_empty'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='contains_point' foreign='cairo_region_contains_point'>
+    <method name='contains_point'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='int'/>
       <argument name='y' type='int'/>
@@ -73,55 +73,55 @@
       <result type='[overlap::Overlap]'/>
     </method>
 
-    <method name='equal' foreign='cairo_region_equal'>
+    <method name='equal'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='other' type='{Region}' pass_by='ref' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='translate' foreign='cairo_region_translate'>
+    <method name='translate'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='int'/>
       <argument name='dy' type='int'/>
     </method>
 
-    <method name='intersect_rectangle' foreign='cairo_region_intersect_rectangle'>
+    <method name='intersect_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='subtract' foreign='cairo_region_subtract'>
+    <method name='subtract'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='subtract_rectangle' foreign='cairo_region_subtract_rectangle'>
+    <method name='subtract_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='union' foreign='cairo_region_union'>
+    <method name='union'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='union_rectangle' foreign='cairo_region_union_rectangle'>
+    <method name='union_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='xor' foreign='cairo_region_xor'>
+    <method name='xor'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='region' type='{Region}' pass_by='ref'/>
       <result type='[super::Status]'/>
     </method>
 
-    <method name='xor_rectangle' foreign='cairo_region_xor_rectangle'>
+    <method name='xor_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
       <result type='[super::Status]'/>

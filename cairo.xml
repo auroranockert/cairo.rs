@@ -80,61 +80,61 @@
     </enum>
   </module>
 
-  <implementation for='Cairo'>
+  <implementation for='Cairo' prefix='cairo_'>
     <method name='new' foreign='cairo_create'>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <result type='{Cairo}'/>
     </method>
 
-    <method name='status' foreign='cairo_status'>
+    <method name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[Status]'/>
     </method>
 
-    <method name='save' foreign='cairo_save'>
+    <method name='save'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='restore' foreign='cairo_restore'>
+    <method name='restore'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_target' foreign='cairo_get_target'>
+    <method name='get_target'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{surface::Surface}' transformer='clone'/>
     </method>
 
-    <method name='push_group' foreign='cairo_push_group'>
+    <method name='push_group'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='push_group_with_content' foreign='cairo_push_group_with_content'>
+    <method name='push_group_with_content'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='content' type='[surface::content::Content]'/>
     </method>
 
-    <method name='pop_group' foreign='cairo_pop_group'>
+    <method name='pop_group'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{pattern::Pattern}'/>
     </method>
 
-    <method name='pop_group_to_source' foreign='cairo_pop_group_to_source'>
+    <method name='pop_group_to_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_group_target' foreign='cairo_get_group_target'>
+    <method name='get_group_target'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{surface::Surface}' transformer='clone'/>
     </method>
 
-    <method name='set_source_rgb' foreign='cairo_set_source_rgb'>
+    <method name='set_source_rgb'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
       <argument name='blue' type='double'/>
     </method>
 
-    <method name='set_source_rgba' foreign='cairo_set_source_rgba'>
+    <method name='set_source_rgba'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -142,34 +142,34 @@
       <argument name='alpha' type='double'/>
     </method>
 
-    <method name='set_source' foreign='cairo_set_source'>
+    <method name='set_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='source' type='{pattern::Pattern}' pass_by='mut-ref' transformer='opaque'/>
     </method>
 
-    <method name='set_source_surface' foreign='cairo_set_source_surface'>
+    <method name='set_source_surface'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='get_source' foreign='cairo_get_source'>
+    <method name='get_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{pattern::Pattern}'/>
     </method>
 
-    <method name='set_antialias' foreign='cairo_set_antialias'>
+    <method name='set_antialias'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='antialias' type='[antialias::Antialias]'/>
     </method>
 
-    <method name='get_antialias' foreign='cairo_get_antialias'>
+    <method name='get_antialias'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[antialias::Antialias]'/>
     </method>
 
-    <method name='set_dash' foreign='cairo_set_dash'>
+    <method name='set_dash'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dashes' type='vec double' pass_by='ref' transformer='vec'/>
       <argument name='dashes' type='int' transformer='vec-length'/>
@@ -181,7 +181,7 @@
       <result type='int'/>
     </method>
 
-    <method name='get_dash' foreign='cairo_get_dash'>
+    <method name='get_dash'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dashes' type='vec double' pass_by='mut-ref' transformer='vec-zero' value='self.get_dash_count()'/>
       <argument name='offset' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -189,116 +189,85 @@
       <result name='offset' type='double' transformer='out'/>
     </method>
 
-    <method name='set_fill_rule' foreign='cairo_set_fill_rule'>
+    <method name='set_fill_rule'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='fill_rule' type='[fill_rule::FillRule]'/>
     </method>
 
-    <method name='get_fill_rule' foreign='cairo_get_fill_rule'>
+    <method name='get_fill_rule'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[fill_rule::FillRule]'/>
     </method>
 
-    <method name='set_line_cap' foreign='cairo_set_line_cap'>
+    <method name='set_line_cap'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='line_cap' type='[line_cap::LineCap]'/>
     </method>
 
-    <method name='get_line_cap' foreign='cairo_get_line_cap'>
+    <method name='get_line_cap'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[line_cap::LineCap]'/>
     </method>
 
-    <method name='set_line_join' foreign='cairo_set_line_join'>
+    <method name='set_line_join'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='line_join' type='[line_join::LineJoin]'/>
     </method>
 
-    <method name='get_line_join' foreign='cairo_get_line_join'>
+    <method name='get_line_join'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[line_join::LineJoin]'/>
     </method>
 
-    <method name='set_line_width' foreign='cairo_set_line_width'>
+    <method name='set_line_width'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='width' type='double'/>
     </method>
 
-    <method name='get_line_width' foreign='cairo_get_line_width'>
+    <method name='get_line_width'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='set_miter_limit' foreign='cairo_set_miter_limit'>
+    <method name='set_miter_limit'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='limit' type='double'/>
     </method>
 
-    <method name='get_miter_limit' foreign='cairo_get_miter_limit'>
+    <method name='get_miter_limit'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='set_operator' foreign='cairo_set_operator'>
+    <method name='set_operator'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='operator' type='[operator::Operator]'/>
     </method>
 
-    <method name='get_operator' foreign='cairo_get_operator'>
+    <method name='get_operator'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[operator::Operator]'/>
     </method>
 
-    <method name='set_tolerance' foreign='cairo_set_tolerance'>
+    <method name='set_tolerance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='tolerance' type='double'/>
     </method>
 
-    <method name='get_tolerance' foreign='cairo_get_tolerance'>
+    <method name='get_tolerance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='clip' foreign='cairo_clip'>
+    <method name='clip'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='clip_preserve' foreign='cairo_clip_preserve'>
+    <method name='clip_preserve'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='clip_extents' foreign='cairo_clip_extents'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='x2' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y2' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result name='x1' type='double' transformer='out'/>
-      <result name='y1' type='double' transformer='out'/>
-      <result name='x2' type='double' transformer='out'/>
-      <result name='y2' type='double' transformer='out'/>
-    </method>
-
-    <method name='in_clip' foreign='cairo_in_clip'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x' type='double'/>
-      <argument name='y' type='double'/>
-      <result type='i32' transformer='compare' value='0'/>
-    </method>
-
-    <method name='reset_clip' foreign='cairo_reset_clip'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill' foreign='cairo_fill'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill_preserve' foreign='cairo_fill_preserve'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill_extents' foreign='cairo_fill_extents'>
+    <method name='clip_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -310,43 +279,74 @@
       <result name='y2' type='double' transformer='out'/>
     </method>
 
-    <method name='in_fill' foreign='cairo_in_fill'>
+    <method name='in_clip'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='mask' foreign='cairo_mask'>
+    <method name='reset_clip'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <method name='fill'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <method name='fill_preserve'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <method name='fill_extents'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='x2' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='y2' type='double' pass_by='mut-ref' transformer='zero'/>
+      <result name='x1' type='double' transformer='out'/>
+      <result name='y1' type='double' transformer='out'/>
+      <result name='x2' type='double' transformer='out'/>
+      <result name='y2' type='double' transformer='out'/>
+    </method>
+
+    <method name='in_fill'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='x' type='double'/>
+      <argument name='y' type='double'/>
+      <result type='i32' transformer='compare' value='0'/>
+    </method>
+
+    <method name='mask'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='pattern' type='{pattern::Pattern}' pass_by='mut-ref' transformer='opaque'/>
     </method>
 
-    <method name='mask_surface' foreign='cairo_mask_surface'>
+    <method name='mask_surface'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <argument name='surface_x' type='double'/>
       <argument name='surface_y' type='double'/>
     </method>
 
-    <method name='paint' foreign='cairo_paint'>
+    <method name='paint'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='paint_with_alpha' foreign='cairo_paint_with_alpha'>
+    <method name='paint_with_alpha'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='alpha' type='double'/>
     </method>
 
-    <method name='stroke' foreign='cairo_stroke'>
+    <method name='stroke'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='stroke_preserve' foreign='cairo_stroke_preserve'>
+    <method name='stroke_preserve'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='stroke_extents' foreign='cairo_stroke_extents'>
+    <method name='stroke_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -358,22 +358,22 @@
       <result name='y2' type='double' transformer='out'/>
     </method>
 
-    <method name='in_stroke' foreign='cairo_in_stroke'>
+    <method name='in_stroke'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='copy_page' foreign='cairo_copy_page'>
+    <method name='copy_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='show_page' foreign='cairo_show_page'>
+    <method name='show_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_reference_count' foreign='cairo_get_reference_count'>
+    <method name='get_reference_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
     </method>
@@ -383,27 +383,27 @@
 
     <!-- Paths -->
 
-    <method name='copy_path' foreign='cairo_copy_path'>
+    <method name='copy_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{path::Path}'/>
     </method>
 
-    <method name='copy_path_flat' foreign='cairo_copy_path_flat'>
+    <method name='copy_path_flat'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{path::Path}'/>
     </method>
 
-    <method name='append_path' foreign='cairo_append_path'>
+    <method name='append_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='path' type='{path::Path}' pass_by='ref' transformer='opaque'/>
     </method>
 
-    <method name='has_current_point' foreign='cairo_has_current_point'>
+    <method name='has_current_point'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='get_current_point' foreign='cairo_get_current_point'>
+    <method name='get_current_point'>
       <argument type='{Surface}' pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -411,28 +411,19 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='new_path' foreign='cairo_new_path'>
+    <method name='new_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='new_sub_path' foreign='cairo_new_sub_path'>
+    <method name='new_sub_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='close_path' foreign='cairo_close_path'>
+    <method name='close_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='arc' foreign='cairo_arc'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='xc' type='double'/>
-      <argument name='yc' type='double'/>
-      <argument name='radius' type='double'/>
-      <argument name='angle1' type='double'/>
-      <argument name='angle2' type='double'/>
-    </method>
-
-    <method name='arc_negative' foreign='cairo_arc_negative'>
+    <method name='arc'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='xc' type='double'/>
       <argument name='yc' type='double'/>
@@ -441,7 +432,16 @@
       <argument name='angle2' type='double'/>
     </method>
 
-    <method name='curve_to' foreign='cairo_curve_to'>
+    <method name='arc_negative'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='xc' type='double'/>
+      <argument name='yc' type='double'/>
+      <argument name='radius' type='double'/>
+      <argument name='angle1' type='double'/>
+      <argument name='angle2' type='double'/>
+    </method>
+
+    <method name='curve_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double'/>
       <argument name='y1' type='double'/>
@@ -451,19 +451,19 @@
       <argument name='y3' type='double'/>
     </method>
 
-    <method name='line_to' foreign='cairo_line_to'>
+    <method name='line_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='move_to' foreign='cairo_move_to'>
+    <method name='move_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='rectangle' foreign='cairo_rectangle'>
+    <method name='rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
@@ -471,18 +471,18 @@
       <argument name='height' type='double'/>
     </method>
 
-    <method name='glyph_path' foreign='cairo_glyph_path'>
+    <method name='glyph_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
     </method>
 
-    <method name='text_path' foreign='cairo_text_path'>
+    <method name='text_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='text_path' type='string' pass_by='ref' transformer='cstring'/>
     </method>
 
-    <method name='rel_curve_to' foreign='cairo_rel_curve_to'>
+    <method name='rel_curve_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx1' type='double'/>
       <argument name='dy1' type='double'/>
@@ -492,19 +492,19 @@
       <argument name='dy3' type='double'/>
     </method>
 
-    <method name='rel_line_to' foreign='cairo_rel_line_to'>
+    <method name='rel_line_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double'/>
       <argument name='dy' type='double'/>
     </method>
 
-    <method name='rel_move_to' foreign='cairo_rel_move_to'>
+    <method name='rel_move_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double'/>
       <argument name='dy' type='double'/>
     </method>
 
-    <method name='path_extents' foreign='cairo_path_extents'>
+    <method name='path_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -518,44 +518,44 @@
 
     <!-- Transformations -->
 
-    <method name='translate' foreign='cairo_translate'>
+    <method name='translate'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='tx' type='double'/>
       <argument name='ty' type='double'/>
     </method>
 
-    <method name='scale' foreign='cairo_scale'>
+    <method name='scale'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='sx' type='double'/>
       <argument name='sy' type='double'/>
     </method>
 
-    <method name='rotate' foreign='cairo_rotate'>
+    <method name='rotate'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='angle' type='double'/>
     </method>
 
-    <method name='transform' foreign='cairo_transform'>
+    <method name='transform'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='ref'/>
     </method>
 
-    <method name='set_matrix' foreign='cairo_set_matrix'>
+    <method name='set_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='ref'/>
     </method>
 
-    <method name='get_matrix' foreign='cairo_get_matrix'>
+    <method name='get_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='mut-ref' transformer='zero'/>
       <result name='matrix' type='{matrix::Matrix}' transformer='out'/>
     </method>
 
-    <method name='identity_matrix' foreign='cairo_identity_matrix'>
+    <method name='identity_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='user_to_device' foreign='cairo_user_to_device'>
+    <method name='user_to_device'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
@@ -563,7 +563,7 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='user_to_device_distance' foreign='cairo_user_to_device_distance'>
+    <method name='user_to_device_distance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
@@ -571,7 +571,7 @@
       <result name='dy' type='double' transformer='out'/>
     </method>
 
-    <method name='device_to_user' foreign='cairo_device_to_user'>
+    <method name='device_to_user'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
@@ -579,7 +579,7 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='device_to_user_distance' foreign='cairo_device_to_user_distance'>
+    <method name='device_to_user_distance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
@@ -589,71 +589,71 @@
 
     <!-- Text -->
 
-    <method name='select_font_face' foreign='cairo_select_font_face'>
+    <method name='select_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='family' type='string' pass_by='ref' transformer='cstring'/>
       <argument name='slant' type='[font::slant::Slant]'/>
       <argument name='weight' type='[font::weight::Weight]'/>
     </method>
 
-    <method name='set_font_size' foreign='cairo_set_font_size'>
+    <method name='set_font_size'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='size' type='double'/>
     </method>
 
-    <method name='set_font_matrix' foreign='cairo_set_font_matrix'>
+    <method name='set_font_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='size' type='[matrix::Matrix]' pass_by='ref'/>
     </method>
 
-    <method name='get_font_matrix' foreign='cairo_get_font_matrix'>
+    <method name='get_font_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='[matrix::Matrix]' pass_by='mut-ref' transformer='zero'/>
       <result name='matrix' type='[matrix::Matrix]' transformer='out'/>
     </method>
 
-    <method name='set_font_options' foreign='cairo_set_font_options'>
+    <method name='set_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='[font::Options]'/>
     </method>
 
-    <method name='get_font_options' foreign='cairo_get_font_options'>
+    <method name='get_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='[font::Options]'/>
     </method>
 
-    <method name='set_font_face' foreign='cairo_set_font_face'>
+    <method name='set_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='font_face' type='[font::FontFace]'/>
     </method>
 
-    <method name='get_font_face' foreign='cairo_get_font_face'>
+    <method name='get_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[font::FontFace]'/>
     </method>
 
-    <method name='set_scaled_font' foreign='cairo_set_scaled_font'>
+    <method name='set_scaled_font'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='scaled_font' type='[font::ScaledFont]'/>
     </method>
 
-    <method name='get_scaled_font' foreign='cairo_get_scaled_font'>
+    <method name='get_scaled_font'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[font::ScaledFont]'/>
     </method>
 
-    <method name='show_text' foreign='cairo_show_text'>
+    <method name='show_text'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
     </method>
 
-    <method name='show_glyphs' foreign='cairo_show_glyphs'>
+    <method name='show_glyphs'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
     </method>
 
-    <method name='show_text_glyphs' foreign='cairo_show_text_glyphs'>
+    <method name='show_text_glyphs'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
       <argument name='utf8_len' type='int' value='-1'/>
@@ -664,20 +664,20 @@
       <argument name='cluster_flags' type='[font::cluster_flags::ClusterFlags]'/>
     </method>
 
-    <method name='font_extents' foreign='cairo_font_extents'>
+    <method name='font_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extents' type='[font::FontExtents]' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='[font::FontExtents]' transformer='out'/>
     </method>
 
-    <method name='text_extents' foreign='cairo_text_extents'>
+    <method name='text_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
       <argument name='extents' type='[font::TextExtents]' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='[font::TextExtents]' transformer='out'/>
     </method>
 
-    <method name='glyph_extents' foreign='cairo_glyph_extents'>
+    <method name='glyph_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
@@ -688,7 +688,7 @@
 
   <implementation trait='std::clone::Clone' for='Cairo'>
     <method name='clone' foreign='cairo_reference'>
-      <argument type='{Cairo}' pass_by='self' transformer='opaque'/>
+      <argument pass_by='self' transformer='opaque'/>
       <result type='{Cairo}'/>
     </method>
   </implementation>
