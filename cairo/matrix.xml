@@ -9,7 +9,7 @@
   </struct>
 
   <implementation for='Matrix' prefix='cairo_matrix_'>
-    <method name='new' foreign='cairo_matrix_init'>
+    <fn name='new' foreign='cairo_matrix_init'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <argument name='xx' type='double'/>
       <argument name='yx' type='double'/>
@@ -19,62 +19,62 @@
       <argument name='y0' type='double'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='identity' foreign='cairo_matrix_init_identity'>
+    <fn name='identity' foreign='cairo_matrix_init_identity'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='for_translation' foreign='cairo_matrix_init_translate'>
+    <fn name='for_translation' foreign='cairo_matrix_init_translate'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <argument name='x0' type='double'/>
       <argument name='y0' type='double'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='for_scale' foreign='cairo_matrix_init_scale'>
+    <fn name='for_scale' foreign='cairo_matrix_init_scale'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <argument name='sx' type='double'/>
       <argument name='sy' type='double'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='for_rotation' foreign='cairo_matrix_init_rotate'>
+    <fn name='for_rotation' foreign='cairo_matrix_init_rotate'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <argument name='radians' type='double'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='multiply'>
+    <fn name='multiply'>
       <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
       <argument name='a' pass_by='ref' type='{Matrix}'/>
       <argument name='b' pass_by='ref' type='{Matrix}'/>
       <result name='this' type='{Matrix}' transformer='out'/>
     </method>
-    <method name='translate'>
+    <fn name='translate'>
       <argument pass_by='mut-self'/>
       <argument name='x0' type='double'/>
       <argument name='y0' type='double'/>
     </method>
-    <method name='scale'>
+    <fn name='scale'>
       <argument pass_by='mut-self'/>
       <argument name='sx' type='double'/>
       <argument name='sy' type='double'/>
     </method>
-    <method name='rotate'>
+    <fn name='rotate'>
       <argument pass_by='mut-self'/>
       <argument name='radians' type='double'/>
     </method>
-    <method name='transform_distance'>
+    <fn name='transform_distance'>
       <argument pass_by='self'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
       <result name='dx' type='double' transformer='out'/>
       <result name='dy' type='double' transformer='out'/>
     </method>
-    <method name='transform_point'>
+    <fn name='transform_point'>
       <argument pass_by='self'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
       <result name='x' type='double' transformer='out'/>
       <result name='y' type='double' transformer='out'/>
     </method>
-    <method name='invert'>
+    <fn name='invert'>
       <argument pass_by='mut-self'/>
       <result type='[super::Status]'/>
     </method>

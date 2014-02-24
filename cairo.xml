@@ -81,60 +81,60 @@
   </module>
 
   <implementation for='Cairo' prefix='cairo_'>
-    <method name='new' foreign='cairo_create'>
+    <fn name='new' foreign='cairo_create'>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <result type='{Cairo}'/>
     </method>
 
-    <method name='status'>
+    <fn name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[Status]'/>
     </method>
 
-    <method name='save'>
+    <fn name='save'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='restore'>
+    <fn name='restore'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_target'>
+    <fn name='get_target'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{surface::Surface}' transformer='clone'/>
     </method>
 
-    <method name='push_group'>
+    <fn name='push_group'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='push_group_with_content'>
+    <fn name='push_group_with_content'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='content' type='[surface::content::Content]'/>
     </method>
 
-    <method name='pop_group'>
+    <fn name='pop_group'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{pattern::Pattern}'/>
     </method>
 
-    <method name='pop_group_to_source'>
+    <fn name='pop_group_to_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_group_target'>
+    <fn name='get_group_target'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{surface::Surface}' transformer='clone'/>
     </method>
 
-    <method name='set_source_rgb'>
+    <fn name='set_source_rgb'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
       <argument name='blue' type='double'/>
     </method>
 
-    <method name='set_source_rgba'>
+    <fn name='set_source_rgba'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='red' type='double'/>
       <argument name='green' type='double'/>
@@ -142,46 +142,46 @@
       <argument name='alpha' type='double'/>
     </method>
 
-    <method name='set_source'>
+    <fn name='set_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='source' type='{pattern::Pattern}' pass_by='mut-ref' transformer='opaque'/>
     </method>
 
-    <method name='set_source_surface'>
+    <fn name='set_source_surface'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='get_source'>
+    <fn name='get_source'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{pattern::Pattern}'/>
     </method>
 
-    <method name='set_antialias'>
+    <fn name='set_antialias'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='antialias' type='[antialias::Antialias]'/>
     </method>
 
-    <method name='get_antialias'>
+    <fn name='get_antialias'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[antialias::Antialias]'/>
     </method>
 
-    <method name='set_dash'>
+    <fn name='set_dash'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dashes' type='vec double' pass_by='ref' transformer='vec'/>
       <argument name='dashes' type='int' transformer='vec-length'/>
       <argument name='offset' type='double'/>
     </method>
 
-    <method name='get_dash_count' foreign='cairo_get_dash_count'>
+    <fn name='get_dash_count' foreign='cairo_get_dash_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
     </method>
 
-    <method name='get_dash'>
+    <fn name='get_dash'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dashes' type='vec double' pass_by='mut-ref' transformer='vec-zero' value='self.get_dash_count()'/>
       <argument name='offset' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -189,116 +189,85 @@
       <result name='offset' type='double' transformer='out'/>
     </method>
 
-    <method name='set_fill_rule'>
+    <fn name='set_fill_rule'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='fill_rule' type='[fill_rule::FillRule]'/>
     </method>
 
-    <method name='get_fill_rule'>
+    <fn name='get_fill_rule'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[fill_rule::FillRule]'/>
     </method>
 
-    <method name='set_line_cap'>
+    <fn name='set_line_cap'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='line_cap' type='[line_cap::LineCap]'/>
     </method>
 
-    <method name='get_line_cap'>
+    <fn name='get_line_cap'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[line_cap::LineCap]'/>
     </method>
 
-    <method name='set_line_join'>
+    <fn name='set_line_join'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='line_join' type='[line_join::LineJoin]'/>
     </method>
 
-    <method name='get_line_join'>
+    <fn name='get_line_join'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[line_join::LineJoin]'/>
     </method>
 
-    <method name='set_line_width'>
+    <fn name='set_line_width'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='width' type='double'/>
     </method>
 
-    <method name='get_line_width'>
+    <fn name='get_line_width'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='set_miter_limit'>
+    <fn name='set_miter_limit'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='limit' type='double'/>
     </method>
 
-    <method name='get_miter_limit'>
+    <fn name='get_miter_limit'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='set_operator'>
+    <fn name='set_operator'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='operator' type='[operator::Operator]'/>
     </method>
 
-    <method name='get_operator'>
+    <fn name='get_operator'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[operator::Operator]'/>
     </method>
 
-    <method name='set_tolerance'>
+    <fn name='set_tolerance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='tolerance' type='double'/>
     </method>
 
-    <method name='get_tolerance'>
+    <fn name='get_tolerance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='double'/>
     </method>
 
-    <method name='clip'>
+    <fn name='clip'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='clip_preserve'>
+    <fn name='clip_preserve'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='clip_extents'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='x2' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y2' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result name='x1' type='double' transformer='out'/>
-      <result name='y1' type='double' transformer='out'/>
-      <result name='x2' type='double' transformer='out'/>
-      <result name='y2' type='double' transformer='out'/>
-    </method>
-
-    <method name='in_clip'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x' type='double'/>
-      <argument name='y' type='double'/>
-      <result type='i32' transformer='compare' value='0'/>
-    </method>
-
-    <method name='reset_clip'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill_preserve'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
-
-    <method name='fill_extents'>
+    <fn name='clip_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -310,43 +279,74 @@
       <result name='y2' type='double' transformer='out'/>
     </method>
 
-    <method name='in_fill'>
+    <fn name='in_clip'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='mask'>
+    <fn name='reset_clip'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <fn name='fill'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <fn name='fill_preserve'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+    </method>
+
+    <fn name='fill_extents'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='x2' type='double' pass_by='mut-ref' transformer='zero'/>
+      <argument name='y2' type='double' pass_by='mut-ref' transformer='zero'/>
+      <result name='x1' type='double' transformer='out'/>
+      <result name='y1' type='double' transformer='out'/>
+      <result name='x2' type='double' transformer='out'/>
+      <result name='y2' type='double' transformer='out'/>
+    </method>
+
+    <fn name='in_fill'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='x' type='double'/>
+      <argument name='y' type='double'/>
+      <result type='i32' transformer='compare' value='0'/>
+    </method>
+
+    <fn name='mask'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='pattern' type='{pattern::Pattern}' pass_by='mut-ref' transformer='opaque'/>
     </method>
 
-    <method name='mask_surface'>
+    <fn name='mask_surface'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='surface' type='{surface::Surface}' pass_by='mut-ref' transformer='opaque'/>
       <argument name='surface_x' type='double'/>
       <argument name='surface_y' type='double'/>
     </method>
 
-    <method name='paint'>
+    <fn name='paint'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='paint_with_alpha'>
+    <fn name='paint_with_alpha'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='alpha' type='double'/>
     </method>
 
-    <method name='stroke'>
+    <fn name='stroke'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='stroke_preserve'>
+    <fn name='stroke_preserve'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='stroke_extents'>
+    <fn name='stroke_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -358,22 +358,22 @@
       <result name='y2' type='double' transformer='out'/>
     </method>
 
-    <method name='in_stroke'>
+    <fn name='in_stroke'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='copy_page'>
+    <fn name='copy_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='show_page'>
+    <fn name='show_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='get_reference_count'>
+    <fn name='get_reference_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
     </method>
@@ -383,27 +383,27 @@
 
     <!-- Paths -->
 
-    <method name='copy_path'>
+    <fn name='copy_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{path::Path}'/>
     </method>
 
-    <method name='copy_path_flat'>
+    <fn name='copy_path_flat'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{path::Path}'/>
     </method>
 
-    <method name='append_path'>
+    <fn name='append_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='path' type='{path::Path}' pass_by='ref' transformer='opaque'/>
     </method>
 
-    <method name='has_current_point'>
+    <fn name='has_current_point'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='i32' transformer='compare' value='0'/>
     </method>
 
-    <method name='get_current_point'>
+    <fn name='get_current_point'>
       <argument type='{Surface}' pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -411,28 +411,19 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='new_path'>
+    <fn name='new_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='new_sub_path'>
+    <fn name='new_sub_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='close_path'>
+    <fn name='close_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='arc'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='xc' type='double'/>
-      <argument name='yc' type='double'/>
-      <argument name='radius' type='double'/>
-      <argument name='angle1' type='double'/>
-      <argument name='angle2' type='double'/>
-    </method>
-
-    <method name='arc_negative'>
+    <fn name='arc'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='xc' type='double'/>
       <argument name='yc' type='double'/>
@@ -441,7 +432,16 @@
       <argument name='angle2' type='double'/>
     </method>
 
-    <method name='curve_to'>
+    <fn name='arc_negative'>
+      <argument pass_by='mut-self' transformer='opaque'/>
+      <argument name='xc' type='double'/>
+      <argument name='yc' type='double'/>
+      <argument name='radius' type='double'/>
+      <argument name='angle1' type='double'/>
+      <argument name='angle2' type='double'/>
+    </method>
+
+    <fn name='curve_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double'/>
       <argument name='y1' type='double'/>
@@ -451,19 +451,19 @@
       <argument name='y3' type='double'/>
     </method>
 
-    <method name='line_to'>
+    <fn name='line_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='move_to'>
+    <fn name='move_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
     </method>
 
-    <method name='rectangle'>
+    <fn name='rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double'/>
       <argument name='y' type='double'/>
@@ -471,18 +471,18 @@
       <argument name='height' type='double'/>
     </method>
 
-    <method name='glyph_path'>
+    <fn name='glyph_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
     </method>
 
-    <method name='text_path'>
+    <fn name='text_path'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='text_path' type='string' pass_by='ref' transformer='cstring'/>
     </method>
 
-    <method name='rel_curve_to'>
+    <fn name='rel_curve_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx1' type='double'/>
       <argument name='dy1' type='double'/>
@@ -492,19 +492,19 @@
       <argument name='dy3' type='double'/>
     </method>
 
-    <method name='rel_line_to'>
+    <fn name='rel_line_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double'/>
       <argument name='dy' type='double'/>
     </method>
 
-    <method name='rel_move_to'>
+    <fn name='rel_move_to'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double'/>
       <argument name='dy' type='double'/>
     </method>
 
-    <method name='path_extents'>
+    <fn name='path_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
       <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
@@ -518,44 +518,44 @@
 
     <!-- Transformations -->
 
-    <method name='translate'>
+    <fn name='translate'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='tx' type='double'/>
       <argument name='ty' type='double'/>
     </method>
 
-    <method name='scale'>
+    <fn name='scale'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='sx' type='double'/>
       <argument name='sy' type='double'/>
     </method>
 
-    <method name='rotate'>
+    <fn name='rotate'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='angle' type='double'/>
     </method>
 
-    <method name='transform'>
+    <fn name='transform'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='ref'/>
     </method>
 
-    <method name='set_matrix'>
+    <fn name='set_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='ref'/>
     </method>
 
-    <method name='get_matrix'>
+    <fn name='get_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='{matrix::Matrix}' pass_by='mut-ref' transformer='zero'/>
       <result name='matrix' type='{matrix::Matrix}' transformer='out'/>
     </method>
 
-    <method name='identity_matrix'>
+    <fn name='identity_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
 
-    <method name='user_to_device'>
+    <fn name='user_to_device'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
@@ -563,7 +563,7 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='user_to_device_distance'>
+    <fn name='user_to_device_distance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
@@ -571,7 +571,7 @@
       <result name='dy' type='double' transformer='out'/>
     </method>
 
-    <method name='device_to_user'>
+    <fn name='device_to_user'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x' type='double' transformer='to-mut-ref'/>
       <argument name='y' type='double' transformer='to-mut-ref'/>
@@ -579,7 +579,7 @@
       <result name='y' type='double' transformer='out'/>
     </method>
 
-    <method name='device_to_user_distance'>
+    <fn name='device_to_user_distance'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='dx' type='double' transformer='to-mut-ref'/>
       <argument name='dy' type='double' transformer='to-mut-ref'/>
@@ -589,71 +589,71 @@
 
     <!-- Text -->
 
-    <method name='select_font_face'>
+    <fn name='select_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='family' type='string' pass_by='ref' transformer='cstring'/>
       <argument name='slant' type='[font::slant::Slant]'/>
       <argument name='weight' type='[font::weight::Weight]'/>
     </method>
 
-    <method name='set_font_size'>
+    <fn name='set_font_size'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='size' type='double'/>
     </method>
 
-    <method name='set_font_matrix'>
+    <fn name='set_font_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='size' type='[matrix::Matrix]' pass_by='ref'/>
     </method>
 
-    <method name='get_font_matrix'>
+    <fn name='get_font_matrix'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='matrix' type='[matrix::Matrix]' pass_by='mut-ref' transformer='zero'/>
       <result name='matrix' type='[matrix::Matrix]' transformer='out'/>
     </method>
 
-    <method name='set_font_options'>
+    <fn name='set_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='[font::Options]'/>
     </method>
 
-    <method name='get_font_options'>
+    <fn name='get_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='[font::Options]'/>
     </method>
 
-    <method name='set_font_face'>
+    <fn name='set_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='font_face' type='[font::FontFace]'/>
     </method>
 
-    <method name='get_font_face'>
+    <fn name='get_font_face'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[font::FontFace]'/>
     </method>
 
-    <method name='set_scaled_font'>
+    <fn name='set_scaled_font'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='scaled_font' type='[font::ScaledFont]'/>
     </method>
 
-    <method name='get_scaled_font'>
+    <fn name='get_scaled_font'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[font::ScaledFont]'/>
     </method>
 
-    <method name='show_text'>
+    <fn name='show_text'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
     </method>
 
-    <method name='show_glyphs'>
+    <fn name='show_glyphs'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
     </method>
 
-    <method name='show_text_glyphs'>
+    <fn name='show_text_glyphs'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
       <argument name='utf8_len' type='int' value='-1'/>
@@ -664,20 +664,20 @@
       <argument name='cluster_flags' type='[font::cluster_flags::ClusterFlags]'/>
     </method>
 
-    <method name='font_extents'>
+    <fn name='font_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='extents' type='[font::FontExtents]' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='[font::FontExtents]' transformer='out'/>
     </method>
 
-    <method name='text_extents'>
+    <fn name='text_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='utf8' type='string' pass_by='ref'/>
       <argument name='extents' type='[font::TextExtents]' pass_by='mut-ref' transformer='zero'/>
       <result name='extents' type='[font::TextExtents]' transformer='out'/>
     </method>
 
-    <method name='glyph_extents'>
+    <fn name='glyph_extents'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='glyphs' type='vec {font::Glyph}' pass_by='ref' transformer='vec'/>
       <argument name='glyphs' type='int' transformer='vec-length'/>
@@ -687,14 +687,14 @@
   </implementation>
 
   <implementation trait='std::clone::Clone' for='Cairo'>
-    <method name='clone' foreign='cairo_reference'>
+    <fn name='clone' foreign='cairo_reference'>
       <argument pass_by='self' transformer='opaque'/>
       <result type='{Cairo}'/>
     </method>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Cairo'>
-    <method name='drop' foreign='cairo_destroy'>
+    <fn name='drop' foreign='cairo_destroy'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>

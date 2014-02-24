@@ -811,8 +811,8 @@ extern {
   fn cairo_translate(self_value: *mut std::libc::c_void, tx: f64, ty: f64);
   fn cairo_scale(self_value: *mut std::libc::c_void, sx: f64, sy: f64);
   fn cairo_rotate(self_value: *mut std::libc::c_void, angle: f64);
-  fn cairo_transform(self_value: *mut std::libc::c_void, matrix: &matrix::Matrix);
-  fn cairo_set_matrix(self_value: *mut std::libc::c_void, matrix: &matrix::Matrix);
+  fn cairo_transform(self_value: *mut std::libc::c_void, matrix: *matrix::Matrix);
+  fn cairo_set_matrix(self_value: *mut std::libc::c_void, matrix: *matrix::Matrix);
   fn cairo_get_matrix(self_value: *mut std::libc::c_void, matrix: *mut matrix::Matrix);
   fn cairo_identity_matrix(self_value: *mut std::libc::c_void);
   fn cairo_user_to_device(self_value: *mut std::libc::c_void, x: &mut f64, y: &mut f64);
@@ -821,7 +821,7 @@ extern {
   fn cairo_device_to_user_distance(self_value: *mut std::libc::c_void, dx: &mut f64, dy: &mut f64);
   fn cairo_select_font_face(self_value: *mut std::libc::c_void, family: std::c_str::CString, slant: font::slant::Slant, weight: font::weight::Weight);
   fn cairo_set_font_size(self_value: *mut std::libc::c_void, size: f64);
-  fn cairo_set_font_matrix(self_value: *mut std::libc::c_void, size: &matrix::Matrix);
+  fn cairo_set_font_matrix(self_value: *mut std::libc::c_void, size: *matrix::Matrix);
   fn cairo_get_font_matrix(self_value: *mut std::libc::c_void, matrix: *mut matrix::Matrix);
   fn cairo_set_font_options(self_value: *mut std::libc::c_void, options: font::Options);
   fn cairo_get_font_options(self_value: *mut std::libc::c_void, options: font::Options);
@@ -829,11 +829,11 @@ extern {
   fn cairo_get_font_face(self_value: *mut std::libc::c_void) -> font::FontFace;
   fn cairo_set_scaled_font(self_value: *mut std::libc::c_void, scaled_font: font::ScaledFont);
   fn cairo_get_scaled_font(self_value: *mut std::libc::c_void) -> font::ScaledFont;
-  fn cairo_show_text(self_value: *mut std::libc::c_void, utf8: &str);
+  fn cairo_show_text(self_value: *mut std::libc::c_void, utf8: *str);
   fn cairo_show_glyphs(self_value: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs_length: i32);
-  fn cairo_show_text_glyphs(self_value: *mut std::libc::c_void, utf8: &str, utf8_len: i32, glyphs: *font::Glyph, glyphs_length: i32, clusters: *font::Cluster, clusters_length: i32, cluster_flags: font::cluster_flags::ClusterFlags);
+  fn cairo_show_text_glyphs(self_value: *mut std::libc::c_void, utf8: *str, utf8_len: i32, glyphs: *font::Glyph, glyphs_length: i32, clusters: *font::Cluster, clusters_length: i32, cluster_flags: font::cluster_flags::ClusterFlags);
   fn cairo_font_extents(self_value: *mut std::libc::c_void, extents: *mut font::FontExtents);
-  fn cairo_text_extents(self_value: *mut std::libc::c_void, utf8: &str, extents: *mut font::TextExtents);
+  fn cairo_text_extents(self_value: *mut std::libc::c_void, utf8: *str, extents: *mut font::TextExtents);
   fn cairo_glyph_extents(self_value: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs_length: i32, extents: *mut font::TextExtents);
 }
 
@@ -1490,7 +1490,7 @@ pub mod region {
 
   extern {
     fn cairo_region_create() -> Region;
-    fn cairo_region_create_rectangle(rectangle: &Rectangle) -> Region;
+    fn cairo_region_create_rectangle(rectangle: *Rectangle) -> Region;
     fn cairo_region_create_rectangles(rectangles: *Rectangle, rectangles_length: i32) -> Region;
     fn cairo_region_status(self_value: *mut std::libc::c_void) -> super::Status;
     fn cairo_region_get_extents(self_value: *mut std::libc::c_void, extents: *mut Rectangle);
@@ -1498,16 +1498,16 @@ pub mod region {
     fn cairo_region_get_rectangle(self_value: *mut std::libc::c_void, nth: i32, rectangle: *mut Rectangle);
     fn cairo_region_is_empty(self_value: *mut std::libc::c_void) -> i32;
     fn cairo_region_contains_point(self_value: *mut std::libc::c_void, x: i32, y: i32) -> i32;
-    fn cairo_region_contains_rectangle(self_value: *mut std::libc::c_void, rectangle: &Rectangle) -> overlap::Overlap;
+    fn cairo_region_contains_rectangle(self_value: *mut std::libc::c_void, rectangle: *Rectangle) -> overlap::Overlap;
     fn cairo_region_equal(self_value: *mut std::libc::c_void, other: *std::libc::c_void) -> i32;
     fn cairo_region_translate(self_value: *mut std::libc::c_void, dx: i32, dy: i32);
-    fn cairo_region_intersect_rectangle(self_value: *mut std::libc::c_void, rectangle: &Rectangle) -> super::Status;
-    fn cairo_region_subtract(self_value: *mut std::libc::c_void, region: &Region) -> super::Status;
-    fn cairo_region_subtract_rectangle(self_value: *mut std::libc::c_void, rectangle: &Rectangle) -> super::Status;
-    fn cairo_region_union(self_value: *mut std::libc::c_void, region: &Region) -> super::Status;
-    fn cairo_region_union_rectangle(self_value: *mut std::libc::c_void, rectangle: &Rectangle) -> super::Status;
-    fn cairo_region_xor(self_value: *mut std::libc::c_void, region: &Region) -> super::Status;
-    fn cairo_region_xor_rectangle(self_value: *mut std::libc::c_void, rectangle: &Rectangle) -> super::Status;
+    fn cairo_region_intersect_rectangle(self_value: *mut std::libc::c_void, rectangle: *Rectangle) -> super::Status;
+    fn cairo_region_subtract(self_value: *mut std::libc::c_void, region: *Region) -> super::Status;
+    fn cairo_region_subtract_rectangle(self_value: *mut std::libc::c_void, rectangle: *Rectangle) -> super::Status;
+    fn cairo_region_union(self_value: *mut std::libc::c_void, region: *Region) -> super::Status;
+    fn cairo_region_union_rectangle(self_value: *mut std::libc::c_void, rectangle: *Rectangle) -> super::Status;
+    fn cairo_region_xor(self_value: *mut std::libc::c_void, region: *Region) -> super::Status;
+    fn cairo_region_xor_rectangle(self_value: *mut std::libc::c_void, rectangle: *Rectangle) -> super::Status;
   }
 
   impl std::clone::Clone for Region {
@@ -1694,7 +1694,7 @@ pub mod font {
   extern {
     fn cairo_font_options_create() -> Options;
     fn cairo_font_options_status(self_value: *mut std::libc::c_void) -> super::Status;
-    fn cairo_font_options_merge(self_value: *mut std::libc::c_void, other: &Options);
+    fn cairo_font_options_merge(self_value: *mut std::libc::c_void, other: *Options);
     fn cairo_font_options_hash(self_value: *mut std::libc::c_void) -> i64;
     fn cairo_font_options_equal(self_value: *mut std::libc::c_void, other: *std::libc::c_void) -> i32;
     fn cairo_font_options_set_antialias(self_value: *mut std::libc::c_void, antialias: super::antialias::Antialias);
@@ -1923,10 +1923,10 @@ pub mod font {
   }
 
   extern {
-    fn cairo_scaled_font_create(font_face: &mut FontFace, font_matrix: &super::matrix::Matrix, ctm: &super::matrix::Matrix, options: &mut Options) -> ScaledFont;
+    fn cairo_scaled_font_create(font_face: *mut FontFace, font_matrix: *super::matrix::Matrix, ctm: *super::matrix::Matrix, options: *mut Options) -> ScaledFont;
     fn cairo_scaled_font_status(self_value: *mut std::libc::c_void) -> super::Status;
     fn cairo_scaled_font_extents(self_value: *mut std::libc::c_void, extents: *mut FontExtents);
-    fn cairo_scaled_font_text_extents(self_value: *mut std::libc::c_void, utf8: &str, extents: *mut TextExtents);
+    fn cairo_scaled_font_text_extents(self_value: *mut std::libc::c_void, utf8: *str, extents: *mut TextExtents);
     fn cairo_scaled_font_glyph_extents(self_value: *mut std::libc::c_void, glyphs: *Glyph, glyphs_length: i32, extents: *mut TextExtents);
     fn cairo_scaled_font_get_font_face(self_value: *mut std::libc::c_void) -> FontFace;
     fn cairo_scaled_font_get_font_options(self_value: *mut std::libc::c_void, options: FontExtents);
@@ -2582,7 +2582,7 @@ pub mod matrix {
     fn cairo_matrix_init_translate(this: *mut Matrix, x0: f64, y0: f64);
     fn cairo_matrix_init_scale(this: *mut Matrix, sx: f64, sy: f64);
     fn cairo_matrix_init_rotate(this: *mut Matrix, radians: f64);
-    fn cairo_matrix_multiply(this: *mut Matrix, a: &Matrix, b: &Matrix);
+    fn cairo_matrix_multiply(this: *mut Matrix, a: *Matrix, b: *Matrix);
     fn cairo_matrix_translate(self_value: *mut Matrix, x0: f64, y0: f64);
     fn cairo_matrix_scale(self_value: *mut Matrix, sx: f64, sy: f64);
     fn cairo_matrix_rotate(self_value: *mut Matrix, radians: f64);

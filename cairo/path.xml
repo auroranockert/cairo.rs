@@ -2,7 +2,7 @@
   <struct name='Path' opaque='true'/>
 
   <implementation trait='std::ops::Drop' for='Path'>
-    <method name='drop' foreign='cairo_path_destroy'>
+    <fn name='drop' foreign='cairo_path_destroy'>
       <argument pass_by='mut-self' transformer='opaque'/>
     </method>
   </implementation>
