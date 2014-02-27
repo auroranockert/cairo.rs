@@ -512,7 +512,7 @@ impl Cairo {
   pub fn text_path(&mut self, text_path: &str) {
     unsafe {
       use std::c_str::ToCStr;
-      cairo_text_path(self.opaque, text_path.to_c_str());
+      cairo_text_path(self.opaque, text_path.to_c_str().unwrap());
     }
   }
 
@@ -628,7 +628,7 @@ impl Cairo {
   pub fn select_font_face(&mut self, family: &str, slant: font::slant::Slant, weight: font::weight::Weight) {
     unsafe {
       use std::c_str::ToCStr;
-      cairo_select_font_face(self.opaque, family.to_c_str(), slant, weight);
+      cairo_select_font_face(self.opaque, family.to_c_str().unwrap(), slant, weight);
     }
   }
 
@@ -803,7 +803,7 @@ extern {
   fn cairo_move_to(self_value: *mut std::libc::c_void, x: f64, y: f64);
   fn cairo_rectangle(self_value: *mut std::libc::c_void, x: f64, y: f64, width: f64, height: f64);
   fn cairo_glyph_path(self_value: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs_length: i32);
-  fn cairo_text_path(self_value: *mut std::libc::c_void, text_path: std::c_str::CString);
+  fn cairo_text_path(self_value: *mut std::libc::c_void, text_path: *std::libc::c_char);
   fn cairo_rel_curve_to(self_value: *mut std::libc::c_void, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64);
   fn cairo_rel_line_to(self_value: *mut std::libc::c_void, dx: f64, dy: f64);
   fn cairo_rel_move_to(self_value: *mut std::libc::c_void, dx: f64, dy: f64);
@@ -819,7 +819,7 @@ extern {
   fn cairo_user_to_device_distance(self_value: *mut std::libc::c_void, dx: &mut f64, dy: &mut f64);
   fn cairo_device_to_user(self_value: *mut std::libc::c_void, x: &mut f64, y: &mut f64);
   fn cairo_device_to_user_distance(self_value: *mut std::libc::c_void, dx: &mut f64, dy: &mut f64);
-  fn cairo_select_font_face(self_value: *mut std::libc::c_void, family: std::c_str::CString, slant: font::slant::Slant, weight: font::weight::Weight);
+  fn cairo_select_font_face(self_value: *mut std::libc::c_void, family: *std::libc::c_char, slant: font::slant::Slant, weight: font::weight::Weight);
   fn cairo_set_font_size(self_value: *mut std::libc::c_void, size: f64);
   fn cairo_set_font_matrix(self_value: *mut std::libc::c_void, size: *matrix::Matrix);
   fn cairo_get_font_matrix(self_value: *mut std::libc::c_void, matrix: *mut matrix::Matrix);
@@ -1748,7 +1748,7 @@ pub mod font {
     pub fn toy(family: &str, slant: slant::Slant, weight: weight::Weight) -> FontFace {
       unsafe {
         use std::c_str::ToCStr;
-        let foreign_result = cairo_toy_font_face_create(family.to_c_str(), slant, weight);
+        let foreign_result = cairo_toy_font_face_create(family.to_c_str().unwrap(), slant, weight);
         return foreign_result;
       }
     }
@@ -1797,7 +1797,7 @@ pub mod font {
   }
 
   extern {
-    fn cairo_toy_font_face_create(family: std::c_str::CString, slant: slant::Slant, weight: weight::Weight) -> FontFace;
+    fn cairo_toy_font_face_create(family: *std::libc::c_char, slant: slant::Slant, weight: weight::Weight) -> FontFace;
     fn cairo_toy_font_face_get_family(self_value: *mut std::libc::c_void) -> *i8;
     fn cairo_toy_font_face_get_slant(self_value: *mut std::libc::c_void) -> slant::Slant;
     fn cairo_toy_font_face_get_weight(self_value: *mut std::libc::c_void) -> slant::Slant;
@@ -2304,7 +2304,7 @@ pub mod surface {
     pub fn png(filename: &str) -> Surface {
       unsafe {
         use std::c_str::ToCStr;
-        let foreign_result = cairo_image_surface_create_from_png(filename.to_c_str());
+        let foreign_result = cairo_image_surface_create_from_png(filename.to_c_str().unwrap());
         return foreign_result;
       }
     }
@@ -2312,7 +2312,7 @@ pub mod surface {
     pub fn to_png(&mut self, filename: &str) -> super::Status {
       unsafe {
         use std::c_str::ToCStr;
-        let foreign_result = cairo_surface_write_to_png(self.opaque, filename.to_c_str());
+        let foreign_result = cairo_surface_write_to_png(self.opaque, filename.to_c_str().unwrap());
         return foreign_result;
       }
     }
@@ -2320,7 +2320,7 @@ pub mod surface {
     pub fn svg(filename: &str, width: f64, height: f64) -> Surface {
       unsafe {
         use std::c_str::ToCStr;
-        let foreign_result = cairo_svg_surface_create(filename.to_c_str(), width, height);
+        let foreign_result = cairo_svg_surface_create(filename.to_c_str().unwrap(), width, height);
         return foreign_result;
       }
     }
@@ -2363,9 +2363,9 @@ pub mod surface {
     fn cairo_image_surface_get_width(self_value: *mut std::libc::c_void) -> i32;
     fn cairo_image_surface_get_height(self_value: *mut std::libc::c_void) -> i32;
     fn cairo_image_surface_get_stride(self_value: *mut std::libc::c_void) -> i32;
-    fn cairo_image_surface_create_from_png(filename: std::c_str::CString) -> Surface;
-    fn cairo_surface_write_to_png(self_value: *mut std::libc::c_void, filename: std::c_str::CString) -> super::Status;
-    fn cairo_svg_surface_create(filename: std::c_str::CString, width: f64, height: f64) -> Surface;
+    fn cairo_image_surface_create_from_png(filename: *std::libc::c_char) -> Surface;
+    fn cairo_surface_write_to_png(self_value: *mut std::libc::c_void, filename: *std::libc::c_char) -> super::Status;
+    fn cairo_svg_surface_create(filename: *std::libc::c_char, width: f64, height: f64) -> Surface;
     fn cairo_svg_surface_restrict_to_version(self_value: *mut Surface, version: SVGVersion);
     fn cairo_svg_version_to_string(version: SVGVersion) -> *i8;
   }
