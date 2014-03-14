@@ -74,25 +74,25 @@
     <fn name='status'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
-    </method>
+    </fn>
 
     <fn name='finish'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='flush'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='get_type'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[device_type::DeviceType]'/>
-    </method>
+    </fn>
 
     <fn name='reference_type' foreign='cairo_device_get_reference_count'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_device_set_user_data -->
     <!-- TODO: cairo_device_get_user_data -->
@@ -100,24 +100,24 @@
     <fn name='acquire'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
-    </method>
+    </fn>
 
     <fn name='release'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
   </implementation>
 
   <implementation trait='std::clone::Clone' for='Device'>
     <fn name='clone' foreign='cairo_device_reference'>
       <argument pass_by='self' transformer='opaque'/>
       <result type='{Device}'/>
-    </method>
+    </fn>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Device'>
     <fn name='drop' foreign='cairo_device_destroy'>
       <argument type='{Device}' pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
   </implementation>
 
   <implementation for='Surface' prefix='cairo_surface_'>
@@ -128,7 +128,7 @@
       <argument name='width' type='int'/>
       <argument name='height' type='int'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
 
     <fn name='for_rectangle' foreign='cairo_surface_create_for_rectangle'>
       <argument name='x' type='double'/>
@@ -136,39 +136,39 @@
       <argument name='width' type='double'/>
       <argument name='height' type='double'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
 
     <fn name='status'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[super::Status]'/>
-    </method>
+    </fn>
 
     <fn name='finish'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='flush'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='get_device'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='{Device}' transformer='clone'/>
-    </method>
+    </fn>
 
     <fn name='get_font_options'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='options' type='{super::font::Options}' pass_by='mut-ref' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='get_content'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[content::Content]'/>
-    </method>
+    </fn>
 
     <fn name='mark_dirty'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='mark_dirty_rectangle'>
       <argument pass_by='mut-self' transformer='opaque'/>
@@ -176,13 +176,13 @@
       <argument name='y' type='double'/>
       <argument name='width' type='double'/>
       <argument name='height' type='double'/>
-    </method>
+    </fn>
 
     <fn name='set_device_offset'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x_offset' type='double'/>
       <argument name='y_offset' type='double'/>
-    </method>
+    </fn>
 
     <fn name='get_device_offset'>
       <argument pass_by='mut-self' transformer='opaque'/>
@@ -190,13 +190,13 @@
       <argument name='y_offset' type='double' pass_by='mut-ref' transformer='zero'/>
       <result name='x_offset' type='double' transformer='out'/>
       <result name='y_offset' type='double' transformer='out'/>
-    </method>
+    </fn>
 
     <fn name='surface_set_fallback_resolution' foreign='cairo_surface_set_fallback_resolution'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='x_pixels_per_inch' type='double'/>
       <argument name='y_pixels_per_inch' type='double'/>
-    </method>
+    </fn>
 
     <fn name='get_fallback_resolution'>
       <argument pass_by='mut-self' transformer='opaque'/>
@@ -204,28 +204,28 @@
       <argument name='y_pixels_per_inch' type='double' pass_by='mut-ref' transformer='zero'/>
       <result name='x_pixels_per_inch' type='double' transformer='out'/>
       <result name='y_pixels_per_inch' type='double' transformer='out'/>
-    </method>
+    </fn>
 
     <fn name='get_type'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[surface_type::SurfaceType]'/>
-    </method>
+    </fn>
 
     <fn name='get_reference_count'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='unsigned int'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_surface_set_user_data -->
     <!-- TODO: cairo_surface_get_user_data -->
 
     <fn name='copy_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <fn name='show_page'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_surface_has_show_text_glyphs -->
     <!-- TODO: cairo_surface_set_mime_data -->
@@ -243,7 +243,7 @@
       <argument name='width' type='int'/>
       <argument name='height' type='int'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_image_surface_create_for_data -->
     <!-- TODO: cairo_image_surface_get_data -->
@@ -251,22 +251,22 @@
     <fn name='get_format' foreign='cairo_image_surface_get_format'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='[format::Format]'/>
-    </method>
+    </fn>
 
     <fn name='get_width' foreign='cairo_image_surface_get_width'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
-    </method>
+    </fn>
 
     <fn name='get_height' foreign='cairo_image_surface_get_height'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
-    </method>
+    </fn>
 
     <fn name='get_stride' foreign='cairo_image_surface_get_stride'>
       <argument pass_by='mut-self' transformer='opaque'/>
       <result type='int'/>
-    </method>
+    </fn>
 
     <!-- PDF Surface -->
     <!-- TODO: All missing -->
@@ -276,7 +276,7 @@
     <fn name='png' foreign='cairo_image_surface_create_from_png'>
       <argument name='filename' type='string' pass_by='ref' transformer='cstring'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_image_surface_create_from_png_stream -->
 
@@ -284,7 +284,7 @@
       <argument pass_by='mut-self' transformer='opaque'/>
       <argument name='filename' type='string' pass_by='ref' transformer='cstring'/>
       <result type='[super::Status]'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_surface_write_to_png_stream -->
 
@@ -303,21 +303,21 @@
       <argument name='width' type='double'/>
       <argument name='height' type='double'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_svg_surface_create_for_stream -->
 
     <fn name='restrict_to_svg_version' foreign='cairo_svg_surface_restrict_to_version'>
       <argument pass_by='mut-self'/>
       <argument name='version' type='[SVGVersion]'/>
-    </method>
+    </fn>
 
     <!-- TODO: cairo_svg_get_versions -->
 
     <fn name='svg_version_to_string' foreign='cairo_svg_version_to_string'>
       <argument name='version' type='[SVGVersion]'/>
       <result type='{std::c_str::CString}' transformer='cstring'/>
-    </method>
+    </fn>
 
     <!-- Quartz Surface -->
     <!-- TODO: All missing -->
@@ -339,12 +339,12 @@
     <fn name='clone' foreign='cairo_surface_reference'>
       <argument pass_by='self' transformer='opaque'/>
       <result type='{Surface}'/>
-    </method>
+    </fn>
   </implementation>
 
   <implementation trait='std::ops::Drop' for='Surface'>
     <fn name='drop' foreign='cairo_surface_destroy'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
   </implementation>
 </module>

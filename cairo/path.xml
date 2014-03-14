@@ -4,6 +4,6 @@
   <implementation trait='std::ops::Drop' for='Path'>
     <fn name='drop' foreign='cairo_path_destroy'>
       <argument pass_by='mut-self' transformer='opaque'/>
-    </method>
+    </fn>
   </implementation>
 </module>
