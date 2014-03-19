@@ -702,6 +702,13 @@ impl Cairo {
     }
   }
 
+  pub fn show_text_glyphs(&mut self, utf8: &str, glyphs: &mut [font::Glyph], clusters: &mut [font::Cluster], cluster_flags: font::cluster_flags::ClusterFlags) {
+    unsafe {
+      use std::c_str::ToCStr;
+      cairo_show_text_glyphs(self.opaque, utf8.to_c_str().unwrap(), -1, glyphs.as_mut_ptr(), glyphs.len() as std::libc::c_int, clusters.as_mut_ptr(), clusters.len() as std::libc::c_int, cluster_flags);
+    }
+  }
+
   pub fn font_extents(&mut self) -> font::FontExtents {
     unsafe {
       let mut extents:font::FontExtents = std::intrinsics::init();
@@ -826,6 +833,7 @@ extern {
   fn cairo_get_scaled_font(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   fn cairo_show_text(self_arg: *mut std::libc::c_void, utf8: *i8);
   fn cairo_show_glyphs(self_arg: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs: std::libc::c_int);
+  fn cairo_show_text_glyphs(self_arg: *mut std::libc::c_void, utf8: *i8, utf8_len: std::libc::c_int, glyphs: *mut font::Glyph, glyphs: std::libc::c_int, clusters: *mut font::Cluster, clusters: std::libc::c_int, cluster_flags: font::cluster_flags::ClusterFlags);
   fn cairo_font_extents(self_arg: *mut std::libc::c_void, extents: *mut font::FontExtents);
   fn cairo_text_extents(self_arg: *mut std::libc::c_void, utf8: *i8, extents: *mut font::TextExtents);
   fn cairo_glyph_extents(self_arg: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs: std::libc::c_int, extents: *mut font::TextExtents);

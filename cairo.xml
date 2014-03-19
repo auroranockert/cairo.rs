@@ -468,17 +468,15 @@
       <arg name='glyphs' type='rsi:vec-length' element='c:int'/>
     </method>
 
-    <!-- TODO constant argument
     <method name='show_text_glyphs'>
       <arg name='utf8' type='c:string' immutable='true'/>
-      <arg name='utf8_len' type='c:int' value='-1'/>
+      <constant name='utf8_len' type='c:int' value='-1'/>
       <arg name='glyphs' type='rsi:vec' element='cairo::font::Glyph'/>
       <arg name='glyphs' type='rsi:vec-length' element='c:int'/>
       <arg name='clusters' type='rsi:vec' element='cairo::font::Cluster'/>
       <arg name='clusters' type='rsi:vec-length' element='c:int'/>
-      <arg name='cluster_flags' type='cairo::font::cluster_flags::ClusterFlags'/>
+      <arg name='cluster_flags' type='cairo::font::ClusterFlags'/>
     </method>
-    -->
 
     <method name='font_extents'>
       <out name='extents' type='cairo::font::FontExtents'/>
