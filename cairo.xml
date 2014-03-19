@@ -496,6 +496,16 @@
       <arg name='glyphs' type='rsi:vec-length' element='c:int'/>
       <out name='extents' type='cairo::font::TextExtents'/>
     </method>
+
+    <implementation trait='std::clone::Clone'>
+      <method name='clone' foreign='cairo_reference' immutable='true'>
+        <result type='cairo::Cairo'/>
+      </method>
+    </implementation>
+
+    <implementation trait='std::ops::Drop'>
+      <method name='drop' foreign='cairo_destroy'/>
+    </implementation>
   </struct>
 
   <enum name='Antialias' wrap='true'>

@@ -791,6 +791,32 @@ extern {
   fn cairo_glyph_extents(self_arg: *mut std::libc::c_void, glyphs: *font::Glyph, glyphs: std::libc::c_int, extents: *mut font::TextExtents);
 }
 
+impl std::clone::Clone for Cairo {
+  fn clone(&self) -> Cairo {
+    unsafe {
+      let foreign_result = cairo_reference(self.opaque);
+      return Cairo { opaque: foreign_result as *mut std::libc::c_void };
+    }
+  }
+}
+
+extern {
+  fn cairo_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+}
+
+impl std::ops::Drop for Cairo {
+  fn drop(&mut self) {
+    unsafe {
+      cairo_destroy(self.opaque);
+    }
+  }
+}
+
+extern {
+  fn cairo_destroy(self_arg: *mut std::libc::c_void);
+}
+
+
 pub mod antialias {
   #[repr(i32)]
   pub enum Antialias {
