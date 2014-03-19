@@ -49,635 +49,647 @@ pub struct Cairo {
 
 impl Cairo {
   pub fn create(surface: &mut surface::Surface) -> Cairo {
-  unsafe {
-    let foreign_result = cairo_create(surface.opaque);
-    return Cairo { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_create(surface.opaque);
+      return Cairo { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn status(&mut self) -> Status {
-  unsafe {
-    let foreign_result = cairo_status(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_status(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn save(&mut self) {
-  unsafe {
-    cairo_save(self.opaque);
+    unsafe {
+      cairo_save(self.opaque);
+    }
   }
-}
 
   pub fn restore(&mut self) {
-  unsafe {
-    cairo_restore(self.opaque);
+    unsafe {
+      cairo_restore(self.opaque);
+    }
   }
-}
 
   pub fn get_target(&mut self) -> surface::Surface {
-  unsafe {
-    let foreign_result = cairo_get_target(self.opaque);
-    return surface::Surface { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_get_target(self.opaque);
+      return surface::Surface { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn push_group(&mut self) {
-  unsafe {
-    cairo_push_group(self.opaque);
+    unsafe {
+      cairo_push_group(self.opaque);
+    }
   }
-}
 
   pub fn push_group_with_content(&mut self, content: surface::content::Content) {
-  unsafe {
-    cairo_push_group_with_content(self.opaque, content);
+    unsafe {
+      cairo_push_group_with_content(self.opaque, content);
+    }
   }
-}
 
   pub fn pop_group(&mut self) -> pattern::Pattern {
-  unsafe {
-    let foreign_result = cairo_pop_group(self.opaque);
-    return pattern::Pattern { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_pop_group(self.opaque);
+      return pattern::Pattern { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn pop_group_to_source(&mut self) {
-  unsafe {
-    cairo_pop_group_to_source(self.opaque);
+    unsafe {
+      cairo_pop_group_to_source(self.opaque);
+    }
   }
-}
 
   pub fn get_group_target(&mut self) -> surface::Surface {
-  unsafe {
-    let foreign_result = cairo_get_group_target(self.opaque);
-    return surface::Surface { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_get_group_target(self.opaque);
+      return surface::Surface { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn set_source_rgb(&mut self, red: f64, green: f64, blue: f64) {
-  unsafe {
-    cairo_set_source_rgb(self.opaque, red, green, blue);
+    unsafe {
+      cairo_set_source_rgb(self.opaque, red, green, blue);
+    }
   }
-}
 
   pub fn set_source_rgba(&mut self, red: f64, green: f64, blue: f64, alpha: f64) {
-  unsafe {
-    cairo_set_source_rgba(self.opaque, red, green, blue, alpha);
+    unsafe {
+      cairo_set_source_rgba(self.opaque, red, green, blue, alpha);
+    }
   }
-}
 
   pub fn set_source(&mut self, source: &mut pattern::Pattern) {
-  unsafe {
-    cairo_set_source(self.opaque, source.opaque);
+    unsafe {
+      cairo_set_source(self.opaque, source.opaque);
+    }
   }
-}
 
   pub fn set_source_surface(&mut self, surface: &mut surface::Surface, x: f64, y: f64) {
-  unsafe {
-    cairo_set_source_surface(self.opaque, surface.opaque, x, y);
+    unsafe {
+      cairo_set_source_surface(self.opaque, surface.opaque, x, y);
+    }
   }
-}
 
   pub fn get_source(&mut self) -> pattern::Pattern {
-  unsafe {
-    let foreign_result = cairo_get_source(self.opaque);
-    return pattern::Pattern { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_get_source(self.opaque);
+      return pattern::Pattern { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn set_antialias(&mut self, antialias: antialias::Antialias) {
-  unsafe {
-    cairo_set_antialias(self.opaque, antialias);
+    unsafe {
+      cairo_set_antialias(self.opaque, antialias);
+    }
   }
-}
 
   pub fn get_antialias(&mut self) -> antialias::Antialias {
-  unsafe {
-    let foreign_result = cairo_get_antialias(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_antialias(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_dash(&mut self, dashes: &[f64], offset: f64) {
-  unsafe {
-    cairo_set_dash(self.opaque, dashes.as_ptr(), dashes.len() as std::libc::c_int, offset);
+    unsafe {
+      cairo_set_dash(self.opaque, dashes.as_ptr(), dashes.len() as std::libc::c_int, offset);
+    }
   }
-}
 
   pub fn get_dash_count(&mut self) -> std::libc::c_int {
-  unsafe {
-    let foreign_result = cairo_get_dash_count(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_dash_count(self.opaque);
+      return foreign_result;
+    }
   }
-}
+
+  pub fn get_dash(&mut self) -> (~[f64], f64) {
+    unsafe {
+      use std::num::Zero;
+      use std::vec::MutableVector;
+      let dashes_len = self.get_dash_count() as uint;
+      let mut dashes:~[f64] = std::vec::from_elem(dashes_len, Zero::zero());
+      let mut offset:f64 = std::intrinsics::init();
+      cairo_get_dash(self.opaque, dashes.as_mut_ptr(), &mut offset);
+      return (dashes, offset);
+    }
+  }
 
   pub fn set_fill_rule(&mut self, fill_rule: fill_rule::FillRule) {
-  unsafe {
-    cairo_set_fill_rule(self.opaque, fill_rule);
+    unsafe {
+      cairo_set_fill_rule(self.opaque, fill_rule);
+    }
   }
-}
 
   pub fn get_fill_rule(&mut self) -> fill_rule::FillRule {
-  unsafe {
-    let foreign_result = cairo_get_fill_rule(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_fill_rule(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_line_cap(&mut self, line_cap: line_cap::LineCap) {
-  unsafe {
-    cairo_set_line_cap(self.opaque, line_cap);
+    unsafe {
+      cairo_set_line_cap(self.opaque, line_cap);
+    }
   }
-}
 
   pub fn get_line_cap(&mut self) -> line_cap::LineCap {
-  unsafe {
-    let foreign_result = cairo_get_line_cap(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_line_cap(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_line_join(&mut self, line_join: line_join::LineJoin) {
-  unsafe {
-    cairo_set_line_join(self.opaque, line_join);
+    unsafe {
+      cairo_set_line_join(self.opaque, line_join);
+    }
   }
-}
 
   pub fn get_line_join(&mut self) -> line_join::LineJoin {
-  unsafe {
-    let foreign_result = cairo_get_line_join(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_line_join(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_line_width(&mut self, width: f64) {
-  unsafe {
-    cairo_set_line_width(self.opaque, width);
+    unsafe {
+      cairo_set_line_width(self.opaque, width);
+    }
   }
-}
 
   pub fn get_line_width(&mut self) -> f64 {
-  unsafe {
-    let foreign_result = cairo_get_line_width(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_line_width(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_miter_limit(&mut self, limit: f64) {
-  unsafe {
-    cairo_set_miter_limit(self.opaque, limit);
+    unsafe {
+      cairo_set_miter_limit(self.opaque, limit);
+    }
   }
-}
 
   pub fn get_miter_limit(&mut self) -> f64 {
-  unsafe {
-    let foreign_result = cairo_get_miter_limit(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_miter_limit(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_operator(&mut self, operator: operator::Operator) {
-  unsafe {
-    cairo_set_operator(self.opaque, operator);
+    unsafe {
+      cairo_set_operator(self.opaque, operator);
+    }
   }
-}
 
   pub fn get_operator(&mut self) -> operator::Operator {
-  unsafe {
-    let foreign_result = cairo_get_operator(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_operator(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn set_tolerance(&mut self, tolerance: f64) {
-  unsafe {
-    cairo_set_tolerance(self.opaque, tolerance);
+    unsafe {
+      cairo_set_tolerance(self.opaque, tolerance);
+    }
   }
-}
 
   pub fn get_tolerance(&mut self) -> f64 {
-  unsafe {
-    let foreign_result = cairo_get_tolerance(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_tolerance(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn clip(&mut self) {
-  unsafe {
-    cairo_clip(self.opaque);
+    unsafe {
+      cairo_clip(self.opaque);
+    }
   }
-}
 
   pub fn clip_preserve(&mut self) {
-  unsafe {
-    cairo_clip_preserve(self.opaque);
+    unsafe {
+      cairo_clip_preserve(self.opaque);
+    }
   }
-}
 
   pub fn clip_extents(&mut self) -> (f64, f64, f64, f64) {
-  unsafe {
-    let mut x1:f64 = std::intrinsics::init();
-    let mut y1:f64 = std::intrinsics::init();
-    let mut x2:f64 = std::intrinsics::init();
-    let mut y2:f64 = std::intrinsics::init();
-    cairo_clip_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
-    return (x1, y1, x2, y2);
+    unsafe {
+      let mut x1:f64 = std::intrinsics::init();
+      let mut y1:f64 = std::intrinsics::init();
+      let mut x2:f64 = std::intrinsics::init();
+      let mut y2:f64 = std::intrinsics::init();
+      cairo_clip_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
+      return (x1, y1, x2, y2);
+    }
   }
-}
 
   pub fn in_clip(&mut self, x: f64, y: f64) -> bool {
-  unsafe {
-    let foreign_result = cairo_in_clip(self.opaque, x, y);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_in_clip(self.opaque, x, y);
+      return foreign_result;
+    }
   }
-}
 
   pub fn reset_clip(&mut self) {
-  unsafe {
-    cairo_reset_clip(self.opaque);
+    unsafe {
+      cairo_reset_clip(self.opaque);
+    }
   }
-}
 
   pub fn fill(&mut self) {
-  unsafe {
-    cairo_fill(self.opaque);
+    unsafe {
+      cairo_fill(self.opaque);
+    }
   }
-}
 
   pub fn fill_preserve(&mut self) {
-  unsafe {
-    cairo_fill_preserve(self.opaque);
+    unsafe {
+      cairo_fill_preserve(self.opaque);
+    }
   }
-}
 
   pub fn fill_extents(&mut self) -> (f64, f64, f64, f64) {
-  unsafe {
-    let mut x1:f64 = std::intrinsics::init();
-    let mut y1:f64 = std::intrinsics::init();
-    let mut x2:f64 = std::intrinsics::init();
-    let mut y2:f64 = std::intrinsics::init();
-    cairo_fill_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
-    return (x1, y1, x2, y2);
+    unsafe {
+      let mut x1:f64 = std::intrinsics::init();
+      let mut y1:f64 = std::intrinsics::init();
+      let mut x2:f64 = std::intrinsics::init();
+      let mut y2:f64 = std::intrinsics::init();
+      cairo_fill_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
+      return (x1, y1, x2, y2);
+    }
   }
-}
 
   pub fn in_fill(&mut self, x: f64, y: f64) -> bool {
-  unsafe {
-    let foreign_result = cairo_in_fill(self.opaque, x, y);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_in_fill(self.opaque, x, y);
+      return foreign_result;
+    }
   }
-}
 
   pub fn mask(&mut self, pattern: &mut pattern::Pattern) {
-  unsafe {
-    cairo_mask(self.opaque, pattern.opaque);
+    unsafe {
+      cairo_mask(self.opaque, pattern.opaque);
+    }
   }
-}
 
   pub fn mask_surface(&mut self, surface: &mut surface::Surface, surface_x: f64, surface_y: f64) {
-  unsafe {
-    cairo_mask_surface(self.opaque, surface.opaque, surface_x, surface_y);
+    unsafe {
+      cairo_mask_surface(self.opaque, surface.opaque, surface_x, surface_y);
+    }
   }
-}
 
   pub fn paint(&mut self) {
-  unsafe {
-    cairo_paint(self.opaque);
+    unsafe {
+      cairo_paint(self.opaque);
+    }
   }
-}
 
   pub fn paint_with_alpha(&mut self, alpha: f64) {
-  unsafe {
-    cairo_paint_with_alpha(self.opaque, alpha);
+    unsafe {
+      cairo_paint_with_alpha(self.opaque, alpha);
+    }
   }
-}
 
   pub fn stroke(&mut self) {
-  unsafe {
-    cairo_stroke(self.opaque);
+    unsafe {
+      cairo_stroke(self.opaque);
+    }
   }
-}
 
   pub fn stroke_preserve(&mut self) {
-  unsafe {
-    cairo_stroke_preserve(self.opaque);
+    unsafe {
+      cairo_stroke_preserve(self.opaque);
+    }
   }
-}
 
   pub fn stroke_extents(&mut self) -> (f64, f64, f64, f64) {
-  unsafe {
-    let mut x1:f64 = std::intrinsics::init();
-    let mut y1:f64 = std::intrinsics::init();
-    let mut x2:f64 = std::intrinsics::init();
-    let mut y2:f64 = std::intrinsics::init();
-    cairo_stroke_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
-    return (x1, y1, x2, y2);
+    unsafe {
+      let mut x1:f64 = std::intrinsics::init();
+      let mut y1:f64 = std::intrinsics::init();
+      let mut x2:f64 = std::intrinsics::init();
+      let mut y2:f64 = std::intrinsics::init();
+      cairo_stroke_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
+      return (x1, y1, x2, y2);
+    }
   }
-}
 
   pub fn in_stroke(&mut self, x: f64, y: f64) -> bool {
-  unsafe {
-    let foreign_result = cairo_in_stroke(self.opaque, x, y);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_in_stroke(self.opaque, x, y);
+      return foreign_result;
+    }
   }
-}
 
   pub fn copy_page(&mut self) {
-  unsafe {
-    cairo_copy_page(self.opaque);
+    unsafe {
+      cairo_copy_page(self.opaque);
+    }
   }
-}
 
   pub fn show_page(&mut self) {
-  unsafe {
-    cairo_show_page(self.opaque);
+    unsafe {
+      cairo_show_page(self.opaque);
+    }
   }
-}
 
   pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-  unsafe {
-    let foreign_result = cairo_get_reference_count(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_get_reference_count(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn copy_path(&mut self) -> path::Path {
-  unsafe {
-    let foreign_result = cairo_copy_path(self.opaque);
-    return path::Path { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_copy_path(self.opaque);
+      return path::Path { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn copy_path_flat(&mut self) -> path::Path {
-  unsafe {
-    let foreign_result = cairo_copy_path_flat(self.opaque);
-    return path::Path { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_copy_path_flat(self.opaque);
+      return path::Path { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn append_path(&mut self, path: &path::Path) {
-  unsafe {
-    cairo_append_path(self.opaque, path.opaque);
+    unsafe {
+      cairo_append_path(self.opaque, path.opaque);
+    }
   }
-}
 
   pub fn has_current_point(&mut self) -> bool {
-  unsafe {
-    let foreign_result = cairo_has_current_point(self.opaque);
-    return foreign_result;
+    unsafe {
+      let foreign_result = cairo_has_current_point(self.opaque);
+      return foreign_result;
+    }
   }
-}
 
   pub fn get_current_point(&mut self) -> (f64, f64) {
-  unsafe {
-    let mut x:f64 = std::intrinsics::init();
-    let mut y:f64 = std::intrinsics::init();
-    cairo_get_current_point(self.opaque, &mut x, &mut y);
-    return (x, y);
+    unsafe {
+      let mut x:f64 = std::intrinsics::init();
+      let mut y:f64 = std::intrinsics::init();
+      cairo_get_current_point(self.opaque, &mut x, &mut y);
+      return (x, y);
+    }
   }
-}
 
   pub fn new_path(&mut self) {
-  unsafe {
-    cairo_new_path(self.opaque);
+    unsafe {
+      cairo_new_path(self.opaque);
+    }
   }
-}
 
   pub fn new_sub_path(&mut self) {
-  unsafe {
-    cairo_new_sub_path(self.opaque);
+    unsafe {
+      cairo_new_sub_path(self.opaque);
+    }
   }
-}
 
   pub fn close_path(&mut self) {
-  unsafe {
-    cairo_close_path(self.opaque);
+    unsafe {
+      cairo_close_path(self.opaque);
+    }
   }
-}
 
   pub fn arc(&mut self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
-  unsafe {
-    cairo_arc(self.opaque, xc, yc, radius, angle1, angle2);
+    unsafe {
+      cairo_arc(self.opaque, xc, yc, radius, angle1, angle2);
+    }
   }
-}
 
   pub fn arc_negative(&mut self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
-  unsafe {
-    cairo_arc_negative(self.opaque, xc, yc, radius, angle1, angle2);
+    unsafe {
+      cairo_arc_negative(self.opaque, xc, yc, radius, angle1, angle2);
+    }
   }
-}
 
   pub fn curve_to(&mut self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
-  unsafe {
-    cairo_curve_to(self.opaque, x1, y1, x2, y2, x3, y3);
+    unsafe {
+      cairo_curve_to(self.opaque, x1, y1, x2, y2, x3, y3);
+    }
   }
-}
 
   pub fn line_to(&mut self, x: f64, y: f64) {
-  unsafe {
-    cairo_line_to(self.opaque, x, y);
+    unsafe {
+      cairo_line_to(self.opaque, x, y);
+    }
   }
-}
 
   pub fn move_to(&mut self, x: f64, y: f64) {
-  unsafe {
-    cairo_move_to(self.opaque, x, y);
+    unsafe {
+      cairo_move_to(self.opaque, x, y);
+    }
   }
-}
 
   pub fn rectangle(&mut self, x: f64, y: f64, width: f64, height: f64) {
-  unsafe {
-    cairo_rectangle(self.opaque, x, y, width, height);
+    unsafe {
+      cairo_rectangle(self.opaque, x, y, width, height);
+    }
   }
-}
 
   pub fn glyph_path(&mut self, glyphs: &[font::Glyph]) {
-  unsafe {
-    cairo_glyph_path(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int);
+    unsafe {
+      cairo_glyph_path(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int);
+    }
   }
-}
 
   pub fn text_path(&mut self, text_path: &str) {
-  unsafe {
-    use std::c_str::ToCStr;
-    cairo_text_path(self.opaque, text_path.to_c_str().unwrap());
+    unsafe {
+      use std::c_str::ToCStr;
+      cairo_text_path(self.opaque, text_path.to_c_str().unwrap());
+    }
   }
-}
 
   pub fn rel_curve_to(&mut self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) {
-  unsafe {
-    cairo_rel_curve_to(self.opaque, dx1, dy1, dx2, dy2, dx3, dy3);
+    unsafe {
+      cairo_rel_curve_to(self.opaque, dx1, dy1, dx2, dy2, dx3, dy3);
+    }
   }
-}
 
   pub fn rel_line_to(&mut self, dx: f64, dy: f64) {
-  unsafe {
-    cairo_rel_line_to(self.opaque, dx, dy);
+    unsafe {
+      cairo_rel_line_to(self.opaque, dx, dy);
+    }
   }
-}
 
   pub fn rel_move_to(&mut self, dx: f64, dy: f64) {
-  unsafe {
-    cairo_rel_move_to(self.opaque, dx, dy);
+    unsafe {
+      cairo_rel_move_to(self.opaque, dx, dy);
+    }
   }
-}
 
   pub fn path_extents(&mut self) -> (f64, f64, f64, f64) {
-  unsafe {
-    let mut x1:f64 = std::intrinsics::init();
-    let mut y1:f64 = std::intrinsics::init();
-    let mut x2:f64 = std::intrinsics::init();
-    let mut y2:f64 = std::intrinsics::init();
-    cairo_path_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
-    return (x1, y1, x2, y2);
+    unsafe {
+      let mut x1:f64 = std::intrinsics::init();
+      let mut y1:f64 = std::intrinsics::init();
+      let mut x2:f64 = std::intrinsics::init();
+      let mut y2:f64 = std::intrinsics::init();
+      cairo_path_extents(self.opaque, &mut x1, &mut y1, &mut x2, &mut y2);
+      return (x1, y1, x2, y2);
+    }
   }
-}
 
   pub fn translate(&mut self, tx: f64, ty: f64) {
-  unsafe {
-    cairo_translate(self.opaque, tx, ty);
+    unsafe {
+      cairo_translate(self.opaque, tx, ty);
+    }
   }
-}
 
   pub fn scale(&mut self, sx: f64, sy: f64) {
-  unsafe {
-    cairo_scale(self.opaque, sx, sy);
+    unsafe {
+      cairo_scale(self.opaque, sx, sy);
+    }
   }
-}
 
   pub fn rotate(&mut self, angle: f64) {
-  unsafe {
-    cairo_rotate(self.opaque, angle);
+    unsafe {
+      cairo_rotate(self.opaque, angle);
+    }
   }
-}
 
   pub fn transform(&mut self, matrix: &matrix::Matrix) {
-  unsafe {
-    cairo_transform(self.opaque, matrix);
+    unsafe {
+      cairo_transform(self.opaque, matrix);
+    }
   }
-}
 
   pub fn set_matrix(&mut self, matrix: &matrix::Matrix) {
-  unsafe {
-    cairo_set_matrix(self.opaque, matrix);
+    unsafe {
+      cairo_set_matrix(self.opaque, matrix);
+    }
   }
-}
 
   pub fn get_matrix(&mut self) -> matrix::Matrix {
-  unsafe {
-    let mut matrix:matrix::Matrix = std::intrinsics::init();
-    cairo_get_matrix(self.opaque, &mut matrix);
-    return matrix;
+    unsafe {
+      let mut matrix:matrix::Matrix = std::intrinsics::init();
+      cairo_get_matrix(self.opaque, &mut matrix);
+      return matrix;
+    }
   }
-}
 
   pub fn identity_matrix(&mut self) {
-  unsafe {
-    cairo_identity_matrix(self.opaque);
+    unsafe {
+      cairo_identity_matrix(self.opaque);
+    }
   }
-}
 
   pub fn select_font_face(&mut self, family: &str, slant: font::slant::Slant, weight: font::weight::Weight) {
-  unsafe {
-    use std::c_str::ToCStr;
-    cairo_select_font_face(self.opaque, family.to_c_str().unwrap(), slant, weight);
+    unsafe {
+      use std::c_str::ToCStr;
+      cairo_select_font_face(self.opaque, family.to_c_str().unwrap(), slant, weight);
+    }
   }
-}
 
   pub fn set_font_size(&mut self, size: f64) {
-  unsafe {
-    cairo_set_font_size(self.opaque, size);
+    unsafe {
+      cairo_set_font_size(self.opaque, size);
+    }
   }
-}
 
   pub fn set_font_matrix(&mut self, matrix: &matrix::Matrix) {
-  unsafe {
-    cairo_set_font_matrix(self.opaque, matrix);
+    unsafe {
+      cairo_set_font_matrix(self.opaque, matrix);
+    }
   }
-}
 
   pub fn get_font_matrix(&mut self) -> matrix::Matrix {
-  unsafe {
-    let mut matrix:matrix::Matrix = std::intrinsics::init();
-    cairo_get_font_matrix(self.opaque, &mut matrix);
-    return matrix;
+    unsafe {
+      let mut matrix:matrix::Matrix = std::intrinsics::init();
+      cairo_get_font_matrix(self.opaque, &mut matrix);
+      return matrix;
+    }
   }
-}
 
   pub fn set_font_options(&mut self, options: &mut font::Options) {
-  unsafe {
-    cairo_set_font_options(self.opaque, options.opaque);
+    unsafe {
+      cairo_set_font_options(self.opaque, options.opaque);
+    }
   }
-}
 
   pub fn get_font_options(&mut self, options: &mut font::Options) {
-  unsafe {
-    cairo_get_font_options(self.opaque, options.opaque);
+    unsafe {
+      cairo_get_font_options(self.opaque, options.opaque);
+    }
   }
-}
 
   pub fn set_font_face(&mut self, font_face: &mut font::FontFace) {
-  unsafe {
-    cairo_set_font_face(self.opaque, font_face.opaque);
+    unsafe {
+      cairo_set_font_face(self.opaque, font_face.opaque);
+    }
   }
-}
 
   pub fn get_font_face(&mut self) -> font::FontFace {
-  unsafe {
-    let foreign_result = cairo_get_font_face(self.opaque);
-    return font::FontFace { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_get_font_face(self.opaque);
+      return font::FontFace { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn set_scaled_font(&mut self, scaled_font: &mut font::ScaledFont) {
-  unsafe {
-    cairo_set_scaled_font(self.opaque, scaled_font.opaque);
+    unsafe {
+      cairo_set_scaled_font(self.opaque, scaled_font.opaque);
+    }
   }
-}
 
   pub fn get_scaled_font(&mut self) -> font::ScaledFont {
-  unsafe {
-    let foreign_result = cairo_get_scaled_font(self.opaque);
-    return font::ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+    unsafe {
+      let foreign_result = cairo_get_scaled_font(self.opaque);
+      return font::ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+    }
   }
-}
 
   pub fn show_text(&mut self, utf8: &str) {
-  unsafe {
-    use std::c_str::ToCStr;
-    cairo_show_text(self.opaque, utf8.to_c_str().unwrap());
+    unsafe {
+      use std::c_str::ToCStr;
+      cairo_show_text(self.opaque, utf8.to_c_str().unwrap());
+    }
   }
-}
 
   pub fn show_glyphs(&mut self, glyphs: &[font::Glyph]) {
-  unsafe {
-    cairo_show_glyphs(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int);
+    unsafe {
+      cairo_show_glyphs(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int);
+    }
   }
-}
 
   pub fn font_extents(&mut self) -> font::FontExtents {
-  unsafe {
-    let mut extents:font::FontExtents = std::intrinsics::init();
-    cairo_font_extents(self.opaque, &mut extents);
-    return extents;
+    unsafe {
+      let mut extents:font::FontExtents = std::intrinsics::init();
+      cairo_font_extents(self.opaque, &mut extents);
+      return extents;
+    }
   }
-}
 
   pub fn text_extents(&mut self, utf8: &str) -> font::TextExtents {
-  unsafe {
-    use std::c_str::ToCStr;
-    let mut extents:font::TextExtents = std::intrinsics::init();
-    cairo_text_extents(self.opaque, utf8.to_c_str().unwrap(), &mut extents);
-    return extents;
+    unsafe {
+      use std::c_str::ToCStr;
+      let mut extents:font::TextExtents = std::intrinsics::init();
+      cairo_text_extents(self.opaque, utf8.to_c_str().unwrap(), &mut extents);
+      return extents;
+    }
   }
-}
 
   pub fn glyph_extents(&mut self, glyphs: &[font::Glyph]) -> font::TextExtents {
-  unsafe {
-    let mut extents:font::TextExtents = std::intrinsics::init();
-    cairo_glyph_extents(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int, &mut extents);
-    return extents;
+    unsafe {
+      let mut extents:font::TextExtents = std::intrinsics::init();
+      cairo_glyph_extents(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int, &mut extents);
+      return extents;
+    }
   }
-}
 }
 
 extern {
@@ -700,6 +712,7 @@ extern {
   fn cairo_get_antialias(self_arg: *mut std::libc::c_void) -> antialias::Antialias;
   fn cairo_set_dash(self_arg: *mut std::libc::c_void, dashes: *f64, dashes: std::libc::c_int, offset: f64);
   fn cairo_get_dash_count(self_arg: *mut std::libc::c_void) -> std::libc::c_int;
+  fn cairo_get_dash(self_arg: *mut std::libc::c_void, dashes: *mut f64, offset: *mut f64);
   fn cairo_set_fill_rule(self_arg: *mut std::libc::c_void, fill_rule: fill_rule::FillRule);
   fn cairo_get_fill_rule(self_arg: *mut std::libc::c_void) -> fill_rule::FillRule;
   fn cairo_set_line_cap(self_arg: *mut std::libc::c_void, line_cap: line_cap::LineCap);
@@ -860,15 +873,15 @@ pub mod path {
   }
   
   impl std::ops::Drop for Path {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_path_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_path_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_path_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_path_destroy(self_arg: *mut std::libc::c_void);
   }
 
 }
@@ -883,265 +896,265 @@ pub mod pattern {
   
   impl Pattern {
     pub fn add_color_stop_rgb(&mut self, offset: f64, red: f64, green: f64, blue: f64) {
-    unsafe {
-      cairo_pattern_add_color_stop_rgb(self.opaque, offset, red, green, blue);
+      unsafe {
+        cairo_pattern_add_color_stop_rgb(self.opaque, offset, red, green, blue);
+      }
     }
-  }
   
     pub fn add_color_stop_rgba(&mut self, offset: f64, red: f64, green: f64, blue: f64, alpha: f64) {
-    unsafe {
-      cairo_pattern_add_color_stop_rgba(self.opaque, offset, red, green, blue, alpha);
+      unsafe {
+        cairo_pattern_add_color_stop_rgba(self.opaque, offset, red, green, blue, alpha);
+      }
     }
-  }
   
     pub fn get_color_stop_count(&mut self) -> (super::Status, std::libc::c_int) {
-    unsafe {
-      let mut stop_count:std::libc::c_int = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_color_stop_count(self.opaque, &mut stop_count);
-      return (foreign_result, stop_count);
+      unsafe {
+        let mut stop_count:std::libc::c_int = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_color_stop_count(self.opaque, &mut stop_count);
+        return (foreign_result, stop_count);
+      }
     }
-  }
   
     pub fn get_color_stop_rgba(&mut self, stop_count: std::libc::c_int) -> (super::Status, f64, f64, f64, f64, f64) {
-    unsafe {
-      let mut offset:f64 = std::intrinsics::init();
-      let mut red:f64 = std::intrinsics::init();
-      let mut green:f64 = std::intrinsics::init();
-      let mut blue:f64 = std::intrinsics::init();
-      let mut alpha:f64 = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_color_stop_rgba(self.opaque, stop_count, &mut offset, &mut red, &mut green, &mut blue, &mut alpha);
-      return (foreign_result, offset, red, green, blue, alpha);
+      unsafe {
+        let mut offset:f64 = std::intrinsics::init();
+        let mut red:f64 = std::intrinsics::init();
+        let mut green:f64 = std::intrinsics::init();
+        let mut blue:f64 = std::intrinsics::init();
+        let mut alpha:f64 = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_color_stop_rgba(self.opaque, stop_count, &mut offset, &mut red, &mut green, &mut blue, &mut alpha);
+        return (foreign_result, offset, red, green, blue, alpha);
+      }
     }
-  }
   
     pub fn create_rgb(red: f64, green: f64, blue: f64) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_rgb(red, green, blue);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_rgb(red, green, blue);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn create_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_rgba(red, green, blue, alpha);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_rgba(red, green, blue, alpha);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_rgba(&mut self) -> (super::Status, f64, f64, f64, f64) {
-    unsafe {
-      let mut red:f64 = std::intrinsics::init();
-      let mut green:f64 = std::intrinsics::init();
-      let mut blue:f64 = std::intrinsics::init();
-      let mut alpha:f64 = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_rgba(self.opaque, &mut red, &mut green, &mut blue, &mut alpha);
-      return (foreign_result, red, green, blue, alpha);
+      unsafe {
+        let mut red:f64 = std::intrinsics::init();
+        let mut green:f64 = std::intrinsics::init();
+        let mut blue:f64 = std::intrinsics::init();
+        let mut alpha:f64 = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_rgba(self.opaque, &mut red, &mut green, &mut blue, &mut alpha);
+        return (foreign_result, red, green, blue, alpha);
+      }
     }
-  }
   
     pub fn create_for_surface(surface: &mut super::surface::Surface) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_for_surface(surface.opaque);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_for_surface(surface.opaque);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_surface(&mut self) -> (super::Status, super::surface::Surface) {
-    unsafe {
-      let mut surface:super::surface::Surface = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_surface(self.opaque, &mut surface);
-      return (foreign_result, surface);
+      unsafe {
+        let mut surface:super::surface::Surface = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_surface(self.opaque, &mut surface);
+        return (foreign_result, surface);
+      }
     }
-  }
   
     pub fn create_linear(x0: f64, y0: f64, x1: f64, y1: f64) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_linear(x0, y0, x1, y1);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_linear(x0, y0, x1, y1);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_linear_points(&mut self) -> (super::Status, f64, f64, f64, f64) {
-    unsafe {
-      let mut x0:f64 = std::intrinsics::init();
-      let mut y0:f64 = std::intrinsics::init();
-      let mut x1:f64 = std::intrinsics::init();
-      let mut y1:f64 = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_linear_points(self.opaque, &mut x0, &mut y0, &mut x1, &mut y1);
-      return (foreign_result, x0, y0, x1, y1);
+      unsafe {
+        let mut x0:f64 = std::intrinsics::init();
+        let mut y0:f64 = std::intrinsics::init();
+        let mut x1:f64 = std::intrinsics::init();
+        let mut y1:f64 = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_linear_points(self.opaque, &mut x0, &mut y0, &mut x1, &mut y1);
+        return (foreign_result, x0, y0, x1, y1);
+      }
     }
-  }
   
     pub fn create_radial(cx0: f64, cy0: f64, radius0: f64, cx1: f64, cy1: f64, radius1: f64) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_radial(cx0, cy0, radius0, cx1, cy1, radius1);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_radial(cx0, cy0, radius0, cx1, cy1, radius1);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_radial_circles(&mut self) -> (super::Status, f64, f64, f64, f64, f64, f64) {
-    unsafe {
-      let mut x0:f64 = std::intrinsics::init();
-      let mut y0:f64 = std::intrinsics::init();
-      let mut r0:f64 = std::intrinsics::init();
-      let mut x1:f64 = std::intrinsics::init();
-      let mut y1:f64 = std::intrinsics::init();
-      let mut r1:f64 = std::intrinsics::init();
-      let foreign_result = cairo_pattern_get_radial_circles(self.opaque, &mut x0, &mut y0, &mut r0, &mut x1, &mut y1, &mut r1);
-      return (foreign_result, x0, y0, r0, x1, y1, r1);
+      unsafe {
+        let mut x0:f64 = std::intrinsics::init();
+        let mut y0:f64 = std::intrinsics::init();
+        let mut r0:f64 = std::intrinsics::init();
+        let mut x1:f64 = std::intrinsics::init();
+        let mut y1:f64 = std::intrinsics::init();
+        let mut r1:f64 = std::intrinsics::init();
+        let foreign_result = cairo_pattern_get_radial_circles(self.opaque, &mut x0, &mut y0, &mut r0, &mut x1, &mut y1, &mut r1);
+        return (foreign_result, x0, y0, r0, x1, y1, r1);
+      }
     }
-  }
   
     pub fn create_mesh() -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_create_mesh();
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_pattern_create_mesh();
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn begin_patch(&mut self) {
-    unsafe {
-      cairo_mesh_pattern_begin_patch(self.opaque);
+      unsafe {
+        cairo_mesh_pattern_begin_patch(self.opaque);
+      }
     }
-  }
   
     pub fn end_patch(&mut self) {
-    unsafe {
-      cairo_mesh_pattern_end_patch(self.opaque);
+      unsafe {
+        cairo_mesh_pattern_end_patch(self.opaque);
+      }
     }
-  }
   
     pub fn move_to(&mut self, x: f64, y: f64) {
-    unsafe {
-      cairo_mesh_pattern_move_to(self.opaque, x, y);
+      unsafe {
+        cairo_mesh_pattern_move_to(self.opaque, x, y);
+      }
     }
-  }
   
     pub fn line_to(&mut self, x: f64, y: f64) {
-    unsafe {
-      cairo_mesh_pattern_line_to(self.opaque, x, y);
+      unsafe {
+        cairo_mesh_pattern_line_to(self.opaque, x, y);
+      }
     }
-  }
   
     pub fn curve_to(&mut self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
-    unsafe {
-      cairo_mesh_pattern_curve_to(self.opaque, x1, y1, x2, y2, x3, y3);
+      unsafe {
+        cairo_mesh_pattern_curve_to(self.opaque, x1, y1, x2, y2, x3, y3);
+      }
     }
-  }
   
     pub fn set_control_point(&mut self, point_num: std::libc::c_uint, x: f64, y: f64) {
-    unsafe {
-      cairo_mesh_pattern_set_control_point(self.opaque, point_num, x, y);
+      unsafe {
+        cairo_mesh_pattern_set_control_point(self.opaque, point_num, x, y);
+      }
     }
-  }
   
     pub fn set_corner_color_rgb(&mut self, corner_num: std::libc::c_uint, red: f64, green: f64, blue: f64) {
-    unsafe {
-      cairo_mesh_pattern_set_corner_color_rgb(self.opaque, corner_num, red, green, blue);
+      unsafe {
+        cairo_mesh_pattern_set_corner_color_rgb(self.opaque, corner_num, red, green, blue);
+      }
     }
-  }
   
     pub fn set_corner_color_rgba(&mut self, corner_num: std::libc::c_uint, red: f64, green: f64, blue: f64, alpha: f64) {
-    unsafe {
-      cairo_mesh_pattern_set_corner_color_rgba(self.opaque, corner_num, red, green, blue, alpha);
+      unsafe {
+        cairo_mesh_pattern_set_corner_color_rgba(self.opaque, corner_num, red, green, blue, alpha);
+      }
     }
-  }
   
     pub fn get_patch_count(&mut self) -> (super::Status, std::libc::c_uint) {
-    unsafe {
-      let mut count:std::libc::c_uint = std::intrinsics::init();
-      let foreign_result = cairo_mesh_pattern_get_patch_count(self.opaque, &mut count);
-      return (foreign_result, count);
+      unsafe {
+        let mut count:std::libc::c_uint = std::intrinsics::init();
+        let foreign_result = cairo_mesh_pattern_get_patch_count(self.opaque, &mut count);
+        return (foreign_result, count);
+      }
     }
-  }
   
     pub fn get_path(&mut self, patch_num: std::libc::c_uint) -> super::path::Path {
-    unsafe {
-      let foreign_result = cairo_mesh_pattern_get_path(self.opaque, patch_num);
-      return super::path::Path { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_mesh_pattern_get_path(self.opaque, patch_num);
+        return super::path::Path { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_control_point(&mut self, patch_num: std::libc::c_uint, pointer_num: std::libc::c_uint) -> (super::Status, f64, f64) {
-    unsafe {
-      let mut x:f64 = std::intrinsics::init();
-      let mut y:f64 = std::intrinsics::init();
-      let foreign_result = cairo_mesh_pattern_get_control_point(self.opaque, patch_num, pointer_num, &mut x, &mut y);
-      return (foreign_result, x, y);
+      unsafe {
+        let mut x:f64 = std::intrinsics::init();
+        let mut y:f64 = std::intrinsics::init();
+        let foreign_result = cairo_mesh_pattern_get_control_point(self.opaque, patch_num, pointer_num, &mut x, &mut y);
+        return (foreign_result, x, y);
+      }
     }
-  }
   
     pub fn get_corner_color_rgba(&mut self, patch_num: std::libc::c_uint, pointer_num: std::libc::c_uint) -> (super::Status, f64, f64, f64, f64) {
-    unsafe {
-      let mut red:f64 = std::intrinsics::init();
-      let mut green:f64 = std::intrinsics::init();
-      let mut blue:f64 = std::intrinsics::init();
-      let mut alpha:f64 = std::intrinsics::init();
-      let foreign_result = cairo_mesh_pattern_get_corner_color_rgba(self.opaque, patch_num, pointer_num, &mut red, &mut green, &mut blue, &mut alpha);
-      return (foreign_result, red, green, blue, alpha);
+      unsafe {
+        let mut red:f64 = std::intrinsics::init();
+        let mut green:f64 = std::intrinsics::init();
+        let mut blue:f64 = std::intrinsics::init();
+        let mut alpha:f64 = std::intrinsics::init();
+        let foreign_result = cairo_mesh_pattern_get_corner_color_rgba(self.opaque, patch_num, pointer_num, &mut red, &mut green, &mut blue, &mut alpha);
+        return (foreign_result, red, green, blue, alpha);
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_pattern_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_pattern_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_extend(&mut self, extend: extend::Extend) {
-    unsafe {
-      cairo_pattern_set_extend(self.opaque, extend);
+      unsafe {
+        cairo_pattern_set_extend(self.opaque, extend);
+      }
     }
-  }
   
     pub fn get_extend(&mut self) -> extend::Extend {
-    unsafe {
-      let foreign_result = cairo_pattern_get_extend(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_pattern_get_extend(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_filter(&mut self, filter: filter::Filter) {
-    unsafe {
-      cairo_pattern_set_filter(self.opaque, filter);
+      unsafe {
+        cairo_pattern_set_filter(self.opaque, filter);
+      }
     }
-  }
   
     pub fn get_filter(&mut self) -> filter::Filter {
-    unsafe {
-      let foreign_result = cairo_pattern_get_filter(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_pattern_get_filter(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_matrix(&mut self, matrix: &mut super::matrix::Matrix) {
-    unsafe {
-      cairo_pattern_set_matrix(self.opaque, matrix);
+      unsafe {
+        cairo_pattern_set_matrix(self.opaque, matrix);
+      }
     }
-  }
   
     pub fn get_matrix(&mut self) -> super::matrix::Matrix {
-    unsafe {
-      let mut matrix:super::matrix::Matrix = std::intrinsics::init();
-      cairo_pattern_get_matrix(self.opaque, &mut matrix);
-      return matrix;
+      unsafe {
+        let mut matrix:super::matrix::Matrix = std::intrinsics::init();
+        cairo_pattern_get_matrix(self.opaque, &mut matrix);
+        return matrix;
+      }
     }
-  }
   
     pub fn get_type(&mut self) -> pattern_type::PatternType {
-    unsafe {
-      let foreign_result = cairo_pattern_get_type(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_pattern_get_type(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-    unsafe {
-      let foreign_result = cairo_pattern_get_reference_count(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_pattern_get_reference_count(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {
@@ -1183,28 +1196,28 @@ pub mod pattern {
   }
   
   impl std::clone::Clone for Pattern {
-  fn clone(&self) -> Pattern {
-    unsafe {
-      let foreign_result = cairo_pattern_reference(self.opaque);
-      return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> Pattern {
+      unsafe {
+        let foreign_result = cairo_pattern_reference(self.opaque);
+        return Pattern { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_pattern_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_pattern_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for Pattern {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_pattern_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_pattern_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_pattern_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_pattern_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -1253,138 +1266,138 @@ pub mod region {
   
   impl Region {
     pub fn create() -> Region {
-    unsafe {
-      let foreign_result = cairo_region_create();
-      return Region { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_region_create();
+        return Region { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn create_rectangle(rectangle: &Rectangle) -> Region {
-    unsafe {
-      let foreign_result = cairo_region_create_rectangle(rectangle);
-      return Region { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_region_create_rectangle(rectangle);
+        return Region { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn create_rectangles(rectangles: &[Rectangle]) -> Region {
-    unsafe {
-      let foreign_result = cairo_region_create_rectangles(rectangles.as_ptr(), rectangles.len() as std::libc::c_int);
-      return Region { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_region_create_rectangles(rectangles.as_ptr(), rectangles.len() as std::libc::c_int);
+        return Region { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_extents(&mut self) -> Rectangle {
-    unsafe {
-      let mut extents:Rectangle = std::intrinsics::init();
-      cairo_region_get_extents(self.opaque, &mut extents);
-      return extents;
+      unsafe {
+        let mut extents:Rectangle = std::intrinsics::init();
+        cairo_region_get_extents(self.opaque, &mut extents);
+        return extents;
+      }
     }
-  }
   
     pub fn num_rectangles(&mut self) -> std::libc::c_int {
-    unsafe {
-      let foreign_result = cairo_region_num_rectangles(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_num_rectangles(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_rectangle(&mut self, nth: std::libc::c_int) -> Rectangle {
-    unsafe {
-      let mut rectangle:Rectangle = std::intrinsics::init();
-      cairo_region_get_rectangle(self.opaque, nth, &mut rectangle);
-      return rectangle;
+      unsafe {
+        let mut rectangle:Rectangle = std::intrinsics::init();
+        cairo_region_get_rectangle(self.opaque, nth, &mut rectangle);
+        return rectangle;
+      }
     }
-  }
   
     pub fn is_empty(&mut self) -> bool {
-    unsafe {
-      let foreign_result = cairo_region_is_empty(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_is_empty(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn contains_point(&mut self, x: std::libc::c_int, y: std::libc::c_int) -> bool {
-    unsafe {
-      let foreign_result = cairo_region_contains_point(self.opaque, x, y);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_contains_point(self.opaque, x, y);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn contains_rectangle(&mut self, rectangle: &Rectangle) -> overlap::Overlap {
-    unsafe {
-      let foreign_result = cairo_region_contains_rectangle(self.opaque, rectangle);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_contains_rectangle(self.opaque, rectangle);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn equal(&mut self, other: &Region) -> bool {
-    unsafe {
-      let foreign_result = cairo_region_equal(self.opaque, other.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_equal(self.opaque, other.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn translate(&mut self, dx: std::libc::c_int, dy: std::libc::c_int) {
-    unsafe {
-      cairo_region_translate(self.opaque, dx, dy);
+      unsafe {
+        cairo_region_translate(self.opaque, dx, dy);
+      }
     }
-  }
   
     pub fn intersect_rectangle(&mut self, rectangle: &Rectangle) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_intersect_rectangle(self.opaque, rectangle);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_intersect_rectangle(self.opaque, rectangle);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn subtract(&mut self, region: &Region) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_subtract(self.opaque, region.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_subtract(self.opaque, region.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn subtract_rectangle(&mut self, rectangle: &Rectangle) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_subtract_rectangle(self.opaque, rectangle);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_subtract_rectangle(self.opaque, rectangle);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn union(&mut self, region: &Region) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_union(self.opaque, region.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_union(self.opaque, region.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn union_rectangle(&mut self, rectangle: &Rectangle) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_union_rectangle(self.opaque, rectangle);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_union_rectangle(self.opaque, rectangle);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn xor(&mut self, region: &Region) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_xor(self.opaque, region.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_xor(self.opaque, region.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn xor_rectangle(&mut self, rectangle: &Rectangle) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_region_xor_rectangle(self.opaque, rectangle);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_region_xor_rectangle(self.opaque, rectangle);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {
@@ -1410,28 +1423,28 @@ pub mod region {
   }
   
   impl std::clone::Clone for Region {
-  fn clone(&self) -> Region {
-    unsafe {
-      let foreign_result = cairo_region_reference(self.opaque);
-      return Region { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> Region {
+      unsafe {
+        let foreign_result = cairo_region_reference(self.opaque);
+        return Region { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_region_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_region_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for Region {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_region_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_region_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_region_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_region_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -1462,90 +1475,90 @@ pub mod font {
   
   impl Options {
     pub fn create() -> Options {
-    unsafe {
-      let foreign_result = cairo_font_options_create();
-      return Options { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_font_options_create();
+        return Options { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_font_options_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn merge(&mut self, other: &mut Options) {
-    unsafe {
-      cairo_font_options_merge(self.opaque, other.opaque);
+      unsafe {
+        cairo_font_options_merge(self.opaque, other.opaque);
+      }
     }
-  }
   
     pub fn hash(&mut self) -> std::libc::c_ulong {
-    unsafe {
-      let foreign_result = cairo_font_options_hash(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_hash(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn equal(&mut self, other: &mut Options) -> bool {
-    unsafe {
-      let foreign_result = cairo_font_options_equal(self.opaque, other.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_equal(self.opaque, other.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_antialias(&mut self, antialias: super::antialias::Antialias) {
-    unsafe {
-      cairo_font_options_set_antialias(self.opaque, antialias);
+      unsafe {
+        cairo_font_options_set_antialias(self.opaque, antialias);
+      }
     }
-  }
   
     pub fn get_antialias(&mut self) -> super::antialias::Antialias {
-    unsafe {
-      let foreign_result = cairo_font_options_get_antialias(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_get_antialias(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_subpixel_order(&mut self, subpixel_order: subpixel_order::SubpixelOrder) {
-    unsafe {
-      cairo_font_options_set_subpixel_order(self.opaque, subpixel_order);
+      unsafe {
+        cairo_font_options_set_subpixel_order(self.opaque, subpixel_order);
+      }
     }
-  }
   
     pub fn get_subpixel_order(&mut self) -> subpixel_order::SubpixelOrder {
-    unsafe {
-      let foreign_result = cairo_font_options_get_subpixel_order(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_get_subpixel_order(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_hint_style(&mut self, hint_style: hint_style::HintStyle) {
-    unsafe {
-      cairo_font_options_set_hint_style(self.opaque, hint_style);
+      unsafe {
+        cairo_font_options_set_hint_style(self.opaque, hint_style);
+      }
     }
-  }
   
     pub fn get_hint_style(&mut self) -> hint_style::HintStyle {
-    unsafe {
-      let foreign_result = cairo_font_options_get_hint_style(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_get_hint_style(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn set_hint_metrics(&mut self, hint_metrics: hint_metrics::HintMetrics) {
-    unsafe {
-      cairo_font_options_set_hint_metrics(self.opaque, hint_metrics);
+      unsafe {
+        cairo_font_options_set_hint_metrics(self.opaque, hint_metrics);
+      }
     }
-  }
   
     pub fn get_hint_metrics(&mut self) -> hint_metrics::HintMetrics {
-    unsafe {
-      let foreign_result = cairo_font_options_get_hint_metrics(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_options_get_hint_metrics(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {
@@ -1565,28 +1578,28 @@ pub mod font {
   }
   
   impl std::clone::Clone for Options {
-  fn clone(&self) -> Options {
-    unsafe {
-      let foreign_result = cairo_font_options_copy(self.opaque);
-      return Options { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> Options {
+      unsafe {
+        let foreign_result = cairo_font_options_copy(self.opaque);
+        return Options { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_font_options_copy(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_font_options_copy(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for Options {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_font_options_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_font_options_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_font_options_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_font_options_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -1596,47 +1609,47 @@ pub mod font {
   
   impl FontFace {
     pub fn create_toy(family: &str, slant: slant::Slant, weight: weight::Weight) -> FontFace {
-    unsafe {
-      use std::c_str::ToCStr;
-      let foreign_result = cairo_toy_font_face_create(family.to_c_str().unwrap(), slant, weight);
-      return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        use std::c_str::ToCStr;
+        let foreign_result = cairo_toy_font_face_create(family.to_c_str().unwrap(), slant, weight);
+        return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn toy_get_slant(&mut self) -> slant::Slant {
-    unsafe {
-      let foreign_result = cairo_toy_font_face_get_slant(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_toy_font_face_get_slant(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn toy_get_weight(&mut self) -> slant::Slant {
-    unsafe {
-      let foreign_result = cairo_toy_font_face_get_weight(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_toy_font_face_get_weight(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_font_face_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_face_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_type(&mut self) -> font_type::FontType {
-    unsafe {
-      let foreign_result = cairo_font_face_get_type(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_face_get_type(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-    unsafe {
-      let foreign_result = cairo_font_face_get_reference_count(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_font_face_get_reference_count(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {
@@ -1649,28 +1662,28 @@ pub mod font {
   }
   
   impl std::clone::Clone for FontFace {
-  fn clone(&self) -> FontFace {
-    unsafe {
-      let foreign_result = cairo_font_face_reference(self.opaque);
-      return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> FontFace {
+      unsafe {
+        let foreign_result = cairo_font_face_reference(self.opaque);
+        return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_font_face_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_font_face_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for FontFace {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_font_face_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_font_face_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_font_face_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_font_face_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -1680,94 +1693,94 @@ pub mod font {
   
   impl ScaledFont {
     pub fn create(font_face: &mut FontFace, font_matrix: &super::matrix::Matrix, ctm: &super::matrix::Matrix, options: &mut Options) -> ScaledFont {
-    unsafe {
-      let foreign_result = cairo_scaled_font_create(font_face.opaque, font_matrix, ctm, options.opaque);
-      return ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_scaled_font_create(font_face.opaque, font_matrix, ctm, options.opaque);
+        return ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_scaled_font_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_scaled_font_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn extents(&mut self) -> FontExtents {
-    unsafe {
-      let mut extents:FontExtents = std::intrinsics::init();
-      cairo_scaled_font_extents(self.opaque, &mut extents);
-      return extents;
+      unsafe {
+        let mut extents:FontExtents = std::intrinsics::init();
+        cairo_scaled_font_extents(self.opaque, &mut extents);
+        return extents;
+      }
     }
-  }
   
     pub fn text_extents(&mut self, utf8: &str) -> TextExtents {
-    unsafe {
-      use std::c_str::ToCStr;
-      let mut extents:TextExtents = std::intrinsics::init();
-      cairo_scaled_font_text_extents(self.opaque, utf8.to_c_str().unwrap(), &mut extents);
-      return extents;
+      unsafe {
+        use std::c_str::ToCStr;
+        let mut extents:TextExtents = std::intrinsics::init();
+        cairo_scaled_font_text_extents(self.opaque, utf8.to_c_str().unwrap(), &mut extents);
+        return extents;
+      }
     }
-  }
   
     pub fn glyph_extents(&mut self, glyphs: &[Glyph]) -> TextExtents {
-    unsafe {
-      let mut extents:TextExtents = std::intrinsics::init();
-      cairo_scaled_font_glyph_extents(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int, &mut extents);
-      return extents;
+      unsafe {
+        let mut extents:TextExtents = std::intrinsics::init();
+        cairo_scaled_font_glyph_extents(self.opaque, glyphs.as_ptr(), glyphs.len() as std::libc::c_int, &mut extents);
+        return extents;
+      }
     }
-  }
   
     pub fn get_font_face(&mut self) -> FontFace {
-    unsafe {
-      let foreign_result = cairo_scaled_font_get_font_face(self.opaque);
-      return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_scaled_font_get_font_face(self.opaque);
+        return FontFace { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_font_options(&mut self, options: &mut FontExtents) {
-    unsafe {
-      cairo_scaled_font_get_font_options(self.opaque, options);
+      unsafe {
+        cairo_scaled_font_get_font_options(self.opaque, options);
+      }
     }
-  }
   
     pub fn get_font_matrix(&mut self) -> super::matrix::Matrix {
-    unsafe {
-      let mut font_matrix:super::matrix::Matrix = std::intrinsics::init();
-      cairo_scaled_font_get_font_matrix(self.opaque, &mut font_matrix);
-      return font_matrix;
+      unsafe {
+        let mut font_matrix:super::matrix::Matrix = std::intrinsics::init();
+        cairo_scaled_font_get_font_matrix(self.opaque, &mut font_matrix);
+        return font_matrix;
+      }
     }
-  }
   
     pub fn get_ctm(&mut self) -> super::matrix::Matrix {
-    unsafe {
-      let mut ctm:super::matrix::Matrix = std::intrinsics::init();
-      cairo_scaled_font_get_ctm(self.opaque, &mut ctm);
-      return ctm;
+      unsafe {
+        let mut ctm:super::matrix::Matrix = std::intrinsics::init();
+        cairo_scaled_font_get_ctm(self.opaque, &mut ctm);
+        return ctm;
+      }
     }
-  }
   
     pub fn get_scale_matrix(&mut self) -> super::matrix::Matrix {
-    unsafe {
-      let mut scale_matrix:super::matrix::Matrix = std::intrinsics::init();
-      cairo_scaled_font_get_scale_matrix(self.opaque, &mut scale_matrix);
-      return scale_matrix;
+      unsafe {
+        let mut scale_matrix:super::matrix::Matrix = std::intrinsics::init();
+        cairo_scaled_font_get_scale_matrix(self.opaque, &mut scale_matrix);
+        return scale_matrix;
+      }
     }
-  }
   
     pub fn get_type(&mut self) -> font_type::FontType {
-    unsafe {
-      let foreign_result = cairo_scaled_font_get_type(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_scaled_font_get_type(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-    unsafe {
-      let foreign_result = cairo_scaled_font_get_reference_count(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_scaled_font_get_reference_count(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {
@@ -1786,28 +1799,28 @@ pub mod font {
   }
   
   impl std::clone::Clone for ScaledFont {
-  fn clone(&self) -> ScaledFont {
-    unsafe {
-      let foreign_result = cairo_scaled_font_reference(self.opaque);
-      return ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> ScaledFont {
+      unsafe {
+        let foreign_result = cairo_scaled_font_reference(self.opaque);
+        return ScaledFont { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_scaled_font_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_scaled_font_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for ScaledFont {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_scaled_font_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_scaled_font_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_scaled_font_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_scaled_font_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -1932,50 +1945,50 @@ pub mod device {
   
   impl Device {
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_device_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_device_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn finish(&mut self) {
-    unsafe {
-      cairo_device_finish(self.opaque);
+      unsafe {
+        cairo_device_finish(self.opaque);
+      }
     }
-  }
   
     pub fn flush(&mut self) {
-    unsafe {
-      cairo_device_flush(self.opaque);
+      unsafe {
+        cairo_device_flush(self.opaque);
+      }
     }
-  }
   
     pub fn get_type(&mut self) -> device_type::DeviceType {
-    unsafe {
-      let foreign_result = cairo_device_get_type(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_device_get_type(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-    unsafe {
-      let foreign_result = cairo_device_get_reference_count(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_device_get_reference_count(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn acquire(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_device_acquire(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_device_acquire(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn release(&mut self) {
-    unsafe {
-      cairo_device_release(self.opaque);
+      unsafe {
+        cairo_device_release(self.opaque);
+      }
     }
-  }
   }
   
   extern {
@@ -1989,28 +2002,28 @@ pub mod device {
   }
   
   impl std::clone::Clone for Device {
-  fn clone(&self) -> Device {
-    unsafe {
-      let foreign_result = cairo_device_reference(self.opaque);
-      return Device { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> Device {
+      unsafe {
+        let foreign_result = cairo_device_reference(self.opaque);
+        return Device { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_device_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_device_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for Device {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_device_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_device_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_device_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_device_destroy(self_arg: *mut std::libc::c_void);
   }
 
 }
@@ -2031,189 +2044,189 @@ pub mod surface {
   
   impl Surface {
     pub fn create_similar_image(format: format::Format, width: std::libc::c_int, height: std::libc::c_int) -> Surface {
-    unsafe {
-      let foreign_result = cairo_surface_create_similar_image(format, width, height);
-      return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_surface_create_similar_image(format, width, height);
+        return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn create_for_rectangle(x: f64, y: f64, width: f64, height: f64) -> Surface {
-    unsafe {
-      let foreign_result = cairo_surface_create_for_rectangle(x, y, width, height);
-      return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_surface_create_for_rectangle(x, y, width, height);
+        return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn status(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_surface_status(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_surface_status(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn finish(&mut self) {
-    unsafe {
-      cairo_surface_finish(self.opaque);
+      unsafe {
+        cairo_surface_finish(self.opaque);
+      }
     }
-  }
   
     pub fn flush(&mut self) {
-    unsafe {
-      cairo_surface_flush(self.opaque);
+      unsafe {
+        cairo_surface_flush(self.opaque);
+      }
     }
-  }
   
     pub fn get_device(&mut self) -> super::device::Device {
-    unsafe {
-      let foreign_result = cairo_surface_get_device(self.opaque);
-      return super::device::Device { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_surface_get_device(self.opaque);
+        return super::device::Device { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_font_options(&mut self, options: &mut super::font::Options) {
-    unsafe {
-      cairo_surface_get_font_options(self.opaque, options.opaque);
+      unsafe {
+        cairo_surface_get_font_options(self.opaque, options.opaque);
+      }
     }
-  }
   
     pub fn get_content(&mut self) -> content::Content {
-    unsafe {
-      let foreign_result = cairo_surface_get_content(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_surface_get_content(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn mark_dirty(&mut self) {
-    unsafe {
-      cairo_surface_mark_dirty(self.opaque);
+      unsafe {
+        cairo_surface_mark_dirty(self.opaque);
+      }
     }
-  }
   
     pub fn mark_dirty_rectangle(&mut self, x: f64, y: f64, width: f64, height: f64) {
-    unsafe {
-      cairo_surface_mark_dirty_rectangle(self.opaque, x, y, width, height);
+      unsafe {
+        cairo_surface_mark_dirty_rectangle(self.opaque, x, y, width, height);
+      }
     }
-  }
   
     pub fn set_device_offset(&mut self, x_offset: f64, y_offset: f64) {
-    unsafe {
-      cairo_surface_set_device_offset(self.opaque, x_offset, y_offset);
+      unsafe {
+        cairo_surface_set_device_offset(self.opaque, x_offset, y_offset);
+      }
     }
-  }
   
     pub fn get_device_offset(&mut self) -> (f64, f64) {
-    unsafe {
-      let mut x_offset:f64 = std::intrinsics::init();
-      let mut y_offset:f64 = std::intrinsics::init();
-      cairo_surface_get_device_offset(self.opaque, &mut x_offset, &mut y_offset);
-      return (x_offset, y_offset);
+      unsafe {
+        let mut x_offset:f64 = std::intrinsics::init();
+        let mut y_offset:f64 = std::intrinsics::init();
+        cairo_surface_get_device_offset(self.opaque, &mut x_offset, &mut y_offset);
+        return (x_offset, y_offset);
+      }
     }
-  }
   
     pub fn set_fallback_resolution(&mut self, x_pixels_per_inch: f64, y_pixels_per_inch: f64) {
-    unsafe {
-      cairo_surface_set_fallback_resolution(self.opaque, x_pixels_per_inch, y_pixels_per_inch);
+      unsafe {
+        cairo_surface_set_fallback_resolution(self.opaque, x_pixels_per_inch, y_pixels_per_inch);
+      }
     }
-  }
   
     pub fn get_fallback_resolution(&mut self) -> (f64, f64) {
-    unsafe {
-      let mut x_pixels_per_inch:f64 = std::intrinsics::init();
-      let mut y_pixels_per_inch:f64 = std::intrinsics::init();
-      cairo_surface_get_fallback_resolution(self.opaque, &mut x_pixels_per_inch, &mut y_pixels_per_inch);
-      return (x_pixels_per_inch, y_pixels_per_inch);
+      unsafe {
+        let mut x_pixels_per_inch:f64 = std::intrinsics::init();
+        let mut y_pixels_per_inch:f64 = std::intrinsics::init();
+        cairo_surface_get_fallback_resolution(self.opaque, &mut x_pixels_per_inch, &mut y_pixels_per_inch);
+        return (x_pixels_per_inch, y_pixels_per_inch);
+      }
     }
-  }
   
     pub fn get_type(&mut self) -> surface_type::SurfaceType {
-    unsafe {
-      let foreign_result = cairo_surface_get_type(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_surface_get_type(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_reference_count(&mut self) -> std::libc::c_uint {
-    unsafe {
-      let foreign_result = cairo_surface_get_reference_count(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_surface_get_reference_count(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn copy_page(&mut self) {
-    unsafe {
-      cairo_surface_copy_page(self.opaque);
+      unsafe {
+        cairo_surface_copy_page(self.opaque);
+      }
     }
-  }
   
     pub fn show_page(&mut self) {
-    unsafe {
-      cairo_surface_show_page(self.opaque);
+      unsafe {
+        cairo_surface_show_page(self.opaque);
+      }
     }
-  }
   
     pub fn create_image(format: format::Format, width: std::libc::c_int, height: std::libc::c_int) -> Surface {
-    unsafe {
-      let foreign_result = cairo_image_surface_create(format, width, height);
-      return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        let foreign_result = cairo_image_surface_create(format, width, height);
+        return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn get_format(&mut self) -> format::Format {
-    unsafe {
-      let foreign_result = cairo_image_surface_get_format(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_image_surface_get_format(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_width(&mut self) -> std::libc::c_int {
-    unsafe {
-      let foreign_result = cairo_image_surface_get_width(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_image_surface_get_width(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_height(&mut self) -> std::libc::c_int {
-    unsafe {
-      let foreign_result = cairo_image_surface_get_height(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_image_surface_get_height(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn get_stride(&mut self) -> std::libc::c_int {
-    unsafe {
-      let foreign_result = cairo_image_surface_get_stride(self.opaque);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_image_surface_get_stride(self.opaque);
+        return foreign_result;
+      }
     }
-  }
   
     pub fn create_from_png(filename: &str) -> Surface {
-    unsafe {
-      use std::c_str::ToCStr;
-      let foreign_result = cairo_image_surface_create_from_png(filename.to_c_str().unwrap());
-      return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      unsafe {
+        use std::c_str::ToCStr;
+        let foreign_result = cairo_image_surface_create_from_png(filename.to_c_str().unwrap());
+        return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   
     pub fn write_to_png(&mut self, filename: &str) -> super::Status {
-    unsafe {
-      use std::c_str::ToCStr;
-      let foreign_result = cairo_surface_write_to_png(self.opaque, filename.to_c_str().unwrap());
-      return foreign_result;
+      unsafe {
+        use std::c_str::ToCStr;
+        let foreign_result = cairo_surface_write_to_png(self.opaque, filename.to_c_str().unwrap());
+        return foreign_result;
+      }
     }
-  }
   
     pub fn create_svg(&mut self, filename: &str, width: f64, height: f64) {
-    unsafe {
-      use std::c_str::ToCStr;
-      cairo_svg_surface_create(self.opaque, filename.to_c_str().unwrap(), width, height);
+      unsafe {
+        use std::c_str::ToCStr;
+        cairo_svg_surface_create(self.opaque, filename.to_c_str().unwrap(), width, height);
+      }
     }
-  }
   
     pub fn restrict_to_svg_version(&mut self, version: SVGVersion) {
-    unsafe {
-      cairo_svg_surface_restrict_to_version(self.opaque, version);
+      unsafe {
+        cairo_svg_surface_restrict_to_version(self.opaque, version);
+      }
     }
-  }
   }
   
   extern {
@@ -2247,28 +2260,28 @@ pub mod surface {
   }
   
   impl std::clone::Clone for Surface {
-  fn clone(&self) -> Surface {
-    unsafe {
-      let foreign_result = cairo_surface_reference(self.opaque);
-      return Surface { opaque: foreign_result as *mut std::libc::c_void };
+    fn clone(&self) -> Surface {
+      unsafe {
+        let foreign_result = cairo_surface_reference(self.opaque);
+        return Surface { opaque: foreign_result as *mut std::libc::c_void };
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_surface_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
+    fn cairo_surface_reference(self_arg: *mut std::libc::c_void) -> *mut std::libc::c_void;
   }
   
   impl std::ops::Drop for Surface {
-  fn drop(&mut self) {
-    unsafe {
-      cairo_surface_destroy(self.opaque);
+    fn drop(&mut self) {
+      unsafe {
+        cairo_surface_destroy(self.opaque);
+      }
     }
-  }
   }
   
   extern {
-      fn cairo_surface_destroy(self_arg: *mut std::libc::c_void);
+    fn cairo_surface_destroy(self_arg: *mut std::libc::c_void);
   }
 
 
@@ -2341,95 +2354,95 @@ pub mod matrix {
   
   impl Matrix {
     pub fn new(xx: f64, yx: f64, xy: f64, yy: f64, x0: f64, y0: f64) -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_init(&mut this, xx, yx, xy, yy, x0, y0);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_init(&mut this, xx, yx, xy, yy, x0, y0);
+        return this;
+      }
     }
-  }
   
     pub fn identity() -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_init_identity(&mut this);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_init_identity(&mut this);
+        return this;
+      }
     }
-  }
   
     pub fn for_translation(x0: f64, y0: f64) -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_init_translate(&mut this, x0, y0);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_init_translate(&mut this, x0, y0);
+        return this;
+      }
     }
-  }
   
     pub fn for_scale(sx: f64, sy: f64) -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_init_scale(&mut this, sx, sy);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_init_scale(&mut this, sx, sy);
+        return this;
+      }
     }
-  }
   
     pub fn for_rotation(radians: f64) -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_init_rotate(&mut this, radians);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_init_rotate(&mut this, radians);
+        return this;
+      }
     }
-  }
   
     pub fn multiply(a: &mut Matrix, b: &mut Matrix) -> Matrix {
-    unsafe {
-      let mut this:Matrix = std::intrinsics::init();
-      cairo_matrix_multiply(&mut this, a, b);
-      return this;
+      unsafe {
+        let mut this:Matrix = std::intrinsics::init();
+        cairo_matrix_multiply(&mut this, a, b);
+        return this;
+      }
     }
-  }
   
     pub fn translate(&mut self, x0: f64, y0: f64) {
-    unsafe {
-      cairo_matrix_translate(self, x0, y0);
+      unsafe {
+        cairo_matrix_translate(self, x0, y0);
+      }
     }
-  }
   
     pub fn scale(&mut self, sx: f64, sy: f64) {
-    unsafe {
-      cairo_matrix_scale(self, sx, sy);
+      unsafe {
+        cairo_matrix_scale(self, sx, sy);
+      }
     }
-  }
   
     pub fn rotate(&mut self, radians: f64) {
-    unsafe {
-      cairo_matrix_rotate(self, radians);
+      unsafe {
+        cairo_matrix_rotate(self, radians);
+      }
     }
-  }
   
     pub fn transform_distance(&self) -> (f64, f64) {
-    unsafe {
-      let mut dx:f64 = std::intrinsics::init();
-      let mut dy:f64 = std::intrinsics::init();
-      cairo_matrix_transform_distance(self, &mut dx, &mut dy);
-      return (dx, dy);
+      unsafe {
+        let mut dx:f64 = std::intrinsics::init();
+        let mut dy:f64 = std::intrinsics::init();
+        cairo_matrix_transform_distance(self, &mut dx, &mut dy);
+        return (dx, dy);
+      }
     }
-  }
   
     pub fn transform_point(&self) -> (f64, f64) {
-    unsafe {
-      let mut x:f64 = std::intrinsics::init();
-      let mut y:f64 = std::intrinsics::init();
-      cairo_matrix_transform_point(self, &mut x, &mut y);
-      return (x, y);
+      unsafe {
+        let mut x:f64 = std::intrinsics::init();
+        let mut y:f64 = std::intrinsics::init();
+        cairo_matrix_transform_point(self, &mut x, &mut y);
+        return (x, y);
+      }
     }
-  }
   
     pub fn invert(&mut self) -> super::Status {
-    unsafe {
-      let foreign_result = cairo_matrix_invert(self);
-      return foreign_result;
+      unsafe {
+        let foreign_result = cairo_matrix_invert(self);
+        return foreign_result;
+      }
     }
-  }
   }
   
   extern {

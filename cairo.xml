@@ -124,12 +124,10 @@
       <result type='c:int'/>
     </method>
 
-    <!-- TODO vec result
     <method name='get_dash'>
-      <out name='dashes' type='rsi:vec' element='c:f64' length='self.get_dash_count()'/>
+      <out name='dashes' type='rsi:vec' element='c:f64' length='get_dash_count'/>
       <out name='offset' type='c:f64'/>
     </method>
-    -->
 
     <method name='set_fill_rule'>
       <arg name='fill_rule' type='cairo::FillRule'/>

@@ -1,4 +1,9 @@
-extern mod cairo;
+#[feature(link_args)];
+
+extern crate cairo;
+
+#[link_args = "-L /Users/Jens/.homebrew/lib"]
+extern {}
 
 fn main() {
   use cairo;
@@ -8,8 +13,8 @@ fn main() {
   let mut petal_size = 50.0;
   let size = petal_size * 8.0;
 
-  let mut s = Surface::image(surface::format::ARGB32, size as i32, size as i32);
-  let mut cairo = cairo::Cairo::new(&mut s);
+  let mut s = Surface::create_image(surface::format::ARGB32, size as i32, size as i32);
+  let mut cairo = cairo::Cairo::create(&mut s);
 
   cairo.set_tolerance(0.1);
 
@@ -57,6 +62,6 @@ fn main() {
   cairo.arc(0.0, 0.0, petal_size, 0.0, 2.0 * std::f64::consts::PI);
   cairo.fill();
 
-  s.to_png("example3.png");
+  s.write_to_png("example3.png");
   s.finish();
 }

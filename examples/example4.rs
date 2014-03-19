@@ -1,4 +1,9 @@
-extern mod cairo;
+#[feature(link_args)];
+
+extern crate cairo;
+
+#[link_args = "-L /Users/Jens/.homebrew/lib"]
+extern {}
 
 fn main() {
   use cairo;
@@ -6,8 +11,8 @@ fn main() {
   use cairo::surface::Surface;
 
   let (width, height) = (500.0, 500.0);
-  let mut s = Surface::image(surface::format::ARGB32, width as i32, height as i32);
-  let mut cairo = cairo::Cairo::new(&mut s);
+  let mut s = Surface::create_image(surface::format::ARGB32, width as i32, height as i32);
+  let mut cairo = cairo::Cairo::create(&mut s);
 
   cairo.save();
   cairo.set_source_rgb(0.3, 0.3, 1.0);
@@ -43,6 +48,6 @@ fn main() {
   cairo.fill();
   cairo.restore();
 
-  s.to_png("example4.png");
+  s.write_to_png("example4.png");
   s.finish();
 }
