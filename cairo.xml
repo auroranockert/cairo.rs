@@ -395,7 +395,6 @@
 
     <method name='identity_matrix'/>
 
-    <!-- TODO inout
     <method name='user_to_device'>
       <inout name='x' type='c:f64'/>
       <inout name='y' type='c:f64'/>
@@ -415,7 +414,6 @@
       <inout name='dx' type='c:f64'/>
       <inout name='dy' type='c:f64'/>
     </method>
-    -->
 
     <!-- Text -->
 

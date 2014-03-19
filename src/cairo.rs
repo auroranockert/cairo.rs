@@ -588,6 +588,42 @@ impl Cairo {
     }
   }
 
+  pub fn user_to_device(&mut self, x: f64, y: f64) -> (f64, f64) {
+    unsafe {
+      let mut x:f64 = x;
+      let mut y:f64 = y;
+      cairo_user_to_device(self.opaque, &mut x, &mut y);
+      return (x, y);
+    }
+  }
+
+  pub fn user_to_device_distance(&mut self, dx: f64, dy: f64) -> (f64, f64) {
+    unsafe {
+      let mut dx:f64 = dx;
+      let mut dy:f64 = dy;
+      cairo_user_to_device_distance(self.opaque, &mut dx, &mut dy);
+      return (dx, dy);
+    }
+  }
+
+  pub fn device_to_user(&mut self, x: f64, y: f64) -> (f64, f64) {
+    unsafe {
+      let mut x:f64 = x;
+      let mut y:f64 = y;
+      cairo_device_to_user(self.opaque, &mut x, &mut y);
+      return (x, y);
+    }
+  }
+
+  pub fn device_to_user_distance(&mut self, dx: f64, dy: f64) -> (f64, f64) {
+    unsafe {
+      let mut dx:f64 = dx;
+      let mut dy:f64 = dy;
+      cairo_device_to_user_distance(self.opaque, &mut dx, &mut dy);
+      return (dx, dy);
+    }
+  }
+
   pub fn select_font_face(&mut self, family: &str, slant: font::slant::Slant, weight: font::weight::Weight) {
     unsafe {
       use std::c_str::ToCStr;
@@ -774,6 +810,10 @@ extern {
   fn cairo_set_matrix(self_arg: *mut std::libc::c_void, matrix: *matrix::Matrix);
   fn cairo_get_matrix(self_arg: *mut std::libc::c_void, matrix: *mut matrix::Matrix);
   fn cairo_identity_matrix(self_arg: *mut std::libc::c_void);
+  fn cairo_user_to_device(self_arg: *mut std::libc::c_void, x: *mut f64, y: *mut f64);
+  fn cairo_user_to_device_distance(self_arg: *mut std::libc::c_void, dx: *mut f64, dy: *mut f64);
+  fn cairo_device_to_user(self_arg: *mut std::libc::c_void, x: *mut f64, y: *mut f64);
+  fn cairo_device_to_user_distance(self_arg: *mut std::libc::c_void, dx: *mut f64, dy: *mut f64);
   fn cairo_select_font_face(self_arg: *mut std::libc::c_void, family: *i8, slant: font::slant::Slant, weight: font::weight::Weight);
   fn cairo_set_font_size(self_arg: *mut std::libc::c_void, size: f64);
   fn cairo_set_font_matrix(self_arg: *mut std::libc::c_void, matrix: *matrix::Matrix);
