@@ -78,11 +78,9 @@
       <arg name='weight' type='cairo::font::Weight'/>
     </constructor>
 
-    <!-- TODO: cstring result
     <method name='toy_get_family' foreign='cairo_toy_font_face_get_family'>
-      <result type='c:string'/>
+      <result type='c:string' immutable='true'/>
     </method>
-    -->
 
     <method name='toy_get_slant' foreign='cairo_toy_font_face_get_slant'>
       <result type='cairo::font::Slant'/>

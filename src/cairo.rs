@@ -1690,6 +1690,14 @@ pub mod font {
       }
     }
   
+    pub fn toy_get_family(&mut self) -> ~str {
+      unsafe {
+        use std::c_str::ToCStr;
+        let foreign_result = cairo_toy_font_face_get_family(self.opaque);
+        return std::c_str::CString::new(foreign_result, false).as_str().unwrap().to_owned();
+      }
+    }
+  
     pub fn toy_get_slant(&mut self) -> slant::Slant {
       unsafe {
         let foreign_result = cairo_toy_font_face_get_slant(self.opaque);
@@ -1728,6 +1736,7 @@ pub mod font {
   
   extern {
     fn cairo_toy_font_face_create(family: *i8, slant: slant::Slant, weight: weight::Weight) -> *mut std::libc::c_void;
+    fn cairo_toy_font_face_get_family(self_arg: *mut std::libc::c_void) -> *i8;
     fn cairo_toy_font_face_get_slant(self_arg: *mut std::libc::c_void) -> slant::Slant;
     fn cairo_toy_font_face_get_weight(self_arg: *mut std::libc::c_void) -> slant::Slant;
     fn cairo_font_face_status(self_arg: *mut std::libc::c_void) -> super::Status;
@@ -2301,6 +2310,14 @@ pub mod surface {
         cairo_svg_surface_restrict_to_version(self.opaque, version);
       }
     }
+  
+    pub fn svg_version_to_string(version: SVGVersion) -> ~str {
+      unsafe {
+        use std::c_str::ToCStr;
+        let foreign_result = cairo_svg_version_to_string(version);
+        return std::c_str::CString::new(foreign_result, false).as_str().unwrap().to_owned();
+      }
+    }
   }
   
   extern {
@@ -2331,6 +2348,7 @@ pub mod surface {
     fn cairo_surface_write_to_png(self_arg: *mut std::libc::c_void, filename: *i8) -> super::Status;
     fn cairo_svg_surface_create(self_arg: *mut std::libc::c_void, filename: *i8, width: f64, height: f64);
     fn cairo_svg_surface_restrict_to_version(self_arg: *mut std::libc::c_void, version: SVGVersion);
+    fn cairo_svg_version_to_string(version: SVGVersion) -> *i8;
   }
   
   impl std::clone::Clone for Surface {

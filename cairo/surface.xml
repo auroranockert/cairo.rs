@@ -160,12 +160,10 @@
 
     <!-- TODO: cairo_svg_get_versions -->
 
-    <!-- TODO: cstring result
     <fn name='svg_version_to_string' foreign='cairo_svg_version_to_string'>
       <arg name='version' type='cairo::surface::SVGVersion'/>
-      <result type='c:string'/>
+      <result type='c:string' immutable='true'/>
     </fn>
-    -->
 
     <!-- Quartz Surface -->
     <!-- TODO: All missing -->
