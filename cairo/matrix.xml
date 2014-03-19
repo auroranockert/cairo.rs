@@ -1,82 +1,75 @@
-<module name='matrix'>
-  <struct name='Matrix'>
-    <field name='xx' type='double'/>
-    <field name='yx' type='double'/>
-    <field name='xy' type='double'/>
-    <field name='yy' type='double'/>
-    <field name='x0' type='double'/>
-    <field name='y0' type='double'/>
-  </struct>
-
-  <implementation for='Matrix' prefix='cairo_matrix_'>
+<mod name='matrix'>
+  <struct name='Matrix' prefix='cairo_matrix_'>
+    <field name='xx' type='c:f64'/>
+    <field name='yx' type='c:f64'/>
+    <field name='xy' type='c:f64'/>
+    <field name='yy' type='c:f64'/>
+    <field name='x0' type='c:f64'/>
+    <field name='y0' type='c:f64'/>
+    
     <fn name='new' foreign='cairo_matrix_init'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <argument name='xx' type='double'/>
-      <argument name='yx' type='double'/>
-      <argument name='xy' type='double'/>
-      <argument name='yy' type='double'/>
-      <argument name='x0' type='double'/>
-      <argument name='y0' type='double'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
+      <arg name='xx' type='c:f64'/>
+      <arg name='yx' type='c:f64'/>
+      <arg name='xy' type='c:f64'/>
+      <arg name='yy' type='c:f64'/>
+      <arg name='x0' type='c:f64'/>
+      <arg name='y0' type='c:f64'/>
     </fn>
+
     <fn name='identity' foreign='cairo_matrix_init_identity'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
     </fn>
+
     <fn name='for_translation' foreign='cairo_matrix_init_translate'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <argument name='x0' type='double'/>
-      <argument name='y0' type='double'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
+      <arg name='x0' type='c:f64'/>
+      <arg name='y0' type='c:f64'/>
     </fn>
+
     <fn name='for_scale' foreign='cairo_matrix_init_scale'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <argument name='sx' type='double'/>
-      <argument name='sy' type='double'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
+      <arg name='sx' type='c:f64'/>
+      <arg name='sy' type='c:f64'/>
     </fn>
+
     <fn name='for_rotation' foreign='cairo_matrix_init_rotate'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <argument name='radians' type='double'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
+      <arg name='radians' type='c:f64'/>
     </fn>
+
     <fn name='multiply'>
-      <argument name='this' type='{Matrix}' pass_by='mut-ref' transformer='zero'/>
-      <argument name='a' pass_by='ref' type='{Matrix}'/>
-      <argument name='b' pass_by='ref' type='{Matrix}'/>
-      <result name='this' type='{Matrix}' transformer='out'/>
+      <out name='this' type='cairo::matrix::Matrix'/>
+      <arg name='a' pass_by='ref' type='cairo::matrix::Matrix'/>
+      <arg name='b' pass_by='ref' type='cairo::matrix::Matrix'/>
     </fn>
-    <fn name='translate'>
-      <argument pass_by='mut-self'/>
-      <argument name='x0' type='double'/>
-      <argument name='y0' type='double'/>
+
+    <method name='translate'>
+      <arg name='x0' type='c:f64'/>
+      <arg name='y0' type='c:f64'/>
+    </method>
+
+    <method name='scale'>
+      <arg name='sx' type='c:f64'/>
+      <arg name='sy' type='c:f64'/>
+    </method>
+
+    <method name='rotate'>
+      <arg name='radians' type='c:f64'/>
+    </method>
+
+    <method name='transform_distance' immutable='true'>
+      <out name='dx' type='c:f64'/>
+      <out name='dy' type='c:f64'/>
     </fn>
-    <fn name='scale'>
-      <argument pass_by='mut-self'/>
-      <argument name='sx' type='double'/>
-      <argument name='sy' type='double'/>
-    </fn>
-    <fn name='rotate'>
-      <argument pass_by='mut-self'/>
-      <argument name='radians' type='double'/>
-    </fn>
-    <fn name='transform_distance'>
-      <argument pass_by='self'/>
-      <argument name='dx' type='double' transformer='to-mut-ref'/>
-      <argument name='dy' type='double' transformer='to-mut-ref'/>
-      <result name='dx' type='double' transformer='out'/>
-      <result name='dy' type='double' transformer='out'/>
-    </fn>
-    <fn name='transform_point'>
-      <argument pass_by='self'/>
-      <argument name='x' type='double' transformer='to-mut-ref'/>
-      <argument name='y' type='double' transformer='to-mut-ref'/>
-      <result name='x' type='double' transformer='out'/>
-      <result name='y' type='double' transformer='out'/>
-    </fn>
-    <fn name='invert'>
-      <argument pass_by='mut-self'/>
-      <result type='[super::Status]'/>
-    </fn>
-  </implementation>
-</module>
+
+    <method name='transform_point' immutable='true'>
+      <out name='x' type='c:f64'/>
+      <out name='y' type='c:f64'/>
+    </method>
+
+    <method name='invert'>
+      <result type='cairo::Status'/>
+    </method>
+  </struct>
+</mod>

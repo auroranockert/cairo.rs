@@ -1,0 +1,49 @@
+<mod name='device'>
+  <enum name='DeviceType' wrap='true'>
+    <value name='Invalid' value='-1'/>
+    <value name='DRM'/>
+    <value name='GL'/>
+    <value name='Script'/>
+    <value name='XCB'/>
+    <value name='XLib'/>
+    <value name='XML'/>
+    <value name='COGL'/>
+    <value name='Win32'/>
+  </enum>
+
+  <struct name='Device' opaque='true' prefix='cairo_device_'>
+    <method name='status'>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='finish'/>
+    <method name='flush'/>
+
+    <method name='get_type'>
+      <result type='cairo::device::DeviceType'/>
+    </method>
+
+    <method name='get_reference_count'>
+      <result type='c:uint'/>
+    </method>
+
+    <!-- TODO: cairo_device_set_user_data -->
+    <!-- TODO: cairo_device_get_user_data -->
+
+    <method name='acquire'>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='release'/>
+
+    <implementation trait='std::clone::Clone'>
+      <method name='clone' foreign='cairo_device_reference' immutable='true'>
+        <result type='cairo::device::Device'/>
+      </method>
+    </implementation>
+
+    <implementation trait='std::ops::Drop'>
+      <method name='drop' foreign='cairo_device_destroy'/>
+    </implementation>
+  </struct>
+</mod>

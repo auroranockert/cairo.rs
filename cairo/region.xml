@@ -1,150 +1,122 @@
-<module name='region'>
-  <struct name='Region' opaque='true'/>
+<mod name='region'>
+  <struct name='Region' opaque='true' prefix='cairo_region_'>
+    <constructor name='create'/>
 
-  <struct name='Rectangle'>
-    <field name='x' type='int'/>
-    <field name='y' type='int'/>
-    <field name='width' type='int'/>
-    <field name='height' type='int'/>
+    <constructor name='create_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+    </constructor>
+
+    <constructor name='create_rectangles'>
+      <arg name='rectangles' type='rsi:vec' element='cairo::region::Rectangle' immutable='true'/>
+      <arg name='rectangles' type='rsi:vec-length' element='c:int'/>
+    </constructor>
+
+    <method name='status'>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='get_extents'>
+      <out name='extents' type='cairo::region::Rectangle' transformer='out'/>
+    </method>
+
+    <method name='num_rectangles'>
+      <result type='c:int'/>
+    </method>
+
+    <method name='get_rectangle'>
+      <arg name='nth' type='c:int'/>
+      <out name='rectangle' type='cairo::region::Rectangle'/>
+    </method>
+
+    <method name='is_empty'>
+      <result type='cairo:bool'/>
+    </method>
+
+    <method name='contains_point'>
+      <arg name='x' type='c:int'/>
+      <arg name='y' type='c:int'/>
+      <result type='cairo:bool'/>
+    </method>
+
+    <method name='contains_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+      <result type='cairo::region::Overlap'/>
+    </method>
+
+    <method name='equal'>
+      <arg name='other' type='cairo::region::Region' immutable='true'/>
+      <result type='cairo:bool'/>
+    </method>
+
+    <method name='translate'>
+      <arg name='dx' type='c:int'/>
+      <arg name='dy' type='c:int'/>
+    </method>
+
+    <method name='intersect_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='subtract'>
+      <arg name='region' type='cairo::region::Region' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='subtract_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='union'>
+      <arg name='region' type='cairo::region::Region' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='union_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='xor'>
+      <arg name='region' type='cairo::region::Region' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <method name='xor_rectangle'>
+      <arg name='rectangle' type='cairo::region::Rectangle' immutable='true'/>
+      <result type='cairo::Status'/>
+    </method>
+
+    <implementation trait='std::clone::Clone'>
+      <method name='clone' foreign='cairo_region_reference' immutable='true'>
+        <result type='cairo::region::Region'/>
+      </method>
+    </implementation>
+
+    <!-- TODO: Trait removed from std
+    <implementation trait='std::clone::DeepClone'>
+      <method name='deep_clone' foreign='cairo_region_copy' immutable='true'>
+        <result type='cairo::region::Region'/>
+      </method>
+    </implementation>
+    -->
+
+    <implementation trait='std::ops::Drop'>
+      <method name='drop' foreign='cairo_region_destroy'/>
+    </implementation>
   </struct>
 
-  <module name='overlap'>
-    <enum name='Overlap'>
-      <value name='In'/>
-      <value name='Out'/>
-      <value name='Part'/>
-    </enum>
-  </module>
+  <struct name='Rectangle'>
+    <field name='x' type='c:int'/>
+    <field name='y' type='c:int'/>
+    <field name='width' type='c:int'/>
+    <field name='height' type='c:int'/>
+  </struct>
 
-  <implementation for='Region' prefix='cairo_region_'>
-    <fn name='new' foreign='cairo_region_create'>
-      <result type='{Region}'/>
-    </fn>
-
-    <fn name='rectangle' foreign='cairo_region_create_rectangle'>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='{Region}'/>
-    </fn>
-
-    <fn name='rectangles' foreign='cairo_region_create_rectangles'>
-      <argument name='rectangles' type='vec {Rectangle}' pass_by='ref' transformer='vec'/>
-      <argument name='rectangles' type='int' transformer='vec-length'/>
-      <result type='{Region}'/>
-    </fn>
-
-    <fn name='status'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='get_extents'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='extents' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
-      <result name='extents' type='{Rectangle}' transformer='out'/>
-    </fn>
-
-    <fn name='num_rectangles'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='int'/>
-    </fn>
-
-    <fn name='get_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='nth' type='int'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='mut-ref' transformer='zero'/>
-      <result name='rectangle' type='{Rectangle}' transformer='out'/>
-    </fn>
-
-    <fn name='is_empty'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='i32' transformer='compare' value='0'/>
-    </fn>
-
-    <fn name='contains_point'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x' type='int'/>
-      <argument name='y' type='int'/>
-      <result type='i32' transformer='compare' value='0'/>
-    </fn>
-
-    <fn name='containts_rectangle' foreign='cairo_region_contains_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='[overlap::Overlap]'/>
-    </fn>
-
-    <fn name='equal'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='other' type='{Region}' pass_by='ref' transformer='opaque'/>
-      <result type='i32' transformer='compare' value='0'/>
-    </fn>
-
-    <fn name='translate'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='dx' type='int'/>
-      <argument name='dy' type='int'/>
-    </fn>
-
-    <fn name='intersect_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='subtract'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='region' type='{Region}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='subtract_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='union'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='region' type='{Region}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='union_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='xor'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='region' type='{Region}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-
-    <fn name='xor_rectangle'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='rectangle' type='{Rectangle}' pass_by='ref'/>
-      <result type='[super::Status]'/>
-    </fn>
-  </implementation>
-
-  <implementation trait='std::clone::Clone' for='Region'>
-    <fn name='clone' foreign='cairo_region_reference'>
-      <argument pass_by='self' transformer='opaque'/>
-      <result type='{Region}'/>
-    </fn>
-  </implementation>
-
-  <implementation trait='std::clone::DeepClone' for='Region'>
-    <fn name='deep_clone' foreign='cairo_region_copy'>
-      <argument pass_by='self' transformer='opaque'/>
-      <result type='{Region}'/>
-    </fn>
-  </implementation>
-
-  <implementation trait='std::ops::Drop' for='Region'>
-    <fn name='drop' foreign='cairo_region_destroy'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </fn>
-  </implementation>
-</module>
+  <enum name='Overlap' wrap='true'>
+    <value name='In'/>
+    <value name='Out'/>
+    <value name='Part'/>
+  </enum>
+</mod>

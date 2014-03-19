@@ -1,9 +1,7 @@
-<module name='path'>
-  <struct name='Path' opaque='true'/>
-
-  <implementation trait='std::ops::Drop' for='Path'>
-    <fn name='drop' foreign='cairo_path_destroy'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </fn>
-  </implementation>
-</module>
+<mod name='path'>
+  <struct name='Path' opaque='true'>
+    <implementation trait='std::ops::Drop'>
+      <method name='drop' foreign='cairo_path_destroy'/>
+    </implementation>
+  </struct>
+</mod>

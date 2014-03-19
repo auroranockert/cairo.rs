@@ -1,328 +1,251 @@
-<module name='pattern'>
-  <struct name='Pattern' opaque='true'/>
-
-  <module name='extend'>
-    <enum name='Extend'>
-      <value name='None'/>
-      <value name='Repeat'/>
-      <value name='Reflect'/>
-    </enum>
-  </module>
-
-  <module name='filter'>
-    <enum name='Filter'>
-      <value name='Fast'/>
-      <value name='Good'/>
-      <value name='Best'/>
-      <value name='Nearest'/>
-      <value name='Bilinear'/>
-      <value name='Gaussian'/>
-    </enum>
-  </module>
-
-  <module name='pattern_type'>
-    <enum name='PatternType'>
-      <value name='Solid'/>
-      <value name='Surface'/>
-      <value name='Linear'/>
-      <value name='Radial'/>
-      <value name='Mesh'/>
-      <value name='RasterSource'/>
-    </enum>
-  </module>
-
-  <implementation for='Pattern' prefix='cairo_pattern_'>
+<mod name='pattern'>
+  <struct name='Pattern' opaque='true' prefix='cairo_pattern_'>
     <!-- Gradients -->
-    <fn name='add_color_stop_rgb'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='offset' type='double'/>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-    </fn>
+    <method name='add_color_stop_rgb'>
+      <arg name='offset' type='c:f64'/>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+    </method>
 
-    <fn name='add_color_stop_rgba'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='offset' type='double'/>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-      <argument name='alpha' type='double'/>
-    </fn>
+    <method name='add_color_stop_rgba'>
+      <arg name='offset' type='c:f64'/>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+      <arg name='alpha' type='c:f64'/>
+    </method>
 
-    <fn name='get_color_stop_count'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='stop_count' type='int' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='stop_count' type='int' transformer='out'/>
-    </fn>
+    <method name='get_color_stop_count'>
+      <result type='cairo::Status'/>
+      <out name='stop_count' type='c:int'/>
+    </method>
 
-    <fn name='get_color_stop_rgba'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='stop_count' type='int'/>
-      <argument name='offset' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='green' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='blue' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='alpha' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='offset' type='double' transformer='out'/>
-      <result name='red' type='double' transformer='out'/>
-      <result name='green' type='double' transformer='out'/>
-      <result name='blue' type='double' transformer='out'/>
-      <result name='alpha' type='double' transformer='out'/>
-    </fn>
+    <method name='get_color_stop_rgba'>
+      <arg name='stop_count' type='c:int'/>
+      <result type='cairo::Status'/>
+      <out name='offset' type='c:f64'/>
+      <out name='red' type='c:f64'/>
+      <out name='green' type='c:f64'/>
+      <out name='blue' type='c:f64'/>
+      <out name='alpha' type='c:f64'/>
+    </method>
 
     <!-- Opaque -->
-    <fn name='rgb' foreign='cairo_pattern_create_rgb'>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_rgb'>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+    </constructor>
 
-    <fn name='rgba' foreign='cairo_pattern_create_rgba'>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-      <argument name='alpha' type='double'/>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_rgba'>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+      <arg name='alpha' type='c:f64'/>
+    </constructor>
 
-    <fn name='get_rgba'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='green' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='blue' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='alpha' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='red' type='double' transformer='out'/>
-      <result name='green' type='double' transformer='out'/>
-      <result name='blue' type='double' transformer='out'/>
-      <result name='alpha' type='double' transformer='out'/>
-    </fn>
+    <method name='get_rgba'>
+      <result type='cairo::Status'/>
+      <out name='red' type='c:f64'/>
+      <out name='green' type='c:f64'/>
+      <out name='blue' type='c:f64'/>
+      <out name='alpha' type='c:f64'/>
+    </method>
 
     <!-- Surface -->
-    <fn name='for_surface' foreign='cairo_pattern_create_for_surface'>
-      <argument name='surface' type='{super::surface::Surface}'/>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_for_surface'>
+      <arg name='surface' type='cairo::surface::Surface'/>
+    </constructor>
 
-    <fn name='get_surface'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='surface' type='[super::surface::Surface]' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='surface' type='[super::surface::Surface]' transformer='out'/>
-    </fn>
+    <method name='get_surface'>
+      <result type='cairo::Status'/>
+      <out name='surface' type='cairo::surface::Surface' owned='false'/>
+    </method>
 
     <!-- Linear -->
-    <fn name='linear' foreign='cairo_pattern_create_linear'>
-      <argument name='x0' type='double'/>
-      <argument name='y0' type='double'/>
-      <argument name='x1' type='double'/>
-      <argument name='y1' type='double'/>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_linear'>
+      <arg name='x0' type='c:f64'/>
+      <arg name='y0' type='c:f64'/>
+      <arg name='x1' type='c:f64'/>
+      <arg name='y1' type='c:f64'/>
+    </constructor>
 
-    <fn name='get_linear_points'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='x0' type='double' transformer='out'/>
-      <result name='y0' type='double' transformer='out'/>
-      <result name='x1' type='double' transformer='out'/>
-      <result name='y1' type='double' transformer='out'/>
-    </fn>
+    <method name='get_linear_points'>
+      <result type='cairo::Status'/>
+      <out name='x0' type='c:f64'/>
+      <out name='y0' type='c:f64'/>
+      <out name='x1' type='c:f64'/>
+      <out name='y1' type='c:f64'/>
+    </method>
 
     <!-- Radial -->
-    <fn name='radial' foreign='cairo_pattern_create_radial'>
-      <argument name='cx0' type='double'/>
-      <argument name='cy0' type='double'/>
-      <argument name='radius0' type='double'/>
-      <argument name='cx1' type='double'/>
-      <argument name='cy1' type='double'/>
-      <argument name='radius1' type='double'/>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_radial'>
+      <arg name='cx0' type='c:f64'/>
+      <arg name='cy0' type='c:f64'/>
+      <arg name='radius0' type='c:f64'/>
+      <arg name='cx1' type='c:f64'/>
+      <arg name='cy1' type='c:f64'/>
+      <arg name='radius1' type='c:f64'/>
+    </constructor>
 
-    <fn name='get_radial_circles'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x0' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y0' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='r0' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='x1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='r1' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='x0' type='double' transformer='out'/>
-      <result name='y0' type='double' transformer='out'/>
-      <result name='r0' type='double' transformer='out'/>
-      <result name='x1' type='double' transformer='out'/>
-      <result name='y1' type='double' transformer='out'/>
-      <result name='r1' type='double' transformer='out'/>
-    </fn>
+    <method name='get_radial_circles'>
+      <result type='cairo::Status'/>
+      <out name='x0' type='c:f64'/>
+      <out name='y0' type='c:f64'/>
+      <out name='r0' type='c:f64'/>
+      <out name='x1' type='c:f64'/>
+      <out name='y1' type='c:f64'/>
+      <out name='r1' type='c:f64'/>
+    </method>
 
     <!-- Mesh -->
-    <fn name='mesh' foreign='cairo_pattern_create_mesh'>
-      <result type='{Pattern}'/>
-    </fn>
+    <constructor name='create_mesh'/>
 
-    <fn name='begin_patch' foreign='cairo_mesh_pattern_begin_patch'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </fn>
+    <method name='begin_patch' foreign='cairo_mesh_pattern_begin_patch'/>
+    <method name='end_patch' foreign='cairo_mesh_pattern_end_patch'/>
 
-    <fn name='end_patch' foreign='cairo_mesh_pattern_end_patch'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </fn>
+    <method name='move_to' foreign='cairo_mesh_pattern_move_to'>
+      <arg name='x' type='c:f64'/>
+      <arg name='y' type='c:f64'/>
+    </method>
 
-    <fn name='move_to' foreign='cairo_mesh_pattern_move_to'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x' type='double'/>
-      <argument name='y' type='double'/>
-    </fn>
+    <method name='line_to' foreign='cairo_mesh_pattern_line_to'>
+      <arg name='x' type='c:f64'/>
+      <arg name='y' type='c:f64'/>
+    </method>
 
-    <fn name='line_to' foreign='cairo_mesh_pattern_line_to'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x' type='double'/>
-      <argument name='y' type='double'/>
-    </fn>
+    <method name='curve_to' foreign='cairo_mesh_pattern_curve_to'>
+      <arg name='x1' type='c:f64'/>
+      <arg name='y1' type='c:f64'/>
+      <arg name='x2' type='c:f64'/>
+      <arg name='y2' type='c:f64'/>
+      <arg name='x3' type='c:f64'/>
+      <arg name='y3' type='c:f64'/>
+    </method>
 
-    <fn name='curve_to' foreign='cairo_mesh_pattern_curve_to'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='x1' type='double'/>
-      <argument name='y1' type='double'/>
-      <argument name='x2' type='double'/>
-      <argument name='y2' type='double'/>
-      <argument name='x3' type='double'/>
-      <argument name='y3' type='double'/>
-    </fn>
+    <method name='set_control_point' foreign='cairo_mesh_pattern_set_control_point'>
+      <arg name='point_num' type='c:uint'/>
+      <arg name='x' type='c:f64'/>
+      <arg name='y' type='c:f64'/>
+    </method>
 
-    <fn name='set_control_point' foreign='cairo_mesh_pattern_set_control_point'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='point_num' type='unsigned int'/>
-      <argument name='x' type='double'/>
-      <argument name='y' type='double'/>
-    </fn>
+    <method name='set_corner_color_rgb' foreign='cairo_mesh_pattern_set_corner_color_rgb'>
+      <arg name='corner_num' type='c:uint'/>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+    </method>
 
-    <fn name='set_corner_color_rgb' foreign='cairo_mesh_pattern_set_corner_color_rgb'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='corner_num' type='unsigned int'/>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-    </fn>
+    <method name='set_corner_color_rgba' foreign='cairo_mesh_pattern_set_corner_color_rgba'>
+      <arg name='corner_num' type='c:uint'/>
+      <arg name='red' type='c:f64'/>
+      <arg name='green' type='c:f64'/>
+      <arg name='blue' type='c:f64'/>
+      <arg name='alpha' type='c:f64'/>
+    </method>
 
-    <fn name='set_corner_color_rgba' foreign='cairo_mesh_pattern_set_corner_color_rgba'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='corner_num' type='unsigned int'/>
-      <argument name='red' type='double'/>
-      <argument name='green' type='double'/>
-      <argument name='blue' type='double'/>
-      <argument name='alpha' type='double'/>
-    </fn>
+    <method name='get_patch_count' foreign='cairo_mesh_pattern_get_patch_count'>
+      <result type='cairo::Status'/>
+      <out name='count' type='c:uint'/>
+    </method>
 
-    <fn name='get_patch_count' foreign='cairo_mesh_pattern_get_patch_count'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='count' type='unsigned int' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='count' type='unsigned int' transformer='out'/>
-    </fn>
+    <method name='get_path' foreign='cairo_mesh_pattern_get_path'>
+      <arg name='patch_num' type='c:uint'/>
+      <result type='cairo::path::Path'/>
+    </method>
 
-    <fn name='get_path' foreign='cairo_mesh_pattern_get_path'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='patch_num' type='unsigned int'/>
-      <result type='{super::path::Path}'/>
-    </fn>
+    <method name='get_control_point' foreign='cairo_mesh_pattern_get_control_point'>
+      <arg name='patch_num' type='c:uint'/>
+      <arg name='pointer_num' type='c:uint'/>
+      <result type='cairo::Status'/>
+      <out name='x' type='c:f64'/>
+      <out name='y' type='c:f64'/>
+    </method>
 
-    <fn name='get_control_point' foreign='cairo_mesh_pattern_get_control_point'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='patch_num' type='unsigned int'/>
-      <argument name='pointer_num' type='unsigned int'/>
-      <argument name='x' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='y' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='x' type='double' transformer='out'/>
-      <result name='y' type='double' transformer='out'/>
-    </fn>
-
-    <fn name='get_corner_color_rgba' foreign='cairo_mesh_pattern_get_corner_color_rgba'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='patch_num' type='unsigned int'/>
-      <argument name='pointer_num' type='unsigned int'/>
-      <argument name='red' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='green' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='blue' type='double' pass_by='mut-ref' transformer='zero'/>
-      <argument name='alpha' type='double' pass_by='mut-ref' transformer='zero'/>
-      <result type='[super::Status]'/>
-      <result name='red' type='double' transformer='out'/>
-      <result name='green' type='double' transformer='out'/>
-      <result name='blue' type='double' transformer='out'/>
-      <result name='alpha' type='double' transformer='out'/>
-    </fn>
+    <method name='get_corner_color_rgba' foreign='cairo_mesh_pattern_get_corner_color_rgba'>
+      <arg name='patch_num' type='c:uint'/>
+      <arg name='pointer_num' type='c:uint'/>
+      <result type='cairo::Status'/>
+      <out name='red' type='c:f64'/>
+      <out name='green' type='c:f64'/>
+      <out name='blue' type='c:f64'/>
+      <out name='alpha' type='c:f64'/>
+    </method>
 
     <!-- Common -->
-    <fn name='status'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[super::Status]'/>
-    </fn>
+    <method name='status'>
+      <result type='cairo::Status'/>
+    </method>
 
-    <fn name='set_extend'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='extend' type='[extend::Extend]'/>
-    </fn>
+    <method name='set_extend'>
+      <arg name='extend' type='cairo::pattern::Extend'/>
+    </method>
 
-    <fn name='get_extend'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[extend::Extend]'/>
-    </fn>
+    <method name='get_extend'>
+      <result type='cairo::pattern::Extend'/>
+    </method>
 
-    <fn name='set_filter'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='filter' type='[filter::Filter]'/>
-    </fn>
+    <method name='set_filter'>
+      <arg name='filter' type='cairo::pattern::Filter'/>
+    </method>
 
-    <fn name='get_filter'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[filter::Filter]'/>
-    </fn>
+    <method name='get_filter'>
+      <result type='cairo::pattern::Filter'/>
+    </method>
 
-    <fn name='set_matrix'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <argument name='matrix' type='[super::matrix::Matrix]'/>
-    </fn>
+    <method name='set_matrix'>
+      <arg name='matrix' type='cairo::matrix::Matrix'/>
+    </method>
 
-    <fn name='get_matrix'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[super::matrix::Matrix]'/>
-    </fn>
+    <method name='get_matrix'>
+      <out name='matrix' type='cairo::matrix::Matrix'/>
+    </method>
 
-    <fn name='get_type'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='[pattern_type::PatternType]'/>
-    </fn>
+    <method name='get_type'>
+      <result type='cairo::pattern::PatternType'/>
+    </method>
 
-    <fn name='reference_count' foreign='cairo_pattern_get_reference_count'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-      <result type='unsigned int'/>
-    </fn>
+    <method name='get_reference_count'>
+      <result type='c:uint'/>
+    </method>
 
     <!-- TODO: cairo_pattern_set_user_data -->
     <!-- TODO: cairo_pattern_get_user_data -->
-  </implementation>
+    
+    <implementation trait='std::clone::Clone'>
+      <method name='clone' foreign='cairo_pattern_reference' immutable='true'>
+        <result type='cairo::pattern::Pattern'/>
+      </method>
+    </implementation>
 
-  <implementation trait='std::clone::Clone' for='Pattern'>
-    <fn name='clone' foreign='cairo_pattern_reference'>
-      <argument pass_by='self' transformer='opaque'/>
-      <result type='{Pattern}'/>
-    </fn>
-  </implementation>
+    <implementation trait='std::ops::Drop' for='Pattern'>
+      <method name='drop' foreign='cairo_pattern_destroy'/>
+    </implementation>
+  </struct>
 
-  <implementation trait='std::ops::Drop' for='Pattern'>
-    <fn name='drop' foreign='cairo_pattern_destroy'>
-      <argument pass_by='mut-self' transformer='opaque'/>
-    </fn>
-  </implementation>
-</module>
+  <enum name='Extend' wrap='true'>
+    <value name='None'/>
+    <value name='Repeat'/>
+    <value name='Reflect'/>
+    <value name='Pad'/>
+  </enum>
+
+  <enum name='Filter' wrap='true'>
+    <value name='Fast'/>
+    <value name='Good'/>
+    <value name='Best'/>
+    <value name='Nearest'/>
+    <value name='Bilinear'/>
+    <value name='Gaussian'/>
+  </enum>
+
+  <enum name='PatternType' wrap='true'>
+    <value name='Solid'/>
+    <value name='Surface'/>
+    <value name='Linear'/>
+    <value name='Radial'/>
+    <value name='Mesh'/>
+    <value name='RasterSource'/>
+  </enum>
+</mod>
